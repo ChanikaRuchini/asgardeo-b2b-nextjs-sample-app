@@ -20,6 +20,7 @@ import { requestOptionsWithBody } from "../../../../utils/api-util/apiRequestOpt
 import RequestMethod from "../../../../models/api/requestMethod";
 import { getOrgUrl } from "../../../../utils/application-config-util/applicationConfigUtil";
 import { dataNotRecievedError, notPostError } from "../../../../utils/api-util/apiErrors";
+import { NextApiRequest, NextApiResponse } from "next";
 
 /**
  * backend API call to create a user
@@ -29,7 +30,7 @@ import { dataNotRecievedError, notPostError } from "../../../../utils/api-util/a
  * 
  * @returns correct data if the call is successful, else an error message
  */
-export default async function addUser(req, res) {
+export default async function addUser(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") {
         notPostError(res);
     }
@@ -45,8 +46,9 @@ export default async function addUser(req, res) {
             requestOptionsWithBody(session, RequestMethod.POST, user)
         );
         const data = await fetchData.json();
+        console.log("dataaaaa",fetchData.status);
 
-        res.status(200).json(data);
+        res.status(fetchData.status).json(data);
     } catch (err) {
 
         return dataNotRecievedError(res);

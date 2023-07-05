@@ -17,7 +17,7 @@
  */
 
 import { Application } from "../models/application/application";
-import { IdentityProviderTemplateModel } from "../models/identityProvider/identityProvider";
+import { IdentityProvider, IdentityProviderTemplateModel } from "../models/identityProvider/identityProvider";
 import { ENTERPRISE_ID, GOOGLE_ID } from "./util-common/common";
 import googleFederatedAuthenticators from "../models/identityProvider/data/templates/google.json";
 import enterpriseFederatedAuthenticators from "../models/identityProvider/data/templates/enterprise-identity-provider.json";
@@ -37,8 +37,7 @@ export function selectedTemplateBaesedonTemplateId(templateId: string): Identity
         case ENTERPRISE_ID:
 
             return enterpriseFederatedAuthenticators;
-        default:
-
+        default :
             return null;
     }
 }
@@ -52,7 +51,7 @@ export function selectedTemplateBaesedonTemplateId(templateId: string): Identity
  * `check` - if the idp is in authentication sequence, 
  * `onlyIdp` - is the idp is the only idp in the sequence
  */
-export function checkIfIdpIsinAuthSequence(template: Application, idpDetails): boolean[] {
+export function checkIfIdpIsinAuthSequence(template: Application, idpDetails: IdentityProvider): boolean[] {
     const authenticationSequenceModel = template.authenticationSequence;
     const idpName = idpDetails.name;
     let check = false;
@@ -73,25 +72,25 @@ export function checkIfIdpIsinAuthSequence(template: Application, idpDetails): b
     return [ check, onlyIdp ];
 }
 
-/**
- * 
- * @param template - applicaiton details template
- * @returns `true` if BASIC AUTH is available in auth sequence, else `false`
- */
-export function checkIfBasicAvailableinAuthSequence(template): boolean {
-    const authenticationSequenceModel = template.authenticationSequence;
-    let check = false;
+// /**
+//  * 
+//  * @param template - applicaiton details template
+//  * @returns `true` if BASIC AUTH is available in auth sequence, else `false`
+//  */
+// export function checkIfBasicAvailableinAuthSequence(template): boolean {
+//     const authenticationSequenceModel = template.authenticationSequence;
+//     let check = false;
 
-    authenticationSequenceModel.steps.forEach((step) => {
-        step.options.forEach((option) => {
-            if (option.authenticator === "BasicAuthenticator") {
-                check = true;
-            }
-        });
-    });
+//     authenticationSequenceModel.steps.forEach((step) => {
+//         step.options.forEach((option) => {
+//             if (option.authenticator === "BasicAuthenticator") {
+//                 check = true;
+//             }
+//         });
+//     });
 
-    return check;
-}
+//     return check;
+// }
 
 /**
  * PatchApplicationAuthMethod mentioned whether we are adding or removing the idp.
@@ -103,7 +102,7 @@ export const PatchApplicationAuthMethod = {
 };
 
 export default {
-    PatchApplicationAuthMethod, checkIfBasicAvailableinAuthSequence, checkIfIdpIsinAuthSequence,
+    PatchApplicationAuthMethod, checkIfIdpIsinAuthSequence,
     selectedTemplateBaesedonTemplateId
 
 };

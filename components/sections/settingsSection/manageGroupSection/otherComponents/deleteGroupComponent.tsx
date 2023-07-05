@@ -46,7 +46,7 @@ export default function DeleteGroupComponent(prop: DeleteGroupComponentProps) {
   const { session, open, onClose, group, getGroups } = prop;
   const toaster = useToaster();
 
-  const onGroupDelete = (response: boolean): void => {
+  const onGroupDelete = (response: boolean | null): void => {
     if (response) {
       successTypeDialog(toaster, "Success", "Group Deleted Successfully");
     } else {

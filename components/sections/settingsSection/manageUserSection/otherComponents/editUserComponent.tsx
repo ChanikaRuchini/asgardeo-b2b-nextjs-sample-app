@@ -66,13 +66,14 @@ export default function EditUserComponent(prop: EditUserComponentProps) {
     return errors;
   };
 
-  const onDataSubmit = (response: User): void => {
+  const onDataSubmit = (response: User | null, form: any): void => {
     if (response) {
       successTypeDialog(
         toaster,
         "Changes Saved Successfully",
         "User details edited successfully."
       );
+      form.restart();
       onClose();
     } else {
       errorTypeDialog(
@@ -83,7 +84,10 @@ export default function EditUserComponent(prop: EditUserComponentProps) {
     }
   };
 
-  const onSubmit = async (values: Record<string, unknown>): Promise<void> => {
+  const onSubmit = async (
+    values: Record<string, unknown>,
+    form: any
+  ): Promise<void> => {
     await editUser(
       session,
       user.id,
@@ -91,7 +95,7 @@ export default function EditUserComponent(prop: EditUserComponentProps) {
       values.familyName as string,
       values.email as string
     ).then((response) => {
-      onDataSubmit(response);
+      onDataSubmit(response, form);
     });
   };
 
@@ -173,7 +177,7 @@ export default function EditUserComponent(prop: EditUserComponentProps) {
               <FormSuite
                 layout="vertical"
                 onSubmit={() => {
-                  handleSubmit().then(form.restart);
+                  handleSubmit();
                 }}
                 fluid
               >

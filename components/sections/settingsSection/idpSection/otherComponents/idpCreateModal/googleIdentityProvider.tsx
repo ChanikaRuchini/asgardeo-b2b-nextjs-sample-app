@@ -19,13 +19,8 @@
 import FormButtonToolbar from "../../../../../common/ui-basic-components/formButtonToolbar/formButtonToolbar";
 import FormField from "../../../../../common/ui-basic-components/formField/formField";
 import { checkIfJSONisEmpty } from "../../../../../../utils/util-common/common";
-import {
-  LOADING_DISPLAY_BLOCK,
-  LOADING_DISPLAY_NONE,
-} from "../../../../../../utils/front-end-util/frontendUtil";
 import { fieldValidate } from "../../../../../../utils/front-end-util/frontendUtil";
 import { Session } from "next-auth";
-import { useState } from "react";
 import { Form } from "react-final-form";
 import { Loader } from "rsuite";
 import FormSuite from "rsuite/Form";
@@ -41,7 +36,7 @@ import RequestMethod from "../../../../../../models/api/requestMethod";
 interface GoogleIdentityProviderProps {
   session: Session;
   template: IdentityProviderTemplate;
-  onIdpCreate: (response: IdentityProvider) => void;
+  onIdpCreate: (response: IdentityProvider | null) => void;
   onCancel: () => void;
 }
 
@@ -55,7 +50,6 @@ export default function GoogleIdentityProvider(
   prop: GoogleIdentityProviderProps
 ) {
   const { session, template, onIdpCreate, onCancel } = prop;
-  const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
 
   const validate = (values: Record<string, string>): Record<string, string> => {
     let errors: Record<string, string> = {};
@@ -67,11 +61,13 @@ export default function GoogleIdentityProvider(
     return errors;
   };
 
-  const onUpdate = async (values: Record<string, string>): Promise<void> => {
-    setLoadingDisplay(LOADING_DISPLAY_BLOCK);
+  const onUpdate = async (
+    values: Record<string, string>,
+    form: any
+  ): Promise<void> => {
     createGoogleIdentityProvider(session, template, values)
       .then((response) => onIdpCreate(response))
-      .finally(() => setLoadingDisplay(LOADING_DISPLAY_NONE));
+      .finally(() => form.restart);
   };
 
   async function createGoogleIdentityProvider(
@@ -123,7 +119,7 @@ export default function GoogleIdentityProvider(
             layout="vertical"
             className={styles.addUserForm}
             onSubmit={() => {
-              handleSubmit().then(form.restart);
+              handleSubmit();
             }}
             fluid
           >
@@ -161,14 +157,6 @@ export default function GoogleIdentityProvider(
           </FormSuite>
         )}
       />
-      <div style={loadingDisplay}>
-        <Loader
-          size="lg"
-          backdrop
-          content="Identity provider is creating"
-          vertical
-        />
-      </div>
     </div>
   );
 }

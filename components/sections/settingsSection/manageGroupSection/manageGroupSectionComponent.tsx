@@ -46,11 +46,11 @@ export default function ManageGroupSectionComponent(
 ) {
   const { session } = props;
 
-  const [users, setUsers] = useState<InternalUser[]>([]);
-  const [groups, setGroups] = useState<InternalGroup[]>([]);
+  const [users, setUsers] = useState<InternalUser[] | null>([]);
+  const [groups, setGroups] = useState<InternalGroup[] | null>([]);
   const [editGroupOpen, setEditGroupOpen] = useState<boolean>(false);
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false);
-  const [openGroup, setOpenGroup] = useState<InternalGroup>(null);
+  const [openGroup, setOpenGroup] = useState<InternalGroup | null>();
   const [deleteUserOpen, setDeleteUserOpen] = useState<boolean>(false);
 
   const fetchData = useCallback(async () => {
@@ -187,13 +187,13 @@ export default function ManageGroupSectionComponent(
 
   return (
     <div className={styles.tableMainPanelDiv}>
-      {setOpenGroup ? (
+      {editGroupOpen ? (
         <EditGroupComponent
           session={session}
           open={editGroupOpen}
           onClose={closeEditDialog}
-          group={openGroup}
-          userList={users}
+          group={openGroup!}
+          userList={users!}
         />
       ) : null}
 
@@ -202,14 +202,14 @@ export default function ManageGroupSectionComponent(
           session={session}
           open={deleteUserOpen}
           onClose={closeDeleteDialog}
-          group={openGroup}
+          group={openGroup!}
           getGroups={fetchData}
         />
       ) : null}
 
       <AddGroupComponent
         session={session}
-        users={users}
+        users={users!}
         open={addUserOpen}
         onClose={closeAddUserDialog}
       />

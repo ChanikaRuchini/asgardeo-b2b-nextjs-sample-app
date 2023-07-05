@@ -26,7 +26,9 @@ interface SelectIdentityProviderProps {
   openModal: boolean;
   onClose: () => void;
   templates: IdentityProviderTemplate[];
-  onTemplateSelected: (IdentityProviderTemplate) => void;
+  onTemplateSelected: (
+    IdentityProviderTemplate: IdentityProviderTemplate
+  ) => void;
 }
 
 /**
@@ -69,7 +71,7 @@ export default function SelectIdentityProvider(
 
                   <Avatar style={{ background: "rgba(255,0,0,0)" }}>
                     <Image
-                      src={getImageForTheIdentityProvider(template.templateId)}
+                      src={getImageForTheIdentityProvider(template.templateId!)}
                       alt="idp image"
                       width={40}
                     />

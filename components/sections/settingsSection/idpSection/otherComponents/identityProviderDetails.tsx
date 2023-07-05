@@ -45,11 +45,11 @@ export default function IdentityProviderDetails(
 ) {
   const { session, id, fetchAllIdPs } = props;
 
-  const [idpDetails, setIdpDetails] = useState<IdentityProvider>(null);
+  const [idpDetails, setIdpDetails] = useState<IdentityProvider | null>();
   const [activeKeyNav, setActiveKeyNav] = useState<string>("1");
 
   const fetchData = useCallback(async () => {
-    const res: IdentityProvider = await getDetailedIdentityProvider(
+    const res: IdentityProvider | null = await getDetailedIdentityProvider(
       session,
       id
     );
@@ -87,22 +87,22 @@ export default function IdentityProviderDetails(
     fetchData();
   }, [fetchData]);
 
-  const activeKeyNavSelect = (eventKey): void => {
+  const activeKeyNavSelect = (eventKey: string): void => {
     setActiveKeyNav(eventKey);
   };
 
-  const idpDetailsComponent = (activeKey): JSX.Element => {
+  const idpDetailsComponent = (activeKey: string): JSX.Element | undefined => {
     switch (activeKey) {
       case "1":
         return (
           <General
             session={session}
-            idpDetails={idpDetails}
+            idpDetails={idpDetails!}
             fetchData={fetchData}
           />
         );
       case "2":
-        return <Settings session={session} idpDetails={idpDetails} />;
+        return <Settings session={session} idpDetails={idpDetails!} />;
     }
   };
 
@@ -138,13 +138,19 @@ export default function IdentityProviderDetails(
   ) : null;
 }
 
+interface IdentityProviderDetailsNavProps {
+  idpDetails: IdentityProvider;
+  activeKeyNav: string;
+  activeKeyNavSelect: (eventKey: string) => void;
+}
+
 /**
  *
  * @param prop - `idpDetails`, `activeKeyNav`, `activeKeyNavSelect`
  *
  * @returns navigation component of idp details
  */
-function IdentityProviderDetailsNav(prop) {
+function IdentityProviderDetailsNav(prop: IdentityProviderDetailsNavProps) {
   const { idpDetails, activeKeyNav, activeKeyNavSelect } = prop;
 
   const templateIdCheck = (): boolean => {
@@ -173,7 +179,7 @@ function IdentityProviderDetailsNav(prop) {
       >
         <Nav.Item
           eventKey="1"
-          onSelect={(eventKey) => activeKeyNavSelect(eventKey)}
+          onSelect={(eventKey) => activeKeyNavSelect(eventKey!)}
         >
           General
         </Nav.Item>
@@ -181,7 +187,7 @@ function IdentityProviderDetailsNav(prop) {
         {templateIdCheck() ? (
           <Nav.Item
             eventKey="2"
-            onSelect={(eventKey) => activeKeyNavSelect(eventKey)}
+            onSelect={(eventKey) => activeKeyNavSelect(eventKey!)}
           >
             Settings
           </Nav.Item>

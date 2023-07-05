@@ -104,7 +104,7 @@ export default function ConfirmAddRemoveLoginFlowModal(
     fetchAllIdPs().finally();
   };
 
-  const onIdpAddToLoginFlow = (response: boolean): void => {
+  const onIdpAddToLoginFlow = (response: boolean | null): void => {
     if (response) {
       onSuccess();
       successTypeDialog(
@@ -121,7 +121,7 @@ export default function ConfirmAddRemoveLoginFlowModal(
     }
   };
 
-  const onIdpRemovefromLoginFlow = (response: boolean): void => {
+  const onIdpRemovefromLoginFlow = (response: boolean | null): void => {
     if (response) {
       onSuccess();
       successTypeDialog(
@@ -138,7 +138,9 @@ export default function ConfirmAddRemoveLoginFlowModal(
     }
   };
 
-  const onSubmit = async (patchApplicationAuthMethod): Promise<void> => {
+  const onSubmit = async (
+    patchApplicationAuthMethod: boolean
+  ): Promise<void> => {
     setLoadingDisplay(LOADING_DISPLAY_BLOCK);
 
     patchApplicationAuthSteps(

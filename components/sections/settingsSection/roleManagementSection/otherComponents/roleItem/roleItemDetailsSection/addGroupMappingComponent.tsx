@@ -70,7 +70,7 @@ export default function AddGroupMappingComponent(
   console.log("group mapping", roleGroups);
   console.log("groups", groups);
 
-  const onDataSubmit = (response: boolean | RoleGroupList, form): void => {
+  const onDataSubmit = (response: RoleGroupList | null, form: any): void => {
     if (response) {
       successTypeDialog(
         toaster,
@@ -99,7 +99,7 @@ export default function AddGroupMappingComponent(
 
   const onSubmit = async (
     values: Record<string, string>,
-    form
+    form: any
   ): Promise<void> => {
     patchGroupMappings(session, roleName, getSendGroupData(checkedGroups))
       .then((response) => onDataSubmit(response, form))
@@ -186,7 +186,7 @@ export default function AddGroupMappingComponent(
               <FormSuite
                 layout="vertical"
                 onSubmit={() => {
-                  handleSubmit().then(form.restart);
+                  handleSubmit();
                 }}
                 fluid
               >
@@ -199,7 +199,7 @@ export default function AddGroupMappingComponent(
                   <></>
                 </FormField>
                 <div>
-                  <Table autoHeight autoWidth data={newGroups}>
+                  <Table autoHeight data={newGroups}>
                     <Column width={500} align="left">
                       <HeaderCell>
                         <h6>Groups</h6>
@@ -236,7 +236,7 @@ export default function AddGroupMappingComponent(
                 <br />
                 <FormButtonToolbar
                   submitButtonText="Submit"
-                  //  submitButtonDisabled={submitting || pristine}
+                  //submitButtonDisabled={submitting || pristine}
                   onCancel={onClose}
                 />
               </FormSuite>

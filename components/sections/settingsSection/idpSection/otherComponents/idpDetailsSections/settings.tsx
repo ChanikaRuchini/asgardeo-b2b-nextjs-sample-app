@@ -55,7 +55,7 @@ export default function Settings(props: SettingsProps) {
 
   const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
   const [federatedAuthenticators, setFederatedAuthenticators] =
-    useState<IdentityProviderFederatedAuthenticator>(null);
+    useState<IdentityProviderFederatedAuthenticator | null>();
 
   const toaster: Toaster = useToaster();
 
@@ -63,7 +63,7 @@ export default function Settings(props: SettingsProps) {
     const res = await getFederatedAuthenticators(
       session,
       idpDetails.id,
-      idpDetails.federatedAuthenticators.defaultAuthenticatorId
+      idpDetails.federatedAuthenticators!.defaultAuthenticatorId
     );
 
     await setFederatedAuthenticators(res);
@@ -101,7 +101,7 @@ export default function Settings(props: SettingsProps) {
   }, [fetchData]);
 
   const validate = () => {
-    const errors = {};
+    const errors: Record<string, string> = {};
 
     if (federatedAuthenticators && federatedAuthenticators.properties) {
       federatedAuthenticators.properties.filter((property) => {
@@ -119,7 +119,7 @@ export default function Settings(props: SettingsProps) {
   };
 
   const onDataSubmit = (
-    response: IdentityProviderFederatedAuthenticator
+    response: IdentityProviderFederatedAuthenticator | null
   ): void => {
     if (response) {
       successTypeDialog(
@@ -142,7 +142,7 @@ export default function Settings(props: SettingsProps) {
     updateFederatedAuthenticators(
       session,
       idpDetails.id,
-      federatedAuthenticators,
+      federatedAuthenticators!,
       values
     )
       .then((response) => onDataSubmit(response))

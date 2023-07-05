@@ -47,7 +47,7 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
 
   const toaster = useToaster();
 
-  const [user, setUser] = useState<InternalUser>(null);
+  const [user, setUser] = useState<InternalUser | null>();
 
   const fetchData = useCallback(async () => {
     const res = await controllerCallGetMe(session);
@@ -55,7 +55,9 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
     await setUser(res);
   }, [session]);
 
-  async function controllerCallGetMe(session: Session): Promise<User | null> {
+  async function controllerCallGetMe(
+    session: Session
+  ): Promise<InternalUser | null> {
     try {
       const body = {
         orgId: session ? session.orgId : null,
@@ -157,7 +159,7 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
                   <FormSuite
                     layout="vertical"
                     onSubmit={() => {
-                      handleSubmit().then(form.restart);
+                      handleSubmit();
                     }}
                     fluid
                   >

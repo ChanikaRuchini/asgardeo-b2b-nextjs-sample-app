@@ -41,7 +41,7 @@ import RequestMethod from "../../../../../../models/api/requestMethod";
 interface GeneralProps {
   fetchData: () => Promise<void>;
   session: Session;
-  idpDetails: IdentityProvider;
+  idpDetails: IdentityProvider | null;
 }
 
 /**
@@ -68,7 +68,7 @@ export default function General(props: GeneralProps) {
     return errors;
   };
 
-  const onDataSubmit = (response: IdentityProvider, form): void => {
+  const onDataSubmit = (response: IdentityProvider | null, form: any): void => {
     if (response) {
       successTypeDialog(
         toaster,
@@ -88,14 +88,14 @@ export default function General(props: GeneralProps) {
 
   const onUpdate = async (
     values: Record<string, string>,
-    form
+    form: any
   ): Promise<void> => {
     setLoadingDisplay(LOADING_DISPLAY_BLOCK);
     patchGeneralSettingsIdp(
       session,
       values.name,
       values.description,
-      idpDetails.id
+      idpDetails!.id
     )
       .then((response) => onDataSubmit(response, form))
       .finally(() => setLoadingDisplay(LOADING_DISPLAY_NONE));
@@ -141,15 +141,15 @@ export default function General(props: GeneralProps) {
           onSubmit={onUpdate}
           validate={validate}
           initialValues={{
-            description: idpDetails.description,
-            name: idpDetails.name,
+            description: idpDetails!.description,
+            name: idpDetails!.name,
           }}
           render={({ handleSubmit, form, submitting, pristine, errors }) => (
             <FormSuite
               layout="vertical"
               className={styles.addUserForm}
               onSubmit={() => {
-                handleSubmit().then(form.restart);
+                handleSubmit();
               }}
               fluid
             >

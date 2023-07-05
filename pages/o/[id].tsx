@@ -24,8 +24,9 @@ import { Session } from "next-auth";
 import { getSession } from "next-auth/react";
 import { useEffect } from "react";
 import Home from "../../components/sections/home";
+import { GetServerSidePropsContext } from "next";
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const routerQuery = context.query.id;
   const session = await getSession(context);
 
@@ -67,5 +68,5 @@ export default function Org(props: OrgProps) {
     }
   }, [routerQuery]);
 
-  return session ? <Home name={session.orgName} session={session} /> : null;
+  return session ? <Home name={session.orgName!} session={session} /> : null;
 }

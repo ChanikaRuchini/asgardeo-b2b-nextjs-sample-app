@@ -47,13 +47,15 @@ interface GroupProps {
 export default function Groups(props: GroupProps) {
   const { session, roleDetails } = props;
 
-  const [groupMappings, setGroupMappings] = useState<InternalRoleGroup[]>(null);
+  const [groupMappings, setGroupMappings] = useState<
+    InternalRoleGroup[] | null
+  >();
   const [deleteGroupMappingOpen, setDeleteGroupMappingOpen] =
     useState<boolean>(false);
-  const [openGroup, setOpenGroup] = useState<InternalRoleGroup>(null);
+  const [openGroup, setOpenGroup] = useState<InternalRoleGroup | null>();
   const [addGroupMappingOpen, setAddGroupMappingOpen] =
     useState<boolean>(false);
-  const [groups, setGroups] = useState<InternalGroup[]>([]);
+  const [groups, setGroups] = useState<InternalGroup[] | null>([]);
 
   const { Column, HeaderCell, Cell } = Table;
 
@@ -177,7 +179,7 @@ export default function Groups(props: GroupProps) {
           open={deleteGroupMappingOpen}
           onClose={closeDeleteDialog}
           roleName={roleDetails.name}
-          group={openGroup}
+          group={openGroup!}
           getGroups={fetchAllGroupMappings}
         />
       ) : null}
@@ -185,8 +187,8 @@ export default function Groups(props: GroupProps) {
       {addGroupMappingOpen ? (
         <AddGroupMappingComponent
           session={session}
-          roleGroups={groupMappings}
-          groups={groups}
+          roleGroups={groupMappings!}
+          groups={groups!}
           roleName={roleDetails.name}
           open={addGroupMappingOpen}
           onClose={closeAddGroupMappingDialog}

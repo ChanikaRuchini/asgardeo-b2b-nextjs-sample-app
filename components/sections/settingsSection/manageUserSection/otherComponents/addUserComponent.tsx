@@ -108,7 +108,7 @@ export default function AddUserComponent(props: AddUserComponentProps) {
     }
   };
 
-  const onDataSubmit = (response: boolean | User, form): void => {
+  const onDataSubmit = (response: User | null, form: any): void => {
     if (response) {
       successTypeDialog(
         toaster,
@@ -128,7 +128,7 @@ export default function AddUserComponent(props: AddUserComponentProps) {
 
   const onSubmit = async (
     values: Record<string, string>,
-    form
+    form: any
   ): Promise<void> => {
     setLoadingDisplay(LOADING_DISPLAY_BLOCK);
     addUser(
@@ -150,7 +150,7 @@ export default function AddUserComponent(props: AddUserComponentProps) {
     familyName: string,
     email: string,
     password: string
-  ): Promise<User | boolean> {
+  ): Promise<User | null> {
     try {
       const addUserEncode: SendUser = getAddUserBody(
         inviteConst,
@@ -170,8 +170,9 @@ export default function AddUserComponent(props: AddUserComponentProps) {
       };
 
       const res = await fetch("/api/settings/user/addUser", request);
+      console.log("res", res);
       const data = await res.json();
-
+      console.log("data", data);
       return data;
     } catch (err) {
       return null;
@@ -250,7 +251,7 @@ export default function AddUserComponent(props: AddUserComponentProps) {
               <FormSuite
                 layout="vertical"
                 onSubmit={() => {
-                  handleSubmit().then(form.restart);
+                  handleSubmit();
                 }}
                 fluid
               >

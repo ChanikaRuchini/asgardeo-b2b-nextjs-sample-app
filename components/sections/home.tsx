@@ -46,9 +46,11 @@ interface HomeProps {
 export default function Home(props: HomeProps): JSX.Element {
   const { name, session } = props;
 
-  const [activeKeySideNav, setActiveKeySideNav] = useState("1");
+  const [activeKeySideNav, setActiveKeySideNav] = useState<
+    string | undefined
+  >();
 
-  const mainPanelComponenet = (activeKey): JSX.Element => {
+  const mainPanelComponenet = (activeKey: string | undefined): JSX.Element => {
     switch (activeKey) {
       case "1":
         return <HomeComponent session={session} />;
@@ -62,6 +64,8 @@ export default function Home(props: HomeProps): JSX.Element {
         return <RoleManagementSectionComponent session={session} />;
       case "6":
         return <IdpSectionComponent session={session} />;
+      default:
+        return <HomeComponent session={session} />;
     }
   };
 

@@ -99,8 +99,8 @@ export default function RoleManagementSectionComponent(
         >
           <div className={styles.idp__list}>
             <PanelGroup accordion bordered>
-              {rolesList.map((role) => (
-                <RoleItem role={role} session={session} />
+              {rolesList.map((role, index) => (
+                <RoleItem session={session} role={role} key={index} />
               ))}
             </PanelGroup>
           </div>

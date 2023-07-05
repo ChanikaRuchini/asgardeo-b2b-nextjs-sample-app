@@ -44,9 +44,11 @@ import {
   Group,
   InternalGroup,
   Member,
+  SendEditGroupMembers,
+  SendEditGroupName,
   sendMemberList,
 } from "../../../../../models/group/group";
-import { InternalUser } from "../../../../../models/user/user";
+import { InternalUser, User } from "../../../../../models/user/user";
 
 interface EditGroupComponentProps {
   session: Session;
@@ -68,7 +70,7 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
   const toaster = useToaster();
 
   const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
-  const [users, setUsers] = useState<InternalUser[]>([]);
+  const [users, setUsers] = useState<InternalUser[] | null>([]);
   const [initialAssignedUsers, setInitialAssignedUsers] = useState<string[]>(
     []
   );
@@ -77,7 +79,9 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
     const res = await viewUsersInGroup(session, group?.displayName);
 
     await setUsers(res);
-    setInitialAssignedUsers(getInitialAssignedUserEmails(res));
+    if (res) {
+      setInitialAssignedUsers(getInitialAssignedUserEmails(res));
+    }
   }, [open === true]);
 
   async function viewUsersInGroup(
@@ -127,7 +131,7 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
 
   const getInitialAssignedUserEmails = (users: InternalUser[]): string[] => {
     if (users) {
-      return users.map((user) => user.email);
+      return users.map((user) => user.email || "");
     }
 
     return [];
@@ -147,7 +151,7 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
     return errors;
   };
 
-  const onDataSubmit = (response: boolean | Group, form): void => {
+  const onDataSubmit = (response: Group | null, form: any): void => {
     if (response) {
       successTypeDialog(
         toaster,
@@ -184,7 +188,7 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
 
   const onSubmit = async (
     values: Record<string, string>,
-    form
+    form: any
   ): Promise<void> => {
     const name = "DEFAULT/" + values.groupName;
 
@@ -239,32 +243,36 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
     groupId: string,
     value: sendMemberList
   ): Promise<Group | null> {
-    const editGroupMembers: SendEditGroupMembers = {
-      Operations: [
-        {
-          op: "replace",
-          value: value,
-        },
-      ],
-      schemas: ["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
-    };
+    try {
+      const editGroupMembers: SendEditGroupMembers = {
+        Operations: [
+          {
+            op: "replace",
+            value: value,
+          },
+        ],
+        schemas: ["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+      };
 
-    const body = {
-      orgId: session ? session.orgId : null,
-      param: editGroupMembers,
-      session: session,
-    };
+      const body = {
+        orgId: session ? session.orgId : null,
+        param: editGroupMembers,
+        session: session,
+      };
 
-    const request = {
-      body: JSON.stringify(body),
-      method: RequestMethod.POST,
-    };
-    const res = await fetch(
-      `/api/settings/group/patchGroupMembers?groupId=${groupId}`,
-      request
-    );
-    const data = await res.json();
-    return data;
+      const request = {
+        body: JSON.stringify(body),
+        method: RequestMethod.POST,
+      };
+      const res = await fetch(
+        `/api/settings/group/patchGroupMembers?groupId=${groupId}`,
+        request
+      );
+      const data = await res.json();
+      return data;
+    } catch (err) {
+      return null;
+    }
   }
 
   return (
@@ -296,7 +304,7 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
               <FormSuite
                 layout="vertical"
                 onSubmit={() => {
-                  handleSubmit().then(form.restart);
+                  handleSubmit();
                 }}
                 fluid
               >
@@ -364,7 +372,7 @@ function getMembers(
   const members: Member[] = [];
 
   for (const user of fullUserList) {
-    if (usernames.includes(user.email)) {
+    if (usernames.includes(user.email!)) {
       members.push({
         display: "DEFAULT/" + user.email,
         value: user.id,

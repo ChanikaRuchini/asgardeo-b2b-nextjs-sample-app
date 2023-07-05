@@ -26,7 +26,7 @@ import styles from "./navBarComponent.module.css";
 export interface SidenavComponentProps {
   scope: string;
   sideNavData: SideNavList;
-  activeKeySideNav: string;
+  activeKeySideNav: string | undefined;
   activeKeySideNavSelect: (event: string | undefined) => void;
   setSignOutModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

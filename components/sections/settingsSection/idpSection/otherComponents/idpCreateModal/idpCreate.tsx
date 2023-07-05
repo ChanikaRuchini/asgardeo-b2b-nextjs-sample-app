@@ -49,7 +49,7 @@ interface PrerequisiteProps {
 
 interface IdpCreateProps {
   session: Session;
-  onIdpCreate: (response: IdentityProvider) => void;
+  onIdpCreate: (response: IdentityProvider | null) => void;
   onCancel: () => void;
   template: IdentityProviderTemplate;
   orgId: string;
@@ -68,7 +68,7 @@ export default function IdpCreate(prop: IdpCreateProps) {
     onCancel();
   };
 
-  const resolveTemplateForm = (): JSX.Element => {
+  const resolveTemplateForm = (): JSX.Element | undefined => {
     switch (template.templateId) {
       case GOOGLE_ID:
         return (
@@ -126,7 +126,7 @@ function Prerequisite(prop: PrerequisiteProps) {
 
   const toaster = useToaster();
 
-  const copyValueToClipboard = (text) => {
+  const copyValueToClipboard = (text: string) => {
     const callback: CopyTextToClipboardCallback = () =>
       infoTypeDialog(toaster, "Text copied to clipboard");
 

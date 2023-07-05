@@ -16,7 +16,8 @@
  * under the License.
  */
 
-import { Group, InternalGroup } from "./group";
+import { Group, InternalGroup } from "../models/group/group";
+
 
 /**
  * 

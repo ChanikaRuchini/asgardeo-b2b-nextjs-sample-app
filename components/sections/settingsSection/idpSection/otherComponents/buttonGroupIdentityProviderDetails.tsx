@@ -54,9 +54,9 @@ export default function ButtonGroupIdentityProviderDetails(
 
   const toaster = useToaster();
 
-  const [allApplications, setAllApplications] = useState<ApplicationList>(null);
-  const [applicationDetail, setApplicationDetail] = useState<Application>(null);
-  const [idpIsinAuthSequence, setIdpIsinAuthSequence] = useState<boolean>(null);
+  const [allApplications, setAllApplications] = useState<ApplicationList>();
+  const [applicationDetail, setApplicationDetail] = useState<Application>();
+  const [idpIsinAuthSequence, setIdpIsinAuthSequence] = useState<boolean>();
   const [openListAppicationModal, setOpenListAppicationModal] =
     useState<boolean>(false);
 
@@ -71,11 +71,11 @@ export default function ButtonGroupIdentityProviderDetails(
   const fetchApplicatioDetails = useCallback(async () => {
     if (
       !checkIfJSONisEmpty(allApplications) &&
-      allApplications.totalResults !== 0
+      allApplications!.totalResults !== 0
     ) {
       const res: Application = (await getApplication(
         session,
-        allApplications.applications[0].id
+        allApplications!.applications[0].id
       )) as Application;
 
       await setApplicationDetail(res);
@@ -145,13 +145,13 @@ export default function ButtonGroupIdentityProviderDetails(
 
   useEffect(() => {
     if (!checkIfJSONisEmpty(applicationDetail)) {
-      const check = checkIfIdpIsinAuthSequence(applicationDetail, idpDetails);
+      const check = checkIfIdpIsinAuthSequence(applicationDetail!, idpDetails);
 
       setIdpIsinAuthSequence(check[0]);
     }
   }, [idpDetails, applicationDetail]);
 
-  const onIdpDelete = (response: boolean): void => {
+  const onIdpDelete = (response: boolean | null): void => {
     if (response) {
       successTypeDialog(
         toaster,
@@ -226,8 +226,8 @@ export default function ButtonGroupIdentityProviderDetails(
         onModalClose={onCloseListAllApplicaitonModal}
         fetchAllIdPs={fetchAllIdPs}
         idpDetails={idpDetails}
-        applicationDetail={applicationDetail}
-        idpIsinAuthSequence={idpIsinAuthSequence}
+        applicationDetail={applicationDetail!}
+        idpIsinAuthSequence={idpIsinAuthSequence!}
       />
 
       {idpIsinAuthSequence ? null : (

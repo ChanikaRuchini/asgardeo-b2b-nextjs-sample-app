@@ -20,7 +20,7 @@
 /**
  *  @returns true if JSON is empty else false
  */
-export function checkIfJSONisEmpty(obj: Record<string, unknown>): boolean {
+export function checkIfJSONisEmpty(obj: Record<string, unknown> | undefined): boolean {
     if (!obj) {
 
         return true;

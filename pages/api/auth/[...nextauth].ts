@@ -65,10 +65,10 @@ const wso2ISProvider = (req: NextApiRequest, res: NextApiResponse) => NextAuth(r
                 session.scope = orgSession.scope;
                 session.refreshToken = orgSession.refresh_token;
                 session.expires = false;
-                session.userId = getLoggedUserId(session.idToken);
-                session.user = getLoggedUserFromProfile(token.user);
-                session.orgId = getOrgId(session.idToken);
-                session.orgName = getOrgName(session.idToken);
+                session.userId = getLoggedUserId(session.idToken!);
+                session.user = getLoggedUserFromProfile(token.user!);
+                session.orgId = getOrgId(session.idToken!);
+                session.orgName = getOrgName(session.idToken!);
                 session.orginalIdToken = token.idToken;
             }
 

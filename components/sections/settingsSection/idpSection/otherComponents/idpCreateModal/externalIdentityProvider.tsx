@@ -19,17 +19,13 @@
 import FormButtonToolbar from "../../../../../common/ui-basic-components/formButtonToolbar/formButtonToolbar";
 import FormField from "../../../../../common/ui-basic-components/formField/formField";
 import { checkIfJSONisEmpty } from "../../../../../../utils/util-common/common";
-import {
-  LOADING_DISPLAY_BLOCK,
-  fieldValidate,
-} from "../../../../../../utils/front-end-util/frontendUtil";
+import { fieldValidate } from "../../../../../../utils/front-end-util/frontendUtil";
 import { Session } from "next-auth";
 import { useState } from "react";
 import { Form } from "react-final-form";
 import { Loader, Radio, RadioGroup } from "rsuite";
 import FormSuite from "rsuite/Form";
 import styles from "../../../../../../styles/Settings.module.css";
-import { LOADING_DISPLAY_NONE } from "../../../../../../utils/front-end-util/frontendUtil";
 import { setIdpTemplate } from "../../../../../../utils/identityProviderUtils";
 import {
   IdentityProvider,
@@ -43,7 +39,7 @@ import RequestMethod from "../../../../../../models/api/requestMethod";
 interface ExternalIdentityProviderProps {
   session: Session;
   template: IdentityProviderTemplate;
-  onIdpCreate: (response: IdentityProvider) => void;
+  onIdpCreate: (response: IdentityProvider | null) => void;
   onCancel: () => void;
 }
 
@@ -58,7 +54,6 @@ export default function ExternalIdentityProvider(
 ) {
   const { session, template, onIdpCreate, onCancel } = prop;
 
-  const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
   const [configureType, setConfigureType] =
     useState<IdentityProviderConfigureType>(IdentityProviderConfigureType.AUTO);
 
@@ -95,8 +90,10 @@ export default function ExternalIdentityProvider(
     setConfigureType(value);
   };
 
-  const onUpdate = async (values: Record<string, string>): Promise<void> => {
-    setLoadingDisplay(LOADING_DISPLAY_BLOCK);
+  const onUpdate = async (
+    values: Record<string, string>,
+    form: any
+  ): Promise<void> => {
     controllerDecodeCreateIdentityProvider(
       session,
       template,
@@ -104,7 +101,7 @@ export default function ExternalIdentityProvider(
       configureType
     )
       .then((response) => onIdpCreate(response))
-      .finally(() => setLoadingDisplay(LOADING_DISPLAY_NONE));
+      .finally(() => form.restart);
   };
 
   async function controllerDecodeCreateIdentityProvider(
@@ -212,7 +209,7 @@ export default function ExternalIdentityProvider(
             layout="vertical"
             className={styles.addUserForm}
             onSubmit={() => {
-              handleSubmit().then(form.restart);
+              handleSubmit();
             }}
             fluid
           >
@@ -313,14 +310,6 @@ export default function ExternalIdentityProvider(
           </FormSuite>
         )}
       />
-      <div style={loadingDisplay}>
-        <Loader
-          size="lg"
-          backdrop
-          content="Identity provider is creating"
-          vertical
-        />
-      </div>
     </div>
   );
 }

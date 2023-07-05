@@ -16,11 +16,12 @@
  * under the License.
  */
 
+import { GetServerSidePropsContext } from "next";
 import { redirect } from "../../utils/authorization-config-util/authorizationConfigUtil";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
 
   if (session) {
@@ -53,8 +54,9 @@ interface MoveOrgProps {
 export default function MoveOrg(props: MoveOrgProps) {
   const { orgId, orgName } = props;
 
+  const router = useRouter();
+
   if (typeof window !== "undefined") {
-    const router = useRouter();
     router.push(`/o/${orgId}`);
   }
 }

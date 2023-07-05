@@ -53,7 +53,7 @@ export interface sendMemberList {
     members: Member[]
 }
 
-export interface SendEditGroupMember {
+export interface SendEditGroupMembers {
     Operations: [Operation],
     schemas: [string]
 }

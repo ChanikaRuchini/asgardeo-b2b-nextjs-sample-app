@@ -82,7 +82,7 @@ export function setIdpTemplate(model: IdentityProviderTemplateModel, templateId:
             break;
     }
 
-    model.federatedAuthenticators.authenticators[0].isEnabled = true;
+    model.federatedAuthenticators!.authenticators[0].isEnabled = true;
 
     return model;
 
@@ -104,7 +104,7 @@ function googleIdpTemplate(model: IdentityProviderTemplateModel, clientId: strin
 
     model.alias = `${getManagementAPIServerBaseUrl()}/oauth2/token`;
 
-    model.federatedAuthenticators.authenticators[0].properties = [
+    model.federatedAuthenticators!.authenticators[0].properties = [
         {
             "key": "ClientId",
             "value": clientId
@@ -153,7 +153,8 @@ function enterpriseIdpTemplate(model: IdentityProviderTemplateModel, clientId: s
     } else {
         authorizationEndpointUrl = formValues["authorization_endpoint"].toString();
         tokenEndpointUrl = formValues["token_endpoint"].toString();
-
+        logoutUrl ="";
+        jwksUri="";
         if (formValues["end_session_endpoint"]) {
             logoutUrl = formValues["end_session_endpoint"].toString();
         }
@@ -165,7 +166,7 @@ function enterpriseIdpTemplate(model: IdentityProviderTemplateModel, clientId: s
 
     model.image = "/libs/themes/default/assets/images/identity-providers/enterprise-idp-illustration.svg";
 
-    model.federatedAuthenticators.authenticators[0].properties = [
+    model.federatedAuthenticators!.authenticators[0].properties = [
         {
             "key": "ClientId",
             "value": clientId
@@ -196,7 +197,7 @@ function enterpriseIdpTemplate(model: IdentityProviderTemplateModel, clientId: s
         }
     ];
 
-    model.certificate.jwksUri = jwksUri;
+    model.certificate!.jwksUri = jwksUri;
 
     return model;
 }

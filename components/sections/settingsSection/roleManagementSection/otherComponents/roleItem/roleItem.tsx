@@ -49,12 +49,14 @@ export default function RoleItem(props: RoleItemProps) {
     setActiveKeyNav(eventKey);
   };
 
-  const roleItemDetailsComponent = (activeKey): JSX.Element => {
+  const roleItemDetailsComponent = (activeKey: string): JSX.Element | null => {
     switch (activeKey) {
       case "1":
         return <Permission permissions={role.permissions} />;
       case "2":
         return <Groups session={session} roleDetails={role} />;
+      default:
+        return null;
     }
   };
 
@@ -101,14 +103,14 @@ function RoleItemNav(props: RoleItemNavProps) {
       >
         <Nav.Item
           eventKey="1"
-          onSelect={(eventKey) => activeKeyNavSelect(eventKey)}
+          onSelect={(eventKey) => activeKeyNavSelect(eventKey!)}
         >
           Permissions
         </Nav.Item>
 
         <Nav.Item
           eventKey="2"
-          onSelect={(eventKey) => activeKeyNavSelect(eventKey)}
+          onSelect={(eventKey) => activeKeyNavSelect(eventKey!)}
         >
           Groups
         </Nav.Item>

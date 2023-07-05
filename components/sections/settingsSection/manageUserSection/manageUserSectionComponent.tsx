@@ -23,7 +23,7 @@ import AddUserComponent from "./otherComponents/addUserComponent";
 import EditUserComponent from "./otherComponents/editUserComponent";
 import styles from "../../../../styles/Settings.module.css";
 import { decodeUser } from "../../../../utils/userUtils";
-import { InternalUser } from "../../../../models/user/user";
+import { InternalUser, User } from "../../../../models/user/user";
 import RequestMethod from "../../../../models/api/requestMethod";
 
 interface ManageUserSectionComponentProps {
@@ -41,10 +41,10 @@ export default function ManageUserSectionComponent(
 ) {
   const { session } = props;
 
-  const [users, setUsers] = useState<InternalUser[]>([]);
+  const [users, setUsers] = useState<InternalUser[] | null>([]);
   const [editUserOpen, setEditUserOpen] = useState<boolean>(false);
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false);
-  const [openUser, setOpenUser] = useState<InternalUser>(null);
+  const [openUser, setOpenUser] = useState<InternalUser | null>();
 
   const fetchData = useCallback(async () => {
     const res = await getUsersList(session);

@@ -30,7 +30,7 @@ export function requestOptions(session: Session): RequestInit {
     return apiRequestOptions(session, getHostedUrl());
 }
 
-export function requestOptionsWithBody(session: Session, method: RequestMethod, body: BodyInit): RequestInit {
+export function requestOptionsWithBody(session: Session, method: RequestMethod, body: BodyInit| null): RequestInit {
     return apiRequestOptionsWithBody(session, method, body, getHostedUrl());
 }
 
@@ -59,7 +59,7 @@ function apiRequestOptionsWithDataHeader(session: Session, hostedUrl: string): H
     return headers;
 }
 
-export function apiRequestOptionsWithBody(session: Session, method: RequestMethod, body: BodyInit, hostedUrl: string)
+export function apiRequestOptionsWithBody(session: Session, method: RequestMethod, body: BodyInit|null, hostedUrl: string)
     : RequestInit {
     const request = {
         body: JSON.stringify(body),

@@ -19,8 +19,12 @@
 import { List } from "rsuite";
 import styles from "../../../../../../../styles/Settings.module.css";
 
+type Permission = {
+  name: string;
+};
+
 interface PermissionProps {
-  permissions?: string[];
+  permissions?: Permission[];
 }
 
 /**

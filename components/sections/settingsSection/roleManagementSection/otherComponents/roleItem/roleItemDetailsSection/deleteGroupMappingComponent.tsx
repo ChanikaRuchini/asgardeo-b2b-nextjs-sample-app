@@ -57,7 +57,7 @@ export default function DeleteGroupMappingComponent(
   const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
   const toaster = useToaster();
 
-  const onGroupDelete = (response: boolean): void => {
+  const onGroupDelete = (response: RoleGroupList | null): void => {
     if (response) {
       successTypeDialog(toaster, "Success", "Group Deleted Successfully");
     } else {

@@ -28,6 +28,7 @@ import FormSuite from "rsuite/Form";
 import {
   IdentityProviderFederatedAuthenticatorProperty,
   IdentityProviderTemplate,
+  IdentityProviderTemplateModel,
   IdentityProviderTemplateModelAuthenticatorProperty,
 } from "../../../../../../../models/identityProvider/identityProvider";
 import { selectedTemplateBaesedonTemplateId } from "../../../../../../../utils/applicationUtils";
@@ -50,13 +51,15 @@ export default function SettingsFormSelection(
 
   const toaster: Toaster = useToaster();
 
-  const propList = (): IdentityProviderTemplateModelAuthenticatorProperty[] => {
-    const selectedTemplate: IdentityProviderTemplate =
+  const propList = ():
+    | IdentityProviderTemplateModelAuthenticatorProperty[]
+    | null => {
+    const selectedTemplate: IdentityProviderTemplateModel | null =
       selectedTemplateBaesedonTemplateId(templateId);
 
     if (selectedTemplate) {
-      return selectedTemplate.idp.federatedAuthenticators.authenticators[0]
-        .properties;
+      return selectedTemplate.federatedAuthenticators?.authenticators[0]
+        .properties!;
     } else {
       return null;
     }
@@ -80,13 +83,13 @@ export default function SettingsFormSelection(
   return (
     <>
       {propList() ? (
-        propList().map((property) => {
+        propList()!.map((property) => {
           return (
             <Field
               id={property.key}
               key={property.key}
-              name={property.key}
-              initialValue={selectedValue(property.key)}
+              name={property.key!}
+              initialValue={selectedValue(property.key!)}
               render={({ input, meta }) => (
                 <FormSuite.Group controlId={property.key}>
                   <FormSuite.ControlLabel>
@@ -101,7 +104,7 @@ export default function SettingsFormSelection(
                     {property.readOnly ? (
                       <InputGroup.Button
                         onClick={() =>
-                          copyValueToClipboard(selectedValue(property.key))
+                          copyValueToClipboard(selectedValue(property.key!))
                         }
                       >
                         <CopyIcon />

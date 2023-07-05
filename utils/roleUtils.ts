@@ -16,10 +16,7 @@
  * under the License.
  */
 
-import { InternalRoleGroup, RoleGroup } from "./role";
-
-
-
+import { InternalRoleGroup, RoleGroup } from "../models/role/role";
 
 /**
  * 

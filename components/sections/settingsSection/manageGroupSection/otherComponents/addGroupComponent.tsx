@@ -75,7 +75,7 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
     return errors;
   };
 
-  const onDataSubmit = (response: boolean | AddedGroup, form): void => {
+  const onDataSubmit = (response: boolean | AddedGroup, form: any): void => {
     if (response) {
       successTypeDialog(
         toaster,
@@ -100,7 +100,7 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
 
   const onSubmit = async (
     values: Record<string, string>,
-    form
+    form: any
   ): Promise<void> => {
     setLoadingDisplay(LOADING_DISPLAY_BLOCK);
     addGroup(session, getSendGroupData(checkedUsers, values.groupName))
@@ -123,7 +123,7 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
         method: RequestMethod.POST,
       };
 
-      const res = await fetch("/api/settings/group/addGroup", request, group);
+      const res = await fetch("/api/settings/group/addGroup", request);
       const data = await res.json();
 
       return data;
@@ -158,7 +158,7 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
               <FormSuite
                 layout="vertical"
                 onSubmit={() => {
-                  handleSubmit().then(form.restart);
+                  handleSubmit();
                 }}
                 fluid
               >
@@ -180,40 +180,46 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
                 >
                   <></>
                 </FormField>
-                <div>
-                  <Table autoHeight autoWidth data={users}>
-                    <Column width={500} align="left">
-                      <HeaderCell>
-                        <h6>Users</h6>
-                      </HeaderCell>
-                      <Cell dataKey="email">
-                        {(rowData: InternalUser) => (
-                          <Checkbox
-                            checked={checkedUsers.includes(rowData)}
-                            onChange={(
-                              value: any,
-                              checked: boolean,
-                              event: React.SyntheticEvent<HTMLInputElement>
-                            ) => {
-                              if (checked) {
-                                setCheckedUsers((prevUsers) => [
-                                  ...prevUsers,
-                                  rowData,
-                                ]);
-                              } else {
-                                setCheckedUsers((prevUsers) =>
-                                  prevUsers.filter((user) => user !== rowData)
-                                );
-                              }
-                            }}
-                          >
-                            {rowData.email}
-                          </Checkbox>
-                        )}
-                      </Cell>
-                    </Column>
-                  </Table>
-                </div>
+                {users ? (
+                  <div>
+                    <Table autoHeight data={users}>
+                      <Column width={500} align="left">
+                        <HeaderCell>
+                          <h6>Users</h6>
+                        </HeaderCell>
+                        <Cell dataKey="email">
+                          {(rowData: InternalUser) => {
+                            return (
+                              <Checkbox
+                                checked={checkedUsers.includes(rowData)}
+                                onChange={(
+                                  value: any,
+                                  checked: boolean,
+                                  event: React.SyntheticEvent<HTMLInputElement>
+                                ) => {
+                                  if (checked) {
+                                    setCheckedUsers((prevUsers) => [
+                                      ...prevUsers,
+                                      rowData,
+                                    ]);
+                                  } else {
+                                    setCheckedUsers((prevUsers) =>
+                                      prevUsers.filter(
+                                        (user) => user !== rowData
+                                      )
+                                    );
+                                  }
+                                }}
+                              >
+                                {rowData.email}
+                              </Checkbox>
+                            );
+                          }}
+                        </Cell>
+                      </Column>
+                    </Table>
+                  </div>
+                ) : null}
                 <br />
                 <FormButtonToolbar
                   submitButtonText="Submit"

@@ -53,7 +53,7 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
   const [idpList, setIdpList] = useState<IdentityProvider[]>([]);
   const [openSelectModal, setOpenSelectModal] = useState<boolean>(false);
   const [selectedTemplate, setSelectedTemplate] =
-    useState<IdentityProviderTemplate>(undefined);
+    useState<IdentityProviderTemplate>();
 
   const templates: IdentityProviderTemplate[] = [
     EnterpriseIdentityProvider,
@@ -123,7 +123,7 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
     setSelectedTemplate(undefined);
   };
 
-  const onIdpCreated = (response: IdentityProvider): void => {
+  const onIdpCreated = (response: IdentityProvider | null): void => {
     if (response) {
       successTypeDialog(
         toaster,
@@ -206,7 +206,7 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
           onCancel={onCreationDismiss}
           openModal={!!selectedTemplate}
           template={selectedTemplate}
-          orgId={session.orgId}
+          orgId={session.orgId!}
         />
       )}
     </Container>

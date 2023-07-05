@@ -47,8 +47,11 @@ export default async function editUser(req: NextApiRequest, res: NextApiResponse
             `${getOrgUrl(orgId)}/scim2/Users/${id}`,
             requestOptionsWithBody(session, RequestMethod.PATCH, user)
         );
+        
         const data = await fetchData.json();
-
+        console.log("datatiiiiiiiiiiiiii",fetchData);
+        console.log("------------------------------------");
+      //  console.log("datataaaaaaaa",data);
         res.status(200).json(data);
     } catch (err) {
 

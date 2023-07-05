@@ -25,10 +25,8 @@ import {
   CopyTextToClipboardCallback,
   copyTheTextToClipboard,
 } from "../../../utils/util-common/common";
-import { getCallbackUrl } from "../../../utils/identityProviderUtils";
 import { getUrl } from "../../../utils/application-config-util/applicationConfigUtil";
 import CopyIcon from "@rsuite/icons/Copy";
-import InfoRoundIcon from "@rsuite/icons/InfoRound";
 
 interface HomeComponentProps {
   session: Session;
@@ -71,7 +69,7 @@ export default function HomeComponent(prop: HomeComponentProps) {
         </div>
       </FlexboxGrid.Item>
       <FlexboxGrid.Item colspan={20}>
-        <Prerequisite orgId={session.orgId} />
+        <Prerequisite orgId={session.orgId!} />
       </FlexboxGrid.Item>
     </FlexboxGrid>
   );
@@ -86,7 +84,7 @@ function Prerequisite(prop: PrerequisiteProps) {
 
   const toaster = useToaster();
 
-  const copyValueToClipboard = (text) => {
+  const copyValueToClipboard = (text: string) => {
     const callback: CopyTextToClipboardCallback = () =>
       infoTypeDialog(toaster, "Text copied to clipboard");
 

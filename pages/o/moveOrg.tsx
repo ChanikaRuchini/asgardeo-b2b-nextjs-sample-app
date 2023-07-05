@@ -19,7 +19,6 @@
 import { redirect } from "../../utils/authorization-config-util/authorizationConfigUtil";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
@@ -53,8 +52,6 @@ interface MoveOrgProps {
  */
 export default function MoveOrg(props: MoveOrgProps) {
   const { orgId, orgName } = props;
-
-  const router = useRouter();
 
   if (typeof window !== "undefined") {
     const router = useRouter();

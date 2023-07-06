@@ -46,6 +46,7 @@ import {
 import FormSuite from "rsuite/Form";
 import styles from "../../../../../styles/Settings.module.css";
 import RequestMethod from "../../../../../models/api/requestMethod";
+import { ValueType } from "rsuite/esm/Radio";
 
 interface AddUserComponentProps {
   session: Session;
@@ -90,10 +91,10 @@ export default function AddUserComponent(props: AddUserComponentProps) {
     return errors;
   };
 
-  const inviteSelectOnChange = (value: InviteConst): void => {
-    serInviteSelect(value);
+  const inviteSelectOnChange = (value: ValueType): void => {
+    serInviteSelect(value as InviteConst);
 
-    switch (value) {
+    switch (value as InviteConst) {
       case InviteConst.INVITE:
         setInviteShow(LOADING_DISPLAY_BLOCK);
         setPasswordShow(LOADING_DISPLAY_NONE);

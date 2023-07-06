@@ -35,6 +35,7 @@ import {
   IdentityProviderTemplateModel,
 } from "../../../../../../models/identityProvider/identityProvider";
 import RequestMethod from "../../../../../../models/api/requestMethod";
+import { ValueType } from "rsuite/esm/Radio";
 
 interface ExternalIdentityProviderProps {
   session: Session;
@@ -84,10 +85,8 @@ export default function ExternalIdentityProvider(
     return errors;
   };
 
-  const onConfigureTypeChange = (
-    value: IdentityProviderConfigureType
-  ): void => {
-    setConfigureType(value);
+  const onConfigureTypeChange = (value: ValueType): void => {
+    setConfigureType(value as IdentityProviderConfigureType);
   };
 
   const onUpdate = async (

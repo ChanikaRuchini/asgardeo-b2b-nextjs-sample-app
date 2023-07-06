@@ -41,6 +41,7 @@ import {
   SendGroup,
 } from "../../../../../models/group/group";
 import RequestMethod from "../../../../../models/api/requestMethod";
+import { RowDataType } from "rsuite/esm/Table";
 
 interface AddGroupComponentProps {
   session: Session;
@@ -188,10 +189,12 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
                           <h6>Users</h6>
                         </HeaderCell>
                         <Cell dataKey="email">
-                          {(rowData: InternalUser) => {
+                          {(rowData: RowDataType<InternalUser>) => {
                             return (
                               <Checkbox
-                                checked={checkedUsers.includes(rowData)}
+                                checked={checkedUsers.includes(
+                                  rowData as InternalUser
+                                )}
                                 onChange={(
                                   value: any,
                                   checked: boolean,
@@ -200,7 +203,7 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
                                   if (checked) {
                                     setCheckedUsers((prevUsers) => [
                                       ...prevUsers,
-                                      rowData,
+                                      rowData as InternalUser,
                                     ]);
                                   } else {
                                     setCheckedUsers((prevUsers) =>

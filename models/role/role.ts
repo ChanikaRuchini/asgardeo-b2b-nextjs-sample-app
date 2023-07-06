@@ -16,9 +16,13 @@
  * under the License.
  */
 
+type Permission = {
+    name: string;
+  };
+
 export interface Role {
     name: string,
-    permissions?: string[]
+    permissions?: Permission[]
 }
 
 interface PaginationLink {

@@ -38,6 +38,7 @@ import {
 import { InternalGroup } from "../../../../../../../models/group/group";
 import RequestMethod from "../../../../../../../models/api/requestMethod";
 import { encodeRoleGroup } from "../../../../../../../utils/roleUtils";
+import { RowDataType } from "rsuite/esm/Table";
 
 interface AddGroupMappingComponentProps {
   session: Session;
@@ -205,7 +206,7 @@ export default function AddGroupMappingComponent(
                         <h6>Groups</h6>
                       </HeaderCell>
                       <Cell dataKey="displayName">
-                        {(rowData: InternalGroup) => {
+                        {(rowData: RowDataType<InternalGroup>) => {
                           return (
                             <Checkbox
                               onChange={(
@@ -216,7 +217,7 @@ export default function AddGroupMappingComponent(
                                 if (checked) {
                                   setCheckedGroups((prevUsers) => [
                                     ...prevUsers,
-                                    rowData,
+                                    rowData as InternalGroup,
                                   ]);
                                 } else {
                                   setCheckedGroups((prevUsers) =>
@@ -236,7 +237,7 @@ export default function AddGroupMappingComponent(
                 <br />
                 <FormButtonToolbar
                   submitButtonText="Submit"
-                  //submitButtonDisabled={submitting || pristine}
+                  submitButtonDisabled={submitting || pristine}
                   onCancel={onClose}
                 />
               </FormSuite>

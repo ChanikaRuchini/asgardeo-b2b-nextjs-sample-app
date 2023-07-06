@@ -238,7 +238,7 @@ export default function ExternalIdentityProvider(
             </FormField>
             <RadioGroup
               name="radioList"
-              value={configureType}
+              value={configureType as IdentityProviderConfigureType}
               onChange={onConfigureTypeChange}
             >
               <Radio value={IdentityProviderConfigureType.AUTO}>

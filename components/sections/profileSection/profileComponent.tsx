@@ -32,7 +32,7 @@ import { useCallback, useEffect, useState } from "react";
 import { checkIfJSONisEmpty } from "../../../utils/util-common/common";
 import { decodeUser } from "../../../utils/userUtils";
 import RequestMethod from "../../../models/api/requestMethod";
-import { InternalUser, User } from "../../../models/user/user";
+import { InternalUser, SendEditUser, User } from "../../../models/user/user";
 
 interface ProfileComponentProps {
   session: Session;
@@ -96,7 +96,7 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
     return errors;
   };
 
-  const onDataSubmit = (response: User): void => {
+  const onDataSubmit = (response: User | null): void => {
     if (response) {
       fetchData();
       successTypeDialog(
@@ -114,16 +114,63 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
   };
 
   const onSubmit = async (values: Record<string, unknown>): Promise<void> => {
-    // await controllerDecodeEditUser(
-    //   session,
-    //   session.userId,
-    //   values.firstName as string,
-    //   values.familyName as string,
-    //   values.email as string
-    // ).then((response) => {
-    //   onDataSubmit(response);
-    // });
+    await editProfile(
+      session,
+      values.firstName as string,
+      values.familyName as string,
+      values.email as string
+    ).then((response) => {
+      onDataSubmit(response);
+    });
   };
+
+  async function editProfile(
+    session: Session,
+    firstName: string,
+    familyName: string,
+    email: string
+  ): Promise<User | null> {
+    try {
+      const editUserEncode: SendEditUser = {
+        Operations: [
+          {
+            op: "replace",
+            value: {
+              emails: [
+                {
+                  primary: true,
+                  value: email,
+                },
+              ],
+              name: {
+                familyName: familyName,
+                givenName: firstName,
+              },
+              userName: "DEFAULT/" + email,
+            },
+          },
+        ],
+        schemas: ["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+      };
+
+      const body = {
+        orgId: session ? session.orgId : null,
+        param: editUserEncode,
+        session: session,
+      };
+      const request = {
+        body: JSON.stringify(body),
+        method: RequestMethod.POST,
+      };
+
+      const res = await fetch(`/api/profile/updateProfileInfo`, request);
+      const data = await res.json();
+
+      return data;
+    } catch (err) {
+      return null;
+    }
+  }
 
   return (
     <>

@@ -125,7 +125,6 @@ async function switchOrg(token: JWT): Promise<OrgSession | null> {
                 method: RequestMethod.POST
             };
     
-
     const res = await fetch(`${getHostedUrl()}/api/settings/switchOrg`, request);
     const data = await res.json();
     return data;

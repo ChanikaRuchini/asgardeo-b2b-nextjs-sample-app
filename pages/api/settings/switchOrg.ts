@@ -18,6 +18,7 @@
 
 import { getHostedUrl } from "../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
+import config from "../../../config.json";
 import { dataNotRecievedError, notPostError } from "../../../utils/api-util/apiErrors";
 
 /**
@@ -55,7 +56,7 @@ const getSwitchHeader = (): HeadersInit => {
 const getSwitchBody = (subOrgId: string, accessToken: string): Record<string, string> => {
     const body = {
         "grant_type": "organization_switch",
-        "scope": process.env.APIScopes!,
+        "scope": process.env.API_SCOPES!,
         "switching_organization": subOrgId,
         "token": accessToken
     };

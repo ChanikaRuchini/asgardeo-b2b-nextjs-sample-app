@@ -95,9 +95,9 @@ const wso2ISProvider = (req: NextApiRequest, res: NextApiResponse) => NextAuth(r
                 };
             },
             type: "oauth",
-            userinfo: `${process.env.ASGARDEO_BASE_ORGANIZATION_URL}/oauth2/userinfo`,
+            userinfo: `${process.env.NEXT_PUBLIC_ASGARDEO_BASE_ORGANIZATION_URL}/oauth2/userinfo`,
             // eslint-disable-next-line
-            wellKnown: `${process.env.ASGARDEO_BASE_ORGANIZATION_URL}/oauth2/token/.well-known/openid-configuration`
+            wellKnown: `${process.env.NEXT_PUBLIC_ASGARDEO_BASE_ORGANIZATION_URL}/oauth2/token/.well-known/openid-configuration`
         }
     ],
     secret: process.env.SECRET

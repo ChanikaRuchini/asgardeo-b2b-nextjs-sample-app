@@ -85,7 +85,7 @@ const getSwitchRequest = (subOrgId: string, accessToken: string): RequestInit =>
  * 
  * @returns get the endpoint for the switch API call
  */
-const getSwitchEndpoint = (): string => `${process.env.ASGARDEO_BASE_ORGANIZATION_URL}/oauth2/token`;
+const getSwitchEndpoint = (): string => `${process.env.NEXT_PUBLIC_ASGARDEO_BASE_ORGANIZATION_URL}/oauth2/token`;
 
 /**
  * 

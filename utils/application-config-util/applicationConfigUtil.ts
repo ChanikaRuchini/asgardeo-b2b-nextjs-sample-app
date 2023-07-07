@@ -82,9 +82,9 @@ export function getManagementAPIServerBaseUrl() {
 
     // todo: implementation will change after changes are done to the IS.
 
-    const baseOrganizationUrl = process.env.ASGARDEO_BASE_ORGANIZATION_URL!;
+    const baseOrganizationUrl = `${process.env.NEXT_PUBLIC_ASGARDEO_BASE_ORGANIZATION_URL}`;
     // eslint-disable-next-line
-    const matches = baseOrganizationUrl.match(/^(http|https)?\:\/\/([^\/?#]+)/i);
+    const matches = baseOrganizationUrl!.match(/^(http|https)?\:\/\/([^\/?#]+)/i);
     const domain = matches && matches[0];
 
     return domain;
@@ -97,7 +97,7 @@ export function getManagementAPIServerBaseUrl() {
  */
 export function getTenantDomain() {
 
-    const baseOrganizationUrl = process.env.ASGARDEO_BASE_ORGANIZATION_URL!;
+    const baseOrganizationUrl = `${process.env.NEXT_PUBLIC_ASGARDEO_BASE_ORGANIZATION_URL}`;
     const url = baseOrganizationUrl.split("/");
     const path = url[url.length - 1];
 
@@ -111,7 +111,7 @@ export function getTenantDomain() {
  */
 export function getHostedUrl() : string {
 
-    return process.env.HOSTED_URL!;
+    return process.env.NEXT_PUBLIC_HOSTED_URL!;
 }
 
 export default {

@@ -19,7 +19,6 @@
 import { requestOptions } from "../../../../utils/api-util/apiRequestOptions";
 import { getOrgUrl } from "../../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
-import config from "../../../../config.json";
 import { dataNotRecievedError, notPostError } from "../../../../utils/api-util/apiErrors";
 
 /**
@@ -40,7 +39,7 @@ export default async function listCurrentApplication(req: NextApiRequest, res: N
     const session = body.session;
     const orgId = body.orgId;
 
-    const appName = config.BusinessAdminAppConfig.ApplicationConfig.SharedApplicationName;
+    const appName = process.env.SHARED_APPICATION_NAME;
 
     try {
         const fetchData = await fetch(

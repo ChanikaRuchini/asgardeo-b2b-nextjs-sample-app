@@ -21,7 +21,6 @@ import { getHostedUrl, getManagementAPIServerBaseUrl, getTenantDomain } from "..
 import { Profile, Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { signIn, signOut } from "next-auth/react";
-import config from "../../config.json";
 
 export default interface RedirectReturnType {
     redirect: {
@@ -120,7 +119,7 @@ function getOrgId(token: JWT): string {
         return parseJwt(token)["org_id"];
     }
 
-    return config.CommonConfig.ApplicationConfig.SampleOrganization[0].id;
+    return process.env.SUB_ORGANIZATION_ID!;
 }
 
 /**
@@ -136,7 +135,7 @@ function getOrgName(token: JWT): string {
         return parseJwt(token)["org_name"];
     }
 
-    return config.CommonConfig.ApplicationConfig.SampleOrganization[0].name;
+    return process.env.SUB_ORGANIZATION_NAME!;
 }
 
 /**

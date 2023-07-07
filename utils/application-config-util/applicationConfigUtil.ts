@@ -16,7 +16,6 @@
  * under the License.
  */
 
-import config from "../../config.json";
 
 /**
  * check if the user is an administrator of the logged in identity server
@@ -65,7 +64,7 @@ export function getUrl(orgId: string): string {
 
 export function getRolesEnpointUrl(orgId: string): string {
 
-    const baseUrl = config.CommonConfig.roleConfig.baseUrl;
+    const baseUrl = "https://api.authz.cloudservices.wso2.com";
     // eslint-disable-next-line
     const matches = baseUrl.match(/^(http|https)?\:\/\/([^\/?#]+)/i);
     const domain = matches && matches[0];
@@ -83,7 +82,7 @@ export function getManagementAPIServerBaseUrl() {
 
     // todo: implementation will change after changes are done to the IS.
 
-    const baseOrganizationUrl = config.CommonConfig.AuthorizationConfig.BaseOrganizationUrl;
+    const baseOrganizationUrl = process.env.ASGARDEO_BASE_ORGANIZATION_URL!;
     // eslint-disable-next-line
     const matches = baseOrganizationUrl.match(/^(http|https)?\:\/\/([^\/?#]+)/i);
     const domain = matches && matches[0];
@@ -98,7 +97,7 @@ export function getManagementAPIServerBaseUrl() {
  */
 export function getTenantDomain() {
 
-    const baseOrganizationUrl = config.CommonConfig.AuthorizationConfig.BaseOrganizationUrl;
+    const baseOrganizationUrl = process.env.ASGARDEO_BASE_ORGANIZATION_URL!;
     const url = baseOrganizationUrl.split("/");
     const path = url[url.length - 1];
 
@@ -112,7 +111,7 @@ export function getTenantDomain() {
  */
 export function getHostedUrl() : string {
 
-    return config.BusinessAdminAppConfig.ApplicationConfig.HostedUrl;
+    return process.env.HOSTED_URL!;
 }
 
 export default {

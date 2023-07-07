@@ -19,7 +19,6 @@
 import { requestOptions } from "../../../../../utils/api-util/apiRequestOptions";
 import { getRolesEnpointUrl } from "../../../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
-import configs from "../../../../../config.json";
 import { dataNotRecievedError, notPostError } from "../../../../../utils/api-util/apiErrors";
 
 export default async function GroupMappings(req: NextApiRequest, res: NextApiResponse) {
@@ -36,7 +35,7 @@ export default async function GroupMappings(req: NextApiRequest, res: NextApiRes
 
     try {
         const fetchData = await fetch(
-            `${getRolesEnpointUrl(orgId)}/applications/${configs.BusinessAdminAppConfig.ApplicationConfig.SharedAppId}/roles/${name}/group-mapping`,
+            `${getRolesEnpointUrl(orgId)}/applications/${process.env.SHARED_APP_ID}/roles/${name}/group-mapping`,
             requestOptions(session)
         );
         const data = await fetchData.json();

@@ -17,7 +17,6 @@
  */
 
 
-import config from "../config.json";
 import { InternalUser, User } from "../models/user/user";
 
 

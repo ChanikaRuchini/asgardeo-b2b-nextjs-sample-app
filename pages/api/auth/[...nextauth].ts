@@ -19,7 +19,6 @@
 import { getLoggedUserFromProfile, getLoggedUserId, getOrgId, getOrgName  } from "../../../utils/authorization-config-util/authorizationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
 import NextAuth from "next-auth";
-import config from "../../../config.json";
 import { JWT } from "next-auth/jwt";
 import OrgSession from "../../../models/orgSession/orgSession";
 import { getHostedUrl } from "../../../utils/application-config-util/applicationConfigUtil";
@@ -82,11 +81,11 @@ const wso2ISProvider = (req: NextApiRequest, res: NextApiResponse) => NextAuth(r
         {
             authorization: {
                 params: {
-                    scope: config.BusinessAdminAppConfig.ApplicationConfig.APIScopes.join(" ")
+                    scope:  process.env.API_SCOPES
                 }
             },
-            clientId: config.BusinessAdminAppConfig.AuthorizationConfig.ClientId,
-            clientSecret: config.BusinessAdminAppConfig.AuthorizationConfig.ClientSecret,
+            clientId: process.env.SHARED_APP_CLIENT_ID,
+            clientSecret: process.env.SHARED_APP_CLIENT_SECRET,
             id: "wso2isAdmin",
             name: "WSO2ISAdmin",
             profile(profile) {
@@ -96,9 +95,9 @@ const wso2ISProvider = (req: NextApiRequest, res: NextApiResponse) => NextAuth(r
                 };
             },
             type: "oauth",
-            userinfo: `${config.CommonConfig.AuthorizationConfig.BaseOrganizationUrl}/oauth2/userinfo`,
+            userinfo: `${process.env.ASGARDEO_BASE_ORGANIZATION_URL}/oauth2/userinfo`,
             // eslint-disable-next-line
-            wellKnown: `${config.CommonConfig.AuthorizationConfig.BaseOrganizationUrl}/oauth2/token/.well-known/openid-configuration`
+            wellKnown: `${process.env.ASGARDEO_BASE_ORGANIZATION_URL}/oauth2/token/.well-known/openid-configuration`
         }
     ],
     secret: process.env.SECRET
@@ -145,16 +144,16 @@ function getOrganizationId(token: JWT): string {
         if (token.user.user_organization) {
 
             return token.user.user_organization;
-        } else if (config.CommonConfig.ApplicationConfig.SampleOrganization[0]) {
+        } else if (process.env.SUB_ORGANIZATION_ID) {
     
-            return config.CommonConfig.ApplicationConfig.SampleOrganization[0].id;
+            return process.env.SUB_ORGANIZATION_ID;
         } else {
     
             return token.user.org_id;
         }
     } else {
         
-        return config.CommonConfig.ApplicationConfig.SampleOrganization[0].id;
+        return process.env.SUB_ORGANIZATION_ID!;
     }
 
 }

@@ -19,7 +19,6 @@
 import { requestOptions } from "../../../../utils/api-util/apiRequestOptions";
 import { getRolesEnpointUrl } from "../../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
-import config from "../../../../config.json";
 import { dataNotRecievedError, notPostError } from "../../../../utils/api-util/apiErrors";
 
 /**
@@ -41,7 +40,7 @@ export default async function listAllRoles(req: NextApiRequest, res: NextApiResp
 
     try {
         const fetchData = await fetch(
-            `${getRolesEnpointUrl(orgId)}/applications/${config.BusinessAdminAppConfig.ApplicationConfig.SharedAppId}/roles`,
+            `${getRolesEnpointUrl(orgId)}/applications/${process.env.SHARED_APP_ID}/roles`,
             requestOptions(session)
         );
         const data = await fetchData.json();

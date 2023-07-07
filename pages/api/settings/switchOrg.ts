@@ -18,7 +18,6 @@
 
 import { getHostedUrl } from "../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
-import config from "../../../config.json";
 import { dataNotRecievedError, notPostError } from "../../../utils/api-util/apiErrors";
 
 /**
@@ -27,7 +26,7 @@ import { dataNotRecievedError, notPostError } from "../../../utils/api-util/apiE
  */
 const getBasicAuth = (): string => Buffer
     // eslint-disable-next-line
-    .from(`${config.BusinessAdminAppConfig.AuthorizationConfig.ClientId}:${config.BusinessAdminAppConfig.AuthorizationConfig.ClientSecret}`).toString("base64");
+    .from(`${process.env.SHARED_APP_CLIENT_ID}:${process.env.SHARED_APP_CLIENT_SECRET}`).toString("base64");
 
 /**
  * 
@@ -56,7 +55,7 @@ const getSwitchHeader = (): HeadersInit => {
 const getSwitchBody = (subOrgId: string, accessToken: string): Record<string, string> => {
     const body = {
         "grant_type": "organization_switch",
-        "scope": config.BusinessAdminAppConfig.ApplicationConfig.APIScopes.join(" "),
+        "scope": process.env.APIScopes!,
         "switching_organization": subOrgId,
         "token": accessToken
     };
@@ -85,7 +84,7 @@ const getSwitchRequest = (subOrgId: string, accessToken: string): RequestInit =>
  * 
  * @returns get the endpoint for the switch API call
  */
-const getSwitchEndpoint = (): string => `${config.CommonConfig.AuthorizationConfig.BaseOrganizationUrl}/oauth2/token`;
+const getSwitchEndpoint = (): string => `${process.env.ASGARDEO_BASE_ORGANIZATION_URL}/oauth2/token`;
 
 /**
  * 

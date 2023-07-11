@@ -18,7 +18,6 @@
 
 import { getHostedUrl } from "../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
-import config from "../../../config.json";
 import { dataNotRecievedError, notPostError } from "../../../utils/api-util/apiErrors";
 
 /**

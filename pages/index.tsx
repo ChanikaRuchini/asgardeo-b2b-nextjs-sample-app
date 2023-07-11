@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-//import jwtDecode from "jwt-decode";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import styles from "../styles/Home.module.css";
@@ -16,7 +15,6 @@ export default function Home() {
   const { data: session, status } = useSession();
   const [derivedAuthenticationState, setDerivedAuthenticationState] =
     useState<DerivedState>();
-  const [apiResponse, setApiResponse] = useState<any>();
 
   // useEffect(() => {
   //   const idToken = session?.user?.idToken;

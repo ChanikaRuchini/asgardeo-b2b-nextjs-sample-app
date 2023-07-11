@@ -70,8 +70,6 @@ const wso2ISProvider = (req: NextApiRequest, res: NextApiResponse) => NextAuth(r
                 session.orgName = getOrgName(session.idToken!);
                 session.orginalIdToken = token.idToken;
             }
-
-            console.log("111111", session);
             return session;
         
         }

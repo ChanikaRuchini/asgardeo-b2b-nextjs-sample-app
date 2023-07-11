@@ -25,6 +25,9 @@ import styles from "../../../../styles/Settings.module.css";
 import { decodeUser } from "../../../../utils/userUtils";
 import { InternalUser, User } from "../../../../models/user/user";
 import RequestMethod from "../../../../models/api/requestMethod";
+import EditIcon from "@rsuite/icons/Edit";
+import TrashIcon from "@rsuite/icons/Trash";
+import DeleteUserComponent from "./otherComponents/deleteUserComponent";
 
 interface ManageUserSectionComponentProps {
   session: Session;
@@ -45,6 +48,7 @@ export default function ManageUserSectionComponent(
   const [editUserOpen, setEditUserOpen] = useState<boolean>(false);
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false);
   const [openUser, setOpenUser] = useState<InternalUser | null>();
+  const [deleteUserOpen, setDeleteUserOpen] = useState<boolean>(false);
 
   const fetchData = useCallback(async () => {
     const res = await getUsersList(session);
@@ -110,6 +114,7 @@ export default function ManageUserSectionComponent(
   const onEditClick = (user: InternalUser): void => {
     setOpenUser(user);
     setEditUserOpen(true);
+    console.log(openUser);
   };
 
   const closeAddUserDialog = (): void => {
@@ -119,6 +124,18 @@ export default function ManageUserSectionComponent(
   const onAddUserClick = (): void => {
     console.log("uuu", users);
     setAddUserOpen(true);
+  };
+
+  const onDeleteClick = (user: InternalUser): void => {
+    setOpenUser(user);
+
+    setDeleteUserOpen(true);
+    console.log(openUser);
+  };
+
+  const closeDeleteDialog = (): void => {
+    setOpenUser(null);
+    setDeleteUserOpen(false);
   };
 
   return (
@@ -137,6 +154,16 @@ export default function ManageUserSectionComponent(
         open={addUserOpen}
         onClose={closeAddUserDialog}
       />
+
+      {deleteUserOpen ? (
+        <DeleteUserComponent
+          session={session}
+          open={deleteUserOpen}
+          onClose={closeDeleteDialog}
+          user={openUser!}
+          getUsers={fetchData}
+        />
+      ) : null}
 
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="column" alignItems="flex-start">
@@ -183,7 +210,25 @@ export default function ManageUserSectionComponent(
                     onClick={() => onEditClick(rowData as InternalUser)}
                     style={{ cursor: "pointer" }}
                   >
-                    Edit
+                    <EditIcon />
+                  </a>
+                </span>
+              )}
+            </Cell>
+          </Column>
+          <Column flexGrow={1} align="center" fixed="right">
+            <HeaderCell>
+              <h6>Delete User</h6>
+            </HeaderCell>
+
+            <Cell>
+              {(rowData) => (
+                <span>
+                  <a
+                    onClick={() => onDeleteClick(rowData as InternalUser)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <TrashIcon />
                   </a>
                 </span>
               )}

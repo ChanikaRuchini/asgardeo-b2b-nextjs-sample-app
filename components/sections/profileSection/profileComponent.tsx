@@ -177,6 +177,7 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="column" alignItems="flex-start">
           <h2>User Profile</h2>
+          <p>Update your profile information</p>
         </Stack>
       </Stack>
       <FlexboxGrid

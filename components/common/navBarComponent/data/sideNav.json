@@ -3,19 +3,19 @@
         {
             "title": "Home",
             "eventKey": "1",
-            "type": "menu"
+            "type": "item"
         },
         {
             "title": "Profile",
             "eventKey": "2",
-            "type": "menu"
+            "type": "item"
         },
         {
             "title": "User Management",
             "eventKey": "3",
-            "type": "menu",
+            "type": "item",
             "hideBasedOnScope": true,
-                    "scopes": [
+            "scopes": [
                         "internal_user_mgt_list",
                         "internal_user_mgt_create",
                         "internal_user_mgt_update"
@@ -24,10 +24,10 @@
         {
             "title": "Group Management",
             "eventKey": "4",
-            "type": "menu",
+            "type": "item",
             "hideBasedOnScope": true,
-                    "scopes": [
-                        "internal_group_mgt_list",
+            "scopes": [
+                        "internal_group_mgt_view",
                         "internal_group_mgt_create",
                         "internal_group_mgt_update"
                     ]
@@ -35,7 +35,7 @@
         {
             "title": "Role Management",
             "eventKey": "5",
-            "type": "menu",
+            "type": "item",
             "hideBasedOnScope": true,
             "scopes": [
                 "internal_user_mgt_list",
@@ -47,7 +47,7 @@
         {
             "title": "Identity Providers",
             "eventKey": "6",
-            "type": "menu",
+            "type": "item",
             "hideBasedOnScope": true,
             "scopes": [
                 "internal_idp_view",

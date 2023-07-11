@@ -26,7 +26,13 @@ import { useEffect } from "react";
 import Home from "../../components/sections/home";
 import { GetServerSidePropsContext } from "next";
 
+// export async function getServerSideProps({ req, query, resolvedUrl }) {
+//   console.log(req, query, resolvedUrl)
+//   return { props: {} }
+// }
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  console.log(context.req);
   const routerQuery = context.query.id;
   const session = await getSession(context);
 
@@ -58,6 +64,8 @@ interface OrgProps {
  */
 export default function Org(props: OrgProps) {
   const { session, routerQuery } = props;
+
+  console.log("idddddddddddddddddd");
 
   useEffect(() => {
     if (routerQuery) {

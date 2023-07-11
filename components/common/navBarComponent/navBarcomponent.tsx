@@ -50,6 +50,7 @@ export function NavBarComponent(prop: SidenavComponentProps) {
         <Nav activeKey={activeKeySideNav}>
           {sideNavConfigList.items.map((item: SideNavItem) => {
             if (item.items) {
+              console.log("hide", item.hideBasedOnScope);
               return (
                 <Nav.Menu
                   className={styles["navItem"]}
@@ -91,11 +92,22 @@ export function NavBarComponent(prop: SidenavComponentProps) {
                 </Nav.Menu>
               );
             } else {
+              console.log("bbbbbbbbbbbbbbb");
               return (
                 <Nav.Item
                   key={item.eventKey}
                   eventKey={item.eventKey}
                   onSelect={(eventKey) => activeKeySideNavSelect(eventKey)}
+                  style={
+                    item.hideBasedOnScope
+                      ? hideBasedOnScopes(
+                          scope,
+                          item.type,
+                          item.items,
+                          item.scopes
+                        )
+                      : {}
+                  }
                 >
                   <Stack spacing={10}>
                     {item.title}
@@ -110,11 +122,9 @@ export function NavBarComponent(prop: SidenavComponentProps) {
             }
           })}
         </Nav>
-        <div className="signOutButtonDiv">
-          <Button size="lg" appearance="default" onClick={signOutOnClick}>
-            Sign Out
-          </Button>
-        </div>
+        <Nav pullRight style={{ marginRight: "50px" }}>
+          <Nav.Item onSelect={signOutOnClick}>Sign Out</Nav.Item>
+        </Nav>
       </Navbar>
     </div>
   );

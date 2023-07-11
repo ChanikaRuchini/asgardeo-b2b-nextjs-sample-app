@@ -16,7 +16,6 @@
  * under the License.
  */
 
-import { signout } from "../utils/authorization-config-util/authorizationConfigUtil";
 import Custom500Component from "../components/common/custom500Component/custom500Component";
 import { signOut } from "next-auth/react";
 

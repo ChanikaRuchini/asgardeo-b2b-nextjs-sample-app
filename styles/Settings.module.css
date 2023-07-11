@@ -39,11 +39,18 @@
     width: 25%;
 }
 
+.nextLogoImage {
+    width: 30%;
+    padding: 10px;
+    margin-left: 150px;
+  
+  }
+
 /* getStartedSectionComponent */
 
 /* getStartedSectionComponent-GetStartedText-Div */
 .getStartedSectionComponentGetStartedTextDiv {
-    height: 40vh;
+    height: 50vh;
     justify-content: center;
     align-items: center;
 }
@@ -60,6 +67,8 @@
 /* getStartedSectionComponent-GetStartedText-P */
 .getStartedSectionComponentGetStartedTextP {
     text-align: center ;
+    font-size: medium;
+    font-weight: 1000;
 }
 
 
@@ -107,4 +116,4 @@
 .idp__item__details {
     width: 100px;
 }
-
+  

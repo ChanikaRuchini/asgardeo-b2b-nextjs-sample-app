@@ -4,7 +4,6 @@ import styles from "../../../../../../styles/Settings.module.css";
 import RequestMethod from "../../../../../../models/api/requestMethod";
 import { useCallback, useEffect, useState } from "react";
 import TrashIcon from "@rsuite/icons/Trash";
-import { fieldValidate } from "../../../../../../utils/front-end-util/frontendUtil";
 import { Button, Stack, Table } from "rsuite";
 import IdpGroupDelete from "./idpGroupDelete";
 import AddIdpGroupComponent from "./addIdpgroup";
@@ -118,7 +117,7 @@ export default function GroupsList(props: GroupsListProps) {
         <Stack direction="column" alignItems="flex-start">
           <h6>Manage groups of the identity provider</h6>
         </Stack>
-        <Button appearance="primary" size="lg" onClick={onAddGroupClick}>
+        <Button appearance="primary" size="md" onClick={onAddGroupClick}>
           + New Group
         </Button>
       </Stack>

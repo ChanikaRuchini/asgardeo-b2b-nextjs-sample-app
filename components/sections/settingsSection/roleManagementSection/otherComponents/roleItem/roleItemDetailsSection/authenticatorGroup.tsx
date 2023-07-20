@@ -1,13 +1,5 @@
 import { Session } from "next-auth";
-import {
-  Checkbox,
-  CheckboxGroup,
-  FlexboxGrid,
-  Panel,
-  Stack,
-  useToaster,
-} from "rsuite";
-
+import { Checkbox, CheckboxGroup, Panel, Stack, useToaster } from "rsuite";
 import {
   AuthenticatorInterface,
   IdentityProvider,
@@ -146,7 +138,6 @@ export default function AuthenticatorGroup(props: AuthenticatorGroupProps) {
     values: Record<string, string>,
     form: any
   ): Promise<void> => {
-    console.log("groupsssssssssssssss", values.groups);
     console.log("patch", getPatchgroups(values.groups.toString().split(",")));
 
     patchIdpGroups(session, roleName, values.groups.toString().split(","))
@@ -157,17 +148,9 @@ export default function AuthenticatorGroup(props: AuthenticatorGroupProps) {
   };
   const onDataSubmit = (response: RoleGroup[] | null, form: any): void => {
     if (response) {
-      successTypeDialog(
-        toaster,
-        "Changes Saved Successfully",
-        "Group assigned to the role successfully."
-      );
+      successTypeDialog(toaster, "Changes Saved Successfully.");
     } else {
-      errorTypeDialog(
-        toaster,
-        "Error Occured",
-        "Error occured while adding the group. Try again."
-      );
+      errorTypeDialog(toaster, "Error Occured. Try again.");
     }
   };
 
@@ -240,7 +223,6 @@ export default function AuthenticatorGroup(props: AuthenticatorGroupProps) {
         {idpGroups && idpGroups.length > 0 ? (
           <Form
             onSubmit={onSubmit}
-            //validate={validate}
             initialValues={{
               groups: initialAssigneGroups,
             }}
@@ -273,7 +255,7 @@ export default function AuthenticatorGroup(props: AuthenticatorGroupProps) {
         ) : (
           <Stack alignItems="center" direction="column">
             <p style={{ fontSize: 14, marginTop: "20px" }}>
-              {"There are no roles available to assign to this role."}
+              {"There are no groups available to assign to this role."}
             </p>
           </Stack>
         )}

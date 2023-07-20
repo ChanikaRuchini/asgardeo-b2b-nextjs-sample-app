@@ -193,7 +193,7 @@ export default function ManageGroupSectionComponent(
       />
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="column" alignItems="flex-start">
-          <h2>Manage Groups</h2>
+          <h3>Manage Groups</h3>
           <p>Manage groups in the organization</p>
         </Stack>
         <Button appearance="primary" size="lg" onClick={onAddUserClick}>

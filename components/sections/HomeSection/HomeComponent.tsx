@@ -1,4 +1,4 @@
-import { FlexboxGrid, Input, InputGroup, useToaster } from "rsuite";
+import { Input, InputGroup, useToaster } from "rsuite";
 import { Panel, Stack } from "rsuite";
 import styles from "../../../styles/Settings.module.css";
 import { Session } from "next-auth";
@@ -24,58 +24,40 @@ interface HomeComponentProps {
 export default function HomeComponent(prop: HomeComponentProps) {
   const { session } = prop;
   return (
-    <FlexboxGrid
-      align="middle"
-      justify="space-between"
-      style={{ height: "80%" }}
-    >
-      <FlexboxGrid.Item colspan={20}>
-        <div className={styles.getStartedSectionComponentGetStartedTextDiv}>
-          <Panel bordered>
-            <Stack direction="column" spacing={20} justifyContent="center">
-              <Image
-                className={styles.nextLogoImage}
-                src={nextImage}
-                alt="next image"
-              />
-              {/* <Stack direction="column" spacing={10} justifyContent="center">
-                <p>
-                  <strong>
-                    Welcome {session.user?.name.givenName} {}
-                    {session.user?.name.familyName}
-                  </strong>
-                </p>
-              </Stack> */}
-              <h2>Quick Start Pack</h2>
+    <>
+      <div className={styles.getStartedSectionComponentGetStartedTextDiv}>
+        <Panel>
+          <Stack direction="column" spacing={10} justifyContent="center">
+            <Image
+              className={styles.nextLogoImage}
+              src={nextImage}
+              alt="next image"
+            />
+            <h3>Quick Start Pack</h3>
 
-              <p className={styles.getStartedSectionComponentGetStartedTextP}>
-                This is a sample application that demostrates an B2B
-                organization management flow using Asgardeo and next.js
-              </p>
-              <p>
-                <strong>
-                  Welcome {session.user?.name.givenName} {}
-                  {session.user?.name.familyName} !
-                </strong>
-              </p>
-            </Stack>
-          </Panel>
-        </div>
-      </FlexboxGrid.Item>
-      {checkAdmin(session.scope!) && (
-        <FlexboxGrid.Item colspan={20} style={{ marginTop: "50px" }}>
-          <Prerequisite orgId={session.orgId!} />
-        </FlexboxGrid.Item>
-      )}
-    </FlexboxGrid>
+            <p className={styles.getStartedSectionComponentGetStartedTextP}>
+              This is a sample application that demostrates an B2B organization
+              management flow using Asgardeo and next.js
+            </p>
+            <p>
+              <strong>
+                Hello {session.user?.name.givenName} {}
+                {session.user?.name.familyName} !
+              </strong>
+            </p>
+          </Stack>
+        </Panel>
+      </div>
+      {checkAdmin(session.scope!) && <AdminSection orgId={session.orgId!} />}
+    </>
   );
 }
 
-interface PrerequisiteProps {
+interface AdminSectionProps {
   orgId: string;
 }
 
-function Prerequisite(prop: PrerequisiteProps) {
+function AdminSection(prop: AdminSectionProps) {
   const { orgId } = prop;
 
   const toaster = useToaster();

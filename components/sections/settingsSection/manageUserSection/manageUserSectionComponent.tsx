@@ -141,7 +141,7 @@ export default function ManageUserSectionComponent(
 
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="column" alignItems="flex-start">
-          <h2>Manage Users</h2>
+          <h3>Manage Users</h3>
           <p>Manage users in the organization</p>
         </Stack>
         <Button appearance="primary" size="lg" onClick={onAddUserClick}>
@@ -150,7 +150,7 @@ export default function ManageUserSectionComponent(
       </Stack>
 
       {users ? (
-        <Table height={900} data={users}>
+        <Table autoHeight data={users}>
           <Column width={200} align="center">
             <HeaderCell>
               <h6>First Name</h6>

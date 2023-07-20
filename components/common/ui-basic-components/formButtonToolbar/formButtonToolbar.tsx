@@ -29,7 +29,7 @@ export function FormButtonToolbar(props: FormButtonToolbarProps) {
       <ButtonToolbar>
         <Button
           style={{ width: "25%" }}
-          size="lg"
+          size="md"
           appearance="primary"
           type="submit"
           disabled={submitButtonDisabled}
@@ -40,7 +40,7 @@ export function FormButtonToolbar(props: FormButtonToolbarProps) {
         {needCancel ? (
           <Button
             style={{ width: "25%" }}
-            size="lg"
+            size="md"
             appearance="ghost"
             type="button"
             onClick={onCancel}

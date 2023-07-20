@@ -129,7 +129,7 @@ export default function ExternalGroups(props: ExternalGroupProps) {
     const res = await getFederatedAuthenticators(session).then(
       (response: AuthenticatorInterface[] | null) => {
         return Promise.resolve(
-          response?.filter((authenticator: AuthenticatorInterface) => {
+          response!.filter((authenticator: AuthenticatorInterface) => {
             return (
               authenticator.type === "FEDERATED" &&
               authenticator.name !== "Organization Login"
@@ -214,8 +214,6 @@ export default function ExternalGroups(props: ExternalGroupProps) {
   return (
     <Container>
       {authenticatorGroups && authenticatorGroups.length > 0 ? (
-        // <RolesList session={session} rolesList={rolesList} />
-
         <FlexboxGrid
           style={{ height: "60vh", marginTop: "24px", width: "100%" }}
           justify="start"

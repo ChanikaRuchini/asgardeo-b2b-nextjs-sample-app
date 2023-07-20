@@ -130,7 +130,7 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
     <Container>
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="column" alignItems="flex-start">
-          <h2>Identity Providers</h2>
+          <h3>Identity Providers</h3>
           <p>
             Manage identity providers to allow users to log in to your
             application through them.
@@ -140,30 +140,28 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
 
       {idpList ? (
         idpList.length === 0 ? (
-          <FlexboxGrid
-            style={{ height: "60vh", marginTop: "24px", width: "100%" }}
-            justify="center"
-            align="middle"
+          <Stack
+            alignItems="center"
+            direction="column"
+            style={{ marginTop: "30px" }}
           >
-            <Stack alignItems="center" direction="column">
-              <AppSelectIcon
-                style={{ opacity: 0.2 }}
-                width="150px"
-                height="150px"
-              />
-              <p style={{ fontSize: 14, marginTop: "20px" }}>
-                There are no identity providers available at the moment.
-              </p>
-              <Button
-                appearance="primary"
-                onClick={onAddIdentityProviderClick}
-                size="md"
-                style={{ marginTop: "12px" }}
-              >
-                Add Identity Provider
-              </Button>
-            </Stack>
-          </FlexboxGrid>
+            <AppSelectIcon
+              style={{ opacity: 0.2 }}
+              width="150px"
+              height="150px"
+            />
+            <p style={{ fontSize: 14, marginTop: "20px" }}>
+              There are no identity providers available at the moment.
+            </p>
+            <Button
+              appearance="primary"
+              onClick={onAddIdentityProviderClick}
+              size="md"
+              style={{ marginTop: "12px" }}
+            >
+              Add Identity Provider
+            </Button>
+          </Stack>
         ) : (
           <IdentityProviderList
             fetchAllIdPs={fetchAllIdPs}

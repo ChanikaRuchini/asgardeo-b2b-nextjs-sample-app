@@ -65,14 +65,14 @@ export default function RoleManagementSectionComponent(
     <Container>
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="column" alignItems="flex-start">
-          <h2>Role Management</h2>
+          <h3>Role Management</h3>
           <p>Manage Application roles here.</p>
         </Stack>
       </Stack>
 
       {rolesList && rolesList.length > 0 ? (
         <FlexboxGrid
-          style={{ height: "60vh", marginTop: "24px", width: "100%" }}
+          style={{ marginTop: "24px", width: "100%" }}
           justify="start"
           align="top"
         >

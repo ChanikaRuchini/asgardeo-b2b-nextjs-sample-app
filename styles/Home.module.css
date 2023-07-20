@@ -19,6 +19,15 @@
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
+  height: 60%;
+  /* position: fixed; */
+  /* position: fixed; 
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10px; */
+
+
 }
 
 .footer a {
@@ -38,7 +47,7 @@
 
 .mainPanelDiv {
   /* padding-top: 10%; */
-  height: 90vh;
+  min-height: 65vh;
   width: 100%;
   padding: 1rem 5rem;
 }

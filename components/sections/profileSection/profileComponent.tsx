@@ -153,89 +153,70 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
   }
 
   return (
-    <>
+    <div className={stylesSettings.tableMainPanelDiv}>
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="column" alignItems="flex-start">
-          <h2>User Profile</h2>
+          <h3>User Profile</h3>
           <p>Update your profile information</p>
         </Stack>
       </Stack>
-      <FlexboxGrid
-        align="middle"
-        justify="space-between"
-        style={{ height: "100%" }}
-      >
-        <FlexboxGrid.Item colspan={20}>
-          <div className={stylesSettings.addUserMainDiv}>
-            {user ? (
-              <Form
-                onSubmit={onSubmit}
-                validate={validate}
-                initialValues={{
-                  email: user.email,
-                  familyName: user.familyName,
-                  firstName: user.firstName,
-                  username: user.username,
-                }}
-                render={({
-                  handleSubmit,
-                  form,
-                  submitting,
-                  pristine,
-                  errors,
-                }) => (
-                  <FormSuite
-                    layout="vertical"
-                    onSubmit={() => {
-                      handleSubmit();
-                    }}
-                    fluid
-                  >
-                    <FormField
-                      name="firstName"
-                      label="First Name"
-                      helperText="First name of the user."
-                      needErrorMessage={true}
-                    >
-                      <FormSuite.Control name="input" />
-                    </FormField>
 
-                    <FormField
-                      name="familyName"
-                      label="Family Name"
-                      helperText="Family name of the user."
-                      needErrorMessage={true}
-                    >
-                      <FormSuite.Control name="input" />
-                    </FormField>
+      {user ? (
+        <Form
+          onSubmit={onSubmit}
+          validate={validate}
+          initialValues={{
+            email: user.email,
+            familyName: user.familyName,
+            firstName: user.firstName,
+            username: user.username,
+          }}
+          render={({ handleSubmit, form, submitting, pristine, errors }) => (
+            <FormSuite
+              layout="vertical"
+              onSubmit={() => {
+                handleSubmit();
+              }}
+              fluid
+            >
+              <FormField
+                name="firstName"
+                label="First Name"
+                helperText="First name of the user."
+                needErrorMessage={true}
+              >
+                <FormSuite.Control name="input" />
+              </FormField>
 
-                    <FormField
-                      name="email"
-                      label="Email (Username)"
-                      helperText="Email of the user."
-                      needErrorMessage={true}
-                    >
-                      <FormSuite.Control
-                        name="input"
-                        type="email"
-                        readOnly={true}
-                      />
-                    </FormField>
+              <FormField
+                name="familyName"
+                label="Family Name"
+                helperText="Family name of the user."
+                needErrorMessage={true}
+              >
+                <FormSuite.Control name="input" />
+              </FormField>
 
-                    <FormButtonToolbar
-                      submitButtonText="Submit"
-                      needCancel={false}
-                      submitButtonDisabled={
-                        submitting || pristine || !checkIfJSONisEmpty(errors)
-                      }
-                    />
-                  </FormSuite>
-                )}
+              <FormField
+                name="email"
+                label="Email (Username)"
+                helperText="Email of the user."
+                needErrorMessage={true}
+              >
+                <FormSuite.Control name="input" type="email" readOnly={true} />
+              </FormField>
+
+              <FormButtonToolbar
+                submitButtonText="Submit"
+                needCancel={false}
+                submitButtonDisabled={
+                  submitting || pristine || !checkIfJSONisEmpty(errors)
+                }
               />
-            ) : null}
-          </div>
-        </FlexboxGrid.Item>
-      </FlexboxGrid>
-    </>
+            </FormSuite>
+          )}
+        />
+      ) : null}
+    </div>
   );
 }

@@ -1,13 +1,13 @@
 .tableMainPanelDiv {
     display: flex;
-    flex-direction: column;
+   flex-direction: column;
     gap: 40px;
     height: 100%;
 }
 
-.tableMainPanelDiv .rs-table-body-row-wrapper {
+/* .tableMainPanelDiv .rs-table-body-row-wrapper {
     height: 100vh;
-}
+} */
 
 .addUserMainDiv {
     display: flex;

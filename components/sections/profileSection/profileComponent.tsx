@@ -1,21 +1,3 @@
-/**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
- *
- * WSO2 LLC. licenses this file to you under the Apache License,
- * Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
 import { FlexboxGrid, Stack, useToaster } from "rsuite";
 import { Form } from "react-final-form";
 import FormSuite from "rsuite/Form";
@@ -40,22 +22,64 @@ interface ProfileComponentProps {
 
 /**
  *
- * @returns The get started interface section.
+ * @returns The user profile section.
  */
 export default function ProfileSectionComponent(prop: ProfileComponentProps) {
   const { session } = prop;
 
   const toaster = useToaster();
-
   const [user, setUser] = useState<InternalUser | null>();
 
   const fetchData = useCallback(async () => {
-    const res = await controllerCallGetMe(session);
-    console.log("res2", res);
+    const res = await getProfileDetails(session);
     await setUser(res);
   }, [session]);
 
-  async function controllerCallGetMe(
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const validate = (
+    values: Record<string, unknown>
+  ): Record<string, string> => {
+    let errors: Record<string, string> = {};
+
+    errors = fieldValidate("firstName", values.firstName, errors);
+    errors = fieldValidate("familyName", values.familyName, errors);
+    errors = fieldValidate("email", values.email, errors);
+
+    return errors;
+  };
+
+  const onSubmit = async (values: Record<string, unknown>): Promise<void> => {
+    await editProfile(
+      session,
+      values.firstName as string,
+      values.familyName as string,
+      values.email as string
+    ).then((response) => {
+      onDataSubmit(response);
+    });
+  };
+
+  const onDataSubmit = (response: User | null): void => {
+    if (response) {
+      fetchData();
+      successTypeDialog(
+        toaster,
+        "Changes Saved Successfully",
+        "User details edited successfully."
+      );
+    } else {
+      errorTypeDialog(
+        toaster,
+        "Error Occured",
+        "Error occured while editing the user. Try again."
+      );
+    }
+  };
+
+  async function getProfileDetails(
     session: Session
   ): Promise<InternalUser | null> {
     try {
@@ -79,50 +103,6 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
       return null;
     }
   }
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  const validate = (
-    values: Record<string, unknown>
-  ): Record<string, string> => {
-    let errors: Record<string, string> = {};
-
-    errors = fieldValidate("firstName", values.firstName, errors);
-    errors = fieldValidate("familyName", values.familyName, errors);
-    errors = fieldValidate("email", values.email, errors);
-
-    return errors;
-  };
-
-  const onDataSubmit = (response: User | null): void => {
-    if (response) {
-      fetchData();
-      successTypeDialog(
-        toaster,
-        "Changes Saved Successfully",
-        "User details edited successfully."
-      );
-    } else {
-      errorTypeDialog(
-        toaster,
-        "Error Occured",
-        "Error occured while editing the user. Try again."
-      );
-    }
-  };
-
-  const onSubmit = async (values: Record<string, unknown>): Promise<void> => {
-    await editProfile(
-      session,
-      values.firstName as string,
-      values.familyName as string,
-      values.email as string
-    ).then((response) => {
-      onDataSubmit(response);
-    });
-  };
 
   async function editProfile(
     session: Session,
@@ -244,6 +224,7 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
 
                     <FormButtonToolbar
                       submitButtonText="Submit"
+                      needCancel={false}
                       submitButtonDisabled={
                         submitting || pristine || !checkIfJSONisEmpty(errors)
                       }

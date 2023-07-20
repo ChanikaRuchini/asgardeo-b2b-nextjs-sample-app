@@ -1,21 +1,3 @@
-/**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
- *
- * WSO2 LLC. licenses this file to you under the Apache License,
- * Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
 import FormButtonToolbar from "../../../../../../common/ui-basic-components/formButtonToolbar/formButtonToolbar";
 import FormField from "../../../../../../common/ui-basic-components/formField/formField";
 import {
@@ -195,11 +177,8 @@ export default function AddGroupMappingComponent(
                   name="addGroup"
                   label="Assign Groups"
                   helperText="Select groups to assign them to the role."
-                  // needErrorMessage={true}
+                  type="checkbox"
                 >
-                  <></>
-                </FormField>
-                <div>
                   <Table autoHeight data={newGroups}>
                     <Column width={500} align="left">
                       <HeaderCell>
@@ -215,13 +194,15 @@ export default function AddGroupMappingComponent(
                                 event: React.SyntheticEvent<HTMLInputElement>
                               ) => {
                                 if (checked) {
-                                  setCheckedGroups((prevUsers) => [
-                                    ...prevUsers,
+                                  setCheckedGroups((prevGroups) => [
+                                    ...prevGroups,
                                     rowData as InternalGroup,
                                   ]);
                                 } else {
-                                  setCheckedGroups((prevUsers) =>
-                                    prevUsers.filter((user) => user !== rowData)
+                                  setCheckedGroups((prevGroups) =>
+                                    prevGroups.filter(
+                                      (group) => group !== rowData
+                                    )
                                   );
                                 }
                               }}
@@ -233,7 +214,7 @@ export default function AddGroupMappingComponent(
                       </Cell>
                     </Column>
                   </Table>
-                </div>
+                </FormField>
                 <br />
                 <FormButtonToolbar
                   submitButtonText="Submit"

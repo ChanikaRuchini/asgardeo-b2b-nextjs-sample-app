@@ -1,21 +1,3 @@
-/**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
- *
- * WSO2 LLC. licenses this file to you under the Apache License,
- * Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
 import FormButtonToolbar from "../../../../common/ui-basic-components/formButtonToolbar/formButtonToolbar";
 import {
   errorTypeDialog,
@@ -33,7 +15,6 @@ interface DeleteGroupComponentProps {
   open: boolean;
   onClose: () => void;
   group: InternalGroup;
-  getGroups: () => Promise<void>;
 }
 
 /**
@@ -43,7 +24,7 @@ interface DeleteGroupComponentProps {
  * @returns Modal form to delete the group
  */
 export default function DeleteGroupComponent(prop: DeleteGroupComponentProps) {
-  const { session, open, onClose, group, getGroups } = prop;
+  const { session, open, onClose, group } = prop;
   const toaster = useToaster();
 
   const onGroupDelete = (response: boolean | null): void => {
@@ -62,7 +43,7 @@ export default function DeleteGroupComponent(prop: DeleteGroupComponentProps) {
     deleteGroup(session, group?.id)
       .then((response) => onGroupDelete(response))
       .finally(() => {
-        getGroups().finally();
+        //getGroups().finally();
       });
 
     onClose();
@@ -113,7 +94,7 @@ export default function DeleteGroupComponent(prop: DeleteGroupComponentProps) {
       <Modal.Body>
         <Form
           onSubmit={onSubmit}
-          render={({ handleSubmit, form, submitting, pristine, errors }) => (
+          render={({ handleSubmit }) => (
             <FormSuite layout="vertical" onSubmit={onSubmit} fluid>
               <FormButtonToolbar
                 submitButtonText="Delete"

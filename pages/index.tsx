@@ -15,8 +15,6 @@ export default function Home() {
   const { data: session, status } = useSession();
   const [derivedAuthenticationState, setDerivedAuthenticationState] =
     useState<DerivedState>();
-
-  // useEffect(() => {
   //   const idToken = session?.user?.idToken;
 
   //   if (status === "authenticated" && idToken) {

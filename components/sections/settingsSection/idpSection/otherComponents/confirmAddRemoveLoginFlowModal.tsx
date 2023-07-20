@@ -1,21 +1,3 @@
-/**
- * Copyright (c) 2022, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
- *
- * WSO2 LLC. licenses this file to you under the Apache License,
- * Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
 import {
   errorTypeDialog,
   successTypeDialog,
@@ -96,7 +78,6 @@ export default function ConfirmAddRemoveLoginFlowModal(
   } = props;
 
   const toaster: Toaster = useToaster();
-
   const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
 
   const onSuccess = (): void => {
@@ -142,7 +123,6 @@ export default function ConfirmAddRemoveLoginFlowModal(
     patchApplicationAuthMethod: boolean
   ): Promise<void> => {
     setLoadingDisplay(LOADING_DISPLAY_BLOCK);
-
     patchApplicationAuthSteps(
       session,
       applicationDetail,
@@ -228,46 +208,34 @@ export default function ConfirmAddRemoveLoginFlowModal(
   ): AuthenticationSequence {
     const authenticationSequenceModel =
       getAuthenticationSequenceModel(template);
-
     if (method) {
-      authenticationSequenceModel.steps[0].options = [
-        getAuthenticatorBody(idpTempleteId, idpName),
-      ];
+      authenticationSequenceModel.steps[0].options.push(
+        getAuthenticatorBody(idpTempleteId, idpName)
+      );
 
       return authenticationSequenceModel;
     } else {
-      let basicCheck = false;
-
       for (let j = authenticationSequenceModel.steps.length - 1; j >= 0; j--) {
         const step = authenticationSequenceModel.steps[j];
-
         for (let i = 0; i < step.options.length; i++) {
           if (step.options[i].idp === idpName) {
-            step.options.splice(i, 1);
-            if (step.options.length === 0) {
+            authenticationSequenceModel.steps[j].options.splice(i, 1);
+            if (
+              authenticationSequenceModel.steps[j].options.length === 0 &&
+              j === 0
+            ) {
+              authenticationSequenceModel.steps[0].options.push(
+                getAuthenticatorBody(BASIC_ID, "LOCAL")
+              );
+            } else if (
+              authenticationSequenceModel.steps[j].options.length === 0
+            ) {
               authenticationSequenceModel.steps.splice(j, 1);
             }
-
             break;
-          } else if (step.options[i].authenticator === "BasicAuthenticator") {
-            basicCheck = true;
           }
         }
       }
-
-      if (!basicCheck) {
-        try {
-          authenticationSequenceModel.steps[0].options.push(
-            getAuthenticatorBody(BASIC_ID, "LOCAL")
-          );
-        } catch (e) {
-          authenticationSequenceModel.steps.push({
-            id: 1,
-            options: [getAuthenticatorBody(BASIC_ID, "LOCAL")],
-          });
-        }
-      }
-
       return authenticationSequenceModel;
     }
   }
@@ -284,6 +252,7 @@ export default function ConfirmAddRemoveLoginFlowModal(
     const authenticationSequenceModel = template.authenticationSequence;
 
     delete authenticationSequenceModel.requestPathAuthenticators;
+
     authenticationSequenceModel.type = "USER_DEFINED";
 
     return authenticationSequenceModel;
@@ -415,7 +384,6 @@ function EmptySelectApplicationBody() {
  */
 function ApplicationListAvailable(props: ApplicationListAvailableProps) {
   const { idpIsinAuthSequence, applicationDetail } = props;
-
   return (
     <div>
       {idpIsinAuthSequence ? (

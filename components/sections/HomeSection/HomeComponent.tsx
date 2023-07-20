@@ -1,21 +1,3 @@
-/**
- * Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com). All Rights Reserved.
- *
- * WSO2 LLC. licenses this file to you under the Apache License,
- * Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
 import { FlexboxGrid, Input, InputGroup, useToaster } from "rsuite";
 import { Panel, Stack } from "rsuite";
 import styles from "../../../styles/Settings.module.css";
@@ -49,11 +31,8 @@ export default function HomeComponent(prop: HomeComponentProps) {
     >
       <FlexboxGrid.Item colspan={20}>
         <div className={styles.getStartedSectionComponentGetStartedTextDiv}>
-          <Panel
-            bordered
-            className={styles.getStartedSectionComponentGetStartedTextPanel}
-          >
-            <Stack direction="column" spacing={40} justifyContent="center">
+          <Panel bordered>
+            <Stack direction="column" spacing={20} justifyContent="center">
               <Image
                 className={styles.nextLogoImage}
                 src={nextImage}
@@ -67,7 +46,7 @@ export default function HomeComponent(prop: HomeComponentProps) {
                   </strong>
                 </p>
               </Stack> */}
-              <h1>Quick Start Pack</h1>
+              <h2>Quick Start Pack</h2>
 
               <p className={styles.getStartedSectionComponentGetStartedTextP}>
                 This is a sample application that demostrates an B2B
@@ -84,7 +63,7 @@ export default function HomeComponent(prop: HomeComponentProps) {
         </div>
       </FlexboxGrid.Item>
       {checkAdmin(session.scope!) && (
-        <FlexboxGrid.Item colspan={20}>
+        <FlexboxGrid.Item colspan={20} style={{ marginTop: "50px" }}>
           <Prerequisite orgId={session.orgId!} />
         </FlexboxGrid.Item>
       )}

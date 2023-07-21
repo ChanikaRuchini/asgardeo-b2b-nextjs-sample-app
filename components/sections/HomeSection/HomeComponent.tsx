@@ -42,8 +42,9 @@ export default function HomeComponent(prop: HomeComponentProps) {
             <p>
               <strong>
                 Hello {session.user?.name.givenName} {}
-                {session.user?.name.familyName} !
+                {session.user?.name.familyName} !!
               </strong>
+              <strong> Welcome to the {session.orgName} organization !!</strong>
             </p>
           </Stack>
         </Panel>

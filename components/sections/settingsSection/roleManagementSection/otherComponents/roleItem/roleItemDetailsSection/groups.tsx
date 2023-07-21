@@ -221,7 +221,7 @@ export default function Groups(props: GroupProps) {
 
       <div>
         <Button
-          size="xs"
+          size="sm"
           appearance="primary"
           style={{
             marginTop: "40px",

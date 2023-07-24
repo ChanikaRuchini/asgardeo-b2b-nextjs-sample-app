@@ -36,9 +36,9 @@ export function hideBasedOnScopes(
 ): Record<string, string> {
   const scopesList: string[] = scopes.split(/\s+/);
 
-  console.log("scopeslist", scopesList);
+  // console.log("scopeslist", scopesList);
 
-  console.log("itemScopes", itemScopes);
+  // console.log("itemScopes", itemScopes);
 
   switch (sideNavType) {
     case "item":

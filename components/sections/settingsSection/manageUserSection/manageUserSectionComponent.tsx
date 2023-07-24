@@ -150,65 +150,67 @@ export default function ManageUserSectionComponent(
       </Stack>
 
       {users ? (
-        <Table autoHeight data={users}>
-          <Column width={200} align="center">
-            <HeaderCell>
-              <h6>First Name</h6>
-            </HeaderCell>
-            <Cell dataKey="firstName" />
-          </Column>
+        <div>
+          <Table autoHeight data={users} style={{ marginTop: "20px" }}>
+            <Column width={200} align="center">
+              <HeaderCell>
+                <h6>First Name</h6>
+              </HeaderCell>
+              <Cell dataKey="firstName" />
+            </Column>
 
-          <Column width={200} align="center">
-            <HeaderCell>
-              <h6>Last Name</h6>
-            </HeaderCell>
-            <Cell dataKey="familyName" />
-          </Column>
+            <Column width={200} align="center">
+              <HeaderCell>
+                <h6>Last Name</h6>
+              </HeaderCell>
+              <Cell dataKey="familyName" />
+            </Column>
 
-          <Column flexGrow={2} align="center">
-            <HeaderCell>
-              <h6>Email (Username)</h6>
-            </HeaderCell>
-            <Cell dataKey="email" />
-          </Column>
+            <Column flexGrow={2} align="center">
+              <HeaderCell>
+                <h6>Email (Username)</h6>
+              </HeaderCell>
+              <Cell dataKey="email" />
+            </Column>
 
-          <Column flexGrow={1} align="center" fixed="right">
-            <HeaderCell>
-              <h6>Edit User</h6>
-            </HeaderCell>
+            <Column flexGrow={1} align="center" fixed="right">
+              <HeaderCell>
+                <h6>Edit User</h6>
+              </HeaderCell>
 
-            <Cell>
-              {(rowData) => (
-                <span>
-                  <a
-                    onClick={() => onEditClick(rowData as InternalUser)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <EditIcon />
-                  </a>
-                </span>
-              )}
-            </Cell>
-          </Column>
-          <Column flexGrow={1} align="center" fixed="right">
-            <HeaderCell>
-              <h6>Delete User</h6>
-            </HeaderCell>
+              <Cell>
+                {(rowData) => (
+                  <span>
+                    <a
+                      onClick={() => onEditClick(rowData as InternalUser)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <EditIcon />
+                    </a>
+                  </span>
+                )}
+              </Cell>
+            </Column>
+            <Column flexGrow={1} align="center" fixed="right">
+              <HeaderCell>
+                <h6>Delete User</h6>
+              </HeaderCell>
 
-            <Cell>
-              {(rowData) => (
-                <span>
-                  <a
-                    onClick={() => onDeleteClick(rowData as InternalUser)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <TrashIcon />
-                  </a>
-                </span>
-              )}
-            </Cell>
-          </Column>
-        </Table>
+              <Cell>
+                {(rowData) => (
+                  <span>
+                    <a
+                      onClick={() => onDeleteClick(rowData as InternalUser)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <TrashIcon />
+                    </a>
+                  </span>
+                )}
+              </Cell>
+            </Column>
+          </Table>
+        </div>
       ) : null}
     </div>
   );

@@ -202,8 +202,8 @@ export default function ManageGroupSectionComponent(
       </Stack>
 
       {groups ? (
-        <div style={{ height: "900", overflow: "auto" }}>
-          <Table autoHeight data={groups}>
+        <div>
+          <Table autoHeight data={groups} style={{ marginTop: "20px" }}>
             <Column width={200} align="center">
               <HeaderCell>
                 <h6>Group</h6>

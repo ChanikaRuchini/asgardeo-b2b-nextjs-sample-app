@@ -32,7 +32,6 @@ export function NavBarComponent(prop: SidenavComponentProps) {
         <Nav activeKey={activeKeySideNav}>
           {sideNavConfigList.items.map((item: SideNavItem) => {
             if (item.items) {
-              console.log("hide", item.hideBasedOnScope);
               return (
                 <Nav.Menu
                   className={styles["navItem"]}
@@ -45,7 +44,7 @@ export function NavBarComponent(prop: SidenavComponentProps) {
                   }
                   key={item.eventKey}
                 >
-                  {/* {item.items.map((item) => (
+                  {item.items.map((item) => (
                     <Nav.Item
                       key={item.eventKey}
                       eventKey={item.eventKey}
@@ -61,16 +60,9 @@ export function NavBarComponent(prop: SidenavComponentProps) {
                           : {}
                       }
                     >
-                      <Stack spacing={10}>
-                        {item.title}
-                        {item.new ? (
-                          <Tag>
-                            <b>NEW</b>
-                          </Tag>
-                        ) : null}
-                      </Stack>
+                      <Stack spacing={10}>{item.title}</Stack>
                     </Nav.Item>
-                  ))} */}
+                  ))}
                 </Nav.Menu>
               );
             } else {
@@ -90,14 +82,7 @@ export function NavBarComponent(prop: SidenavComponentProps) {
                       : {}
                   }
                 >
-                  <Stack spacing={10}>
-                    {item.title}
-                    {item.new ? (
-                      <Tag>
-                        <b>NEW</b>
-                      </Tag>
-                    ) : null}
-                  </Stack>
+                  <Stack spacing={10}>{item.title}</Stack>
                 </Nav.Item>
               );
             }

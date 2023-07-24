@@ -7,7 +7,7 @@ import HomeComponent from "./HomeSection/HomeComponent";
 import IdpSectionComponent from "./settingsSection/idpSection/idpSectionComponent";
 import ManageUserSectionComponent from "./settingsSection/manageUserSection/manageUserSectionComponent";
 import RoleManagementSectionComponent from "./settingsSection/roleManagementSection/roleManagementSectionComponent";
-import sidenavData from "../../components/common/navBarComponent/data/sideNav.json";
+import NavData from "../../components/common/navBarComponent/data/nav.json";
 import Custom500 from "../../pages/500";
 import ProfileSectionComponent from "./profileSection/profileComponent";
 import styles from "../../styles/Home.module.css";
@@ -38,13 +38,13 @@ export default function Home(props: HomeProps): JSX.Element {
         return <HomeComponent session={session} />;
       case "2":
         return <ProfileSectionComponent session={session} />;
-      case "3":
+      case "3-1":
         return <ManageUserSectionComponent session={session} />;
-      case "4":
+      case "3-2":
         return <ManageGroupSectionComponent session={session} />;
-      case "5":
+      case "3-3":
         return <RoleManagementSectionComponent session={session} />;
-      case "6":
+      case "3-4":
         return <IdpSectionComponent session={session} />;
       default:
         return <HomeComponent session={session} />;
@@ -69,7 +69,7 @@ export default function Home(props: HomeProps): JSX.Element {
         <div className={styles["mainDiv"]}>
           <NavBarComponent
             scope={session.scope}
-            sideNavData={sidenavData}
+            sideNavData={NavData}
             activeKeySideNav={activeKeySideNav}
             activeKeySideNavSelect={activeKeySideNavSelect}
             setSignOutModalOpen={signOutModalOpen}

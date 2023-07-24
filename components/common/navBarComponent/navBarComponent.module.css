@@ -10,9 +10,8 @@
 }
 .navItem {
     align-items: center;
-   
-    width: 100%;
-    position: fixed; 
+    position:relative; 
+    float: left;
 }
 
 

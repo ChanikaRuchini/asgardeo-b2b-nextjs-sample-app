@@ -11,6 +11,7 @@
   "dependencies": {
     "next": "13.4.8",
     "next-auth": "^4.22.1",
+    "next-with-less": "^3.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-final-form": "^6.5.9",

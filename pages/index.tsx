@@ -54,7 +54,6 @@ export default function Home() {
             appearance="primary"
             size="lg"
             type="button"
-            color="blue"
             style={{ marginTop: "25px", width: "30%" }}
             onClick={() => handleLogin()}
           >

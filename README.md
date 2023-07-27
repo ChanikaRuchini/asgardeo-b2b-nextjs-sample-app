@@ -71,16 +71,16 @@ NEXT_PUBLIC_HOSTED_URL="http://localhost:3000"
 NEXT_PUBLIC_ASGARDEO_BASE_ORGANIZATION_URL="https://api.asgardeo.io/t/guardioinc"
 
 # The client ID for the Asgardeo Shared Application
-SHARED_APP_CLIENT_ID="hc1BV_BojHmkJKnXULYBrFJxBBoa"
+SHARED_APP_CLIENT_ID="<CLIENT ID OF THE CREATED APP>"
 
 # The client Secret for the Asgardeo Shared Application
-SHARED_APP_CLIENT_SECRET="bpREfGwGftilekSOT3NldDLwFW4a"
+SHARED_APP_CLIENT_SECRET=<CLIENT SECRET OF CREATED APP>
 
 # The name of the Asgardeo Shared Application
 SHARED_APPICATION_NAME="Guardio-Admin-App"
 
 # The app id of the Asgardeo Shared Application
-SHARED_APP_ID="c8f53312-e4f2-4b2a-83a6-63952d68428a"
+SHARED_APP_ID="< ID OF THE CREATED APP>"
 
 # Scopes
 API_SCOPES="openid email profile internal_login internal_user_mgt_view internal_user_mgt_list internal_user_mgt_update internal_user_mgt_delete internal_user_mgt_create internal_idp_view internal_idp_create internal_idp_update internal_idp_delete internal_application_mgt_view internal_application_mgt_update internal_application_mgt_create internal_application_mgt_delete internal_organization_view internal_role_mgt_view internal_role_mgt_create internal_role_mgt_update internal_role_mgt_delete internal_group_mgt_update internal_group_mgt_view internal_group_mgt_create internal_group_mgt_delete internal_governance_view internal_governance_update"

@@ -19,8 +19,7 @@ export default async function deleteUser(req: NextApiRequest, res: NextApiRespon
             `${getOrgUrl(orgId)}/scim2/Users/${id}`,
             requestOptionsWithBody(session, RequestMethod.DELETE, null)
         );
-
-        res.status(200).json(fetchData);
+        res.status(fetchData.status).end();
     } catch (err) {
         
         return dataNotRecievedError(res);

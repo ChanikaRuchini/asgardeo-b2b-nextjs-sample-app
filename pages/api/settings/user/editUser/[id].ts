@@ -31,9 +31,14 @@ export default async function editUser(req: NextApiRequest, res: NextApiResponse
         );
         
         const data = await fetchData.json();
-        console.log("datatiiiiiiiiiiiiii",fetchData);
-        console.log("------------------------------------");
-      //  console.log("datataaaaaaaa",data);
+        if (fetchData.status >= 200 && fetchData.status < 300) {
+            res.status(fetchData.status).json(data);
+        } else {
+            return res.status(data.status).json({
+                error: true,
+                msg: data.detail
+            })
+        }
         res.status(200).json(data);
     } catch (err) {
 

@@ -29,6 +29,7 @@ import FormSuite from "rsuite/Form";
 import styles from "../../../../../styles/Settings.module.css";
 import RequestMethod from "../../../../../models/api/requestMethod";
 import { ValueType } from "rsuite/esm/Radio";
+import { ApiError } from "../../../../../utils/api-util/apiErrors";
 
 interface AddUserComponentProps {
   session: Session;
@@ -91,15 +92,19 @@ export default function AddUserComponent(props: AddUserComponentProps) {
     }
   };
 
-  const onDataSubmit = (response: User | null, form: any): void => {
+  const onDataSubmit = (response: User | ApiError | null, form: any): void => {
     if (response) {
-      successTypeDialog(
-        toaster,
-        "Changes Saved Successfully",
-        "User add to the organization successfully."
-      );
-      form.restart();
-      onClose();
+      if (response.error) {
+        errorTypeDialog(toaster, "Error Occured", response.msg as string);
+      } else {
+        successTypeDialog(
+          toaster,
+          "Changes Saved Successfully",
+          "User add to the organization successfully."
+        );
+        form.restart();
+        onClose();
+      }
     } else {
       errorTypeDialog(
         toaster,
@@ -133,7 +138,7 @@ export default function AddUserComponent(props: AddUserComponentProps) {
     familyName: string,
     email: string,
     password: string
-  ): Promise<User | null> {
+  ): Promise<User | ApiError | null> {
     try {
       const addUserEncode: SendUser = getAddUserBody(
         inviteConst,

@@ -28,11 +28,15 @@ export default async function addUser(req: NextApiRequest, res: NextApiResponse)
             requestOptionsWithBody(session, RequestMethod.POST, user)
         );
         const data = await fetchData.json();
-        console.log("dataaaaa",fetchData.status);
-
-        res.status(fetchData.status).json(data);
+        if (fetchData.status >= 200 && fetchData.status < 300) {
+            res.status(fetchData.status).json(data);
+        } else {
+            return res.status(data.status).json({
+                error: true,
+                msg: data.detail
+            })
+    }
     } catch (err) {
-
         return dataNotRecievedError(res);
     }
 }

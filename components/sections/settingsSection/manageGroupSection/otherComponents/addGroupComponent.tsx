@@ -24,6 +24,7 @@ import {
 } from "../../../../../models/group/group";
 import RequestMethod from "../../../../../models/api/requestMethod";
 import { RowDataType } from "rsuite/esm/Table";
+import { ApiError } from "../../../../../utils/api-util/apiErrors";
 
 interface AddGroupComponentProps {
   session: Session;
@@ -58,15 +59,26 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
     return errors;
   };
 
-  const onDataSubmit = (response: boolean | AddedGroup, form: any): void => {
+  const onDataSubmit = (
+    response: AddedGroup | ApiError | null,
+    form: any
+  ): void => {
     if (response) {
-      successTypeDialog(
-        toaster,
-        "Changes Saved Successfully",
-        "Group added to the organization successfully."
-      );
-      form.restart();
-      onClose();
+      if ((response as ApiError).error) {
+        errorTypeDialog(
+          toaster,
+          "Error Occured",
+          (response as ApiError).msg as string
+        );
+      } else {
+        successTypeDialog(
+          toaster,
+          "Changes Saved Successfully",
+          "Group added to the organization successfully."
+        );
+        form.restart();
+        onClose();
+      }
     } else {
       errorTypeDialog(
         toaster,
@@ -94,7 +106,7 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
   async function addGroup(
     session: Session,
     group: SendGroup
-  ): Promise<AddedGroup | boolean> {
+  ): Promise<AddedGroup | ApiError | null> {
     try {
       const body = {
         orgId: session ? session.orgId : null,
@@ -111,7 +123,7 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
 
       return data;
     } catch (err) {
-      return false;
+      return null;
     }
   }
 

@@ -26,12 +26,15 @@ export default async function listAllRoles(req: NextApiRequest, res: NextApiResp
             requestOptions(session)
         );
         const data = await fetchData.json();
-        console.log(data);
-
-        res.status(200).json(data);
+        if (fetchData.status >= 200 && fetchData.status < 300) {
+            res.status(fetchData.status).json(data);
+        } else {
+            return res.status(data.status).json({
+                error: true,
+                msg: data.detail
+            })
+        }
     } catch (err) {
-        console.log(err);
-
         return dataNotRecievedError(res);
     }
 }

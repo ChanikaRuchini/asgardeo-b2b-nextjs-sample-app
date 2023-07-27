@@ -3,7 +3,7 @@
 }
 
 .navBar {
-    padding-left: 100px;
+    padding-left: 40px;
     width: 100%;
     position: fixed;
 
@@ -12,8 +12,9 @@
     align-items: center;
     position:relative; 
     float: left;
+    border-radius: 5px;
+    padding: 0px;
 }
-
 
 .signOutButtonDiv {
     display: flex;

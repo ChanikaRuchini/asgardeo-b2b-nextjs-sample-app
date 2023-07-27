@@ -27,8 +27,15 @@ export default async function listAllApplications(req: NextApiRequest, res: Next
         );
         const data = await fetchData.json();
 
-        res.status(200).json(data);
-    } catch (err) {
+        if (fetchData.status >= 200 && fetchData.status < 300) {
+            res.status(fetchData.status).json(data);
+        } else {
+            return res.status(data.status).json({
+                error: true,
+                msg: data.detail
+            })
+        }
+        } catch (err) {
         return dataNotRecievedError(res);
     }
 }

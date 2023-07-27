@@ -43,16 +43,13 @@ export function hideBasedOnScopes(
   switch (sideNavType) {
     case "item":
       if (hideBasesdOnScopesSideNavItems(scopesList, itemScopes as string[])) {
-        console.log("11111111111111");
         return LOADING_DISPLAY_BLOCK;
       } else {
-        console.log("22222222222222");
         return LOADING_DISPLAY_NONE;
       }
 
     case "menu": {
       let check: Record<string, string> = LOADING_DISPLAY_NONE;
-      console.log("44444444444444");
       if (sideNavItems) {
         for (let i = 0; i < sideNavItems.length; i++) {
           if (

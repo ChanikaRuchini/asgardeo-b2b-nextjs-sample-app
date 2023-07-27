@@ -1,26 +1,26 @@
 import { NextApiResponse } from "next";
 
-interface Error404Interface {
+export interface ApiError {
     error: boolean,
     msg: string
 }
 
-function error404(res: NextApiResponse, msg: Error404Interface | string) {
+function error500(res: NextApiResponse, msg: ApiError | string) {
 
-    return res.status(404).json(msg);
+    return res.status(500).json(msg);
 }
 
 export function notPostError(res: NextApiResponse) {
 
-    return error404(res, "Cannot request data directyly.");
+    return error500(res, "Cannot request data directyly.");
 }
 
 export function dataNotRecievedError(res: NextApiResponse) {
 
-    return error404(res, {
+    return error500(res, {
         error: true,
         msg: "Error occured when requesting data."
     });
 }
 
-export default { dataNotRecievedError, notPostError };
+export default { dataNotRecievedError, notPostError};

@@ -20,7 +20,6 @@ export default async function deleteIdentityProvider(req: NextApiRequest, res: N
     const body = JSON.parse(req.body);
     const session = body.session;
     const orgId = body.orgId;
-
     const id = req.query.id;
 
     try {

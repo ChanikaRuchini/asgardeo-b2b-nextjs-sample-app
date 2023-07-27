@@ -19,8 +19,7 @@ export default async function deleteGroup(req: NextApiRequest, res: NextApiRespo
             `${getOrgUrl(orgId)}/scim2/Groups/${groupId}`,
             requestOptionsWithBody(session, RequestMethod.DELETE, null)
         );
-
-        res.status(200).json(fetchData);
+        res.status(fetchData.status).end();
     } catch (err) {
         
         return dataNotRecievedError(res);

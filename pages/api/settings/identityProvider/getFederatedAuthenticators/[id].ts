@@ -32,8 +32,15 @@ export default async function getFederatedAuthenticators(req: NextApiRequest, re
         const data = await fetchData.json();
         console.log("data",data);
 
-        res.status(200).json(data);
-    } catch (err) {
+        if (fetchData.status >= 200 && fetchData.status < 300) {
+            res.status(fetchData.status).json(data);
+        } else {
+            return res.status(data.status).json({
+                error: true,
+                msg: data.detail
+            })
+        }
+        } catch (err) {
 
         return dataNotRecievedError(res);
     }

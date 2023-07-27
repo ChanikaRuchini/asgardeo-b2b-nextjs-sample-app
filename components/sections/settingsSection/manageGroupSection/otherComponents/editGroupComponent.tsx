@@ -31,6 +31,7 @@ import {
   sendMemberList,
 } from "../../../../../models/group/group";
 import { InternalUser, User } from "../../../../../models/user/user";
+import { ApiError } from "../../../../../utils/api-util/apiErrors";
 
 interface EditGroupComponentProps {
   session: Session;
@@ -133,37 +134,28 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
     return errors;
   };
 
-  const onDataSubmit = (response: Group | null, form: any): void => {
+  const onDataSubmit = (response: Group | ApiError | null, form: any): void => {
     if (response) {
-      successTypeDialog(
-        toaster,
-        "Changes Saved Successfully",
-        "Group added to the organization successfully."
-      );
-      form.restart();
-      onClose();
+      if ((response as ApiError).error) {
+        errorTypeDialog(
+          toaster,
+          "Error Occured",
+          (response as ApiError).msg as string
+        );
+      } else {
+        successTypeDialog(
+          toaster,
+          "Changes Saved Successfully",
+          "Group details updated successfully."
+        );
+        form.restart();
+        onClose();
+      }
     } else {
       errorTypeDialog(
         toaster,
         "Error Occured",
-        "Error occured while adding the group. Try again."
-      );
-    }
-  };
-
-  const onRolesSubmit = (response: boolean): void => {
-    if (response) {
-      successTypeDialog(
-        toaster,
-        "Changes Saved Successfully",
-        "Group details edited successfully."
-      );
-      onClose();
-    } else {
-      warningTypeDialog(
-        toaster,
-        "Groups not Properly Updated",
-        "Error occured while updating the groups. Try again."
+        "Error occured while updaing the group. Try again."
       );
     }
   };
@@ -190,7 +182,7 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
     patchMethod: PatchMethod,
     path: string,
     value: string
-  ): Promise<Group | null> {
+  ): Promise<Group | ApiError | null> {
     const editGroupName: SendEditGroupName = {
       Operations: [
         {

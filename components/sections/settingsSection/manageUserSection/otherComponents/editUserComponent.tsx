@@ -17,6 +17,7 @@ import {
   SendEditUser,
   User,
 } from "../../../../../models/user/user";
+import { ApiError } from "../../../../../utils/api-util/apiErrors";
 
 interface EditUserComponentProps {
   session: Session;
@@ -49,15 +50,19 @@ export default function EditUserComponent(prop: EditUserComponentProps) {
     return errors;
   };
 
-  const onDataSubmit = (response: User | null, form: any): void => {
+  const onDataSubmit = (response: User | ApiError | null, form: any): void => {
     if (response) {
-      successTypeDialog(
-        toaster,
-        "Changes Saved Successfully",
-        "User details edited successfully."
-      );
-      form.restart();
-      onClose();
+      if (response.error) {
+        errorTypeDialog(toaster, "Error Occured", response.msg as string);
+      } else {
+        successTypeDialog(
+          toaster,
+          "Changes Saved Successfully",
+          "User details edited successfully."
+        );
+        form.restart();
+        onClose();
+      }
     } else {
       errorTypeDialog(
         toaster,

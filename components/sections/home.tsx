@@ -69,6 +69,7 @@ export default function Home(props: HomeProps): JSX.Element {
         <div className={styles["mainDiv"]}>
           <NavBarComponent
             scope={session.scope}
+            loggedUser={session.user?.emails?.at(0)!}
             sideNavData={NavData}
             activeKeySideNav={activeKeySideNav}
             activeKeySideNavSelect={activeKeySideNavSelect}

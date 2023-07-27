@@ -21,6 +21,7 @@ import {
   errorTypeDialog,
   successTypeDialog,
 } from "../../../../../../common/dialogComponent/dialogComponent";
+import { ApiError } from "../../../../../../../utils/api-util/apiErrors";
 
 interface AuthenticatorGroupProps {
   session: Session;
@@ -146,9 +147,20 @@ export default function AuthenticatorGroup(props: AuthenticatorGroupProps) {
         fetchIdpGroups().finally();
       });
   };
-  const onDataSubmit = (response: RoleGroup[] | null, form: any): void => {
+  const onDataSubmit = (
+    response: RoleGroup[] | ApiError | null,
+    form: any
+  ): void => {
     if (response) {
-      successTypeDialog(toaster, "Changes Saved Successfully.");
+      if ((response as ApiError).error) {
+        errorTypeDialog(
+          toaster,
+          "Error Occured",
+          (response as ApiError).msg as string
+        );
+      } else {
+        successTypeDialog(toaster, "Changes Saved Successfully.");
+      }
     } else {
       errorTypeDialog(toaster, "Error Occured. Try again.");
     }
@@ -158,7 +170,7 @@ export default function AuthenticatorGroup(props: AuthenticatorGroupProps) {
     session: Session,
     roleName: string,
     patchGroups: string[]
-  ): Promise<RoleGroup[] | null> {
+  ): Promise<RoleGroup[] | ApiError | null> {
     try {
       const body = {
         orgId: session ? session.orgId : null,

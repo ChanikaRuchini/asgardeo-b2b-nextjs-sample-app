@@ -27,10 +27,16 @@ export default async function viewUsersInGroup(req: NextApiRequest, res: NextApi
             `${getOrgUrl(orgId)}/scim2/Users?domain=DEFAULT&filter=groups+eq+${group}`,
             requestOptions(session)
         );
-        const users = await fetchData.json();
+        const data = await fetchData.json();
         
-        res.status(200).json(users);
-    } catch (err) {
+        if (fetchData.status >= 200 && fetchData.status < 300) {
+            res.status(fetchData.status).json(data);
+        } else {
+            return res.status(data.status).json({
+                error: true,
+                msg: data.detail
+            })
+        }    } catch (err) {
 
         return dataNotRecievedError(res);
     }

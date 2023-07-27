@@ -25,10 +25,16 @@ export default async function viewGroups(req: NextApiRequest, res: NextApiRespon
             `${getOrgUrl(orgId)}/scim2/Groups?excludedAttributes=members`,
             requestOptions(session)
         );
-        const groups = await fetchData.json();
+        const data = await fetchData.json();
         
-        res.status(200).json(groups);
-    } catch (err) {
+        if (fetchData.status >= 200 && fetchData.status < 300) {
+            res.status(fetchData.status).json(data);
+        } else {
+            return res.status(data.status).json({
+                error: true,
+                msg: data.detail
+            })
+        }    } catch (err) {
 
         return dataNotRecievedError(res);
     }

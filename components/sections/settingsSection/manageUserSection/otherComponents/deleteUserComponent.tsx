@@ -63,12 +63,10 @@ export default function DeleteUserComponent(prop: DeleteUserComponentProps) {
         method: RequestMethod.POST,
       };
       const res = await fetch(`/api/settings/user/deleteUser/${id}`, request);
-      const data = await res.json();
-
-      if (data) {
+      if (res.ok) {
         return true;
       }
-      return null;
+      return false;
     } catch (err) {
       return null;
     }

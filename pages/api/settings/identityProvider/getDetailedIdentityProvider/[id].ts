@@ -28,8 +28,15 @@ export default async function getDetailedIdentityProvider(req: NextApiRequest, r
             requestOptions(session)
         );
         const data = await fetchData.json();
+        if (fetchData.status >= 200 && fetchData.status < 300) {
+            res.status(fetchData.status).json(data);
+        } else {
+            return res.status(data.status).json({
+                error: true,
+                msg: data.detail
+            })
+        }
 
-        res.status(200).json(data);
     } catch (err) {
 
         return dataNotRecievedError(res);

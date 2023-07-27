@@ -21,6 +21,7 @@ import { InternalGroup } from "../../../../../../../models/group/group";
 import RequestMethod from "../../../../../../../models/api/requestMethod";
 import { encodeRoleGroup } from "../../../../../../../utils/roleUtils";
 import { RowDataType } from "rsuite/esm/Table";
+import { ApiError } from "../../../../../../../utils/api-util/apiErrors";
 
 interface AddGroupMappingComponentProps {
   session: Session;
@@ -53,15 +54,26 @@ export default function AddGroupMappingComponent(
   console.log("group mapping", roleGroups);
   console.log("groups", groups);
 
-  const onDataSubmit = (response: RoleGroupList | null, form: any): void => {
+  const onDataSubmit = (
+    response: RoleGroupList | ApiError | null,
+    form: any
+  ): void => {
     if (response) {
-      successTypeDialog(
-        toaster,
-        "Changes Saved Successfully",
-        "Group added to the organization successfully."
-      );
-      form.restart();
-      onClose();
+      if ((response as ApiError).error) {
+        errorTypeDialog(
+          toaster,
+          "Error Occured",
+          (response as ApiError).msg as string
+        );
+      } else {
+        successTypeDialog(
+          toaster,
+          "Changes Saved Successfully",
+          "Group added to the organization successfully."
+        );
+        form.restart();
+        onClose();
+      }
     } else {
       errorTypeDialog(
         toaster,
@@ -96,7 +108,7 @@ export default function AddGroupMappingComponent(
     session: Session,
     roleName: string,
     groupMapping: InternalRoleGroup[]
-  ): Promise<RoleGroupList | null> {
+  ): Promise<RoleGroupList | ApiError | null> {
     try {
       const patchBody: PatchGroupMapping = {
         added_groups: getEncodedRoleGroups(groupMapping),

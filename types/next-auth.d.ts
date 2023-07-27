@@ -1,4 +1,4 @@
-import { User } from "@b2bsample/shared/data-access/data-access-common-models-util";
+import { User } from "./../models/user/user";
 import { Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
 

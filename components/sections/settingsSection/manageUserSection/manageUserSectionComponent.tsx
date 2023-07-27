@@ -10,6 +10,7 @@ import RequestMethod from "../../../../models/api/requestMethod";
 import EditIcon from "@rsuite/icons/Edit";
 import TrashIcon from "@rsuite/icons/Trash";
 import DeleteUserComponent from "./otherComponents/deleteUserComponent";
+import { ApiError } from "../../../../utils/api-util/apiErrors";
 
 interface ManageUserSectionComponentProps {
   session: Session;

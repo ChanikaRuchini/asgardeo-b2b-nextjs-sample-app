@@ -197,9 +197,19 @@ export default function ButtonGroupIdentityProviderDetails(
   return (
     <Stack justifyContent="flex-end" alignItems="stretch">
       {idpIsinAuthSequence === null ? null : idpIsinAuthSequence ? (
-        <Button onClick={onAddToLoginFlowClick}>Remove from Login Flow</Button>
+        <Button
+          style={{ borderRadius: "50px" }}
+          onClick={onAddToLoginFlowClick}
+        >
+          Remove from Login Flow
+        </Button>
       ) : (
-        <Button onClick={onAddToLoginFlowClick}>Add to the Login Flow</Button>
+        <Button
+          style={{ borderRadius: "50px" }}
+          onClick={onAddToLoginFlowClick}
+        >
+          Add to the Login Flow
+        </Button>
       )}
 
       <ConfirmAddRemoveLoginFlowModal

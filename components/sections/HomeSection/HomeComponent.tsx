@@ -9,8 +9,6 @@ import {
 } from "../../../utils/util-common/common";
 import { getUrl } from "../../../utils/application-config-util/applicationConfigUtil";
 import CopyIcon from "@rsuite/icons/Copy";
-import nextImage from "../../../public/next.svg";
-import Image from "next/image";
 import { checkAdmin } from "../../../utils/application-config-util/applicationConfigUtil";
 
 interface HomeComponentProps {
@@ -28,12 +26,7 @@ export default function HomeComponent(prop: HomeComponentProps) {
       <div className={styles.getStartedSectionComponentGetStartedTextDiv}>
         <Panel>
           <Stack direction="column" spacing={10} justifyContent="center">
-            <Image
-              className={styles.nextLogoImage}
-              src={nextImage}
-              alt="next image"
-            />
-            <h3>Quick Start Pack</h3>
+            <h2>Quick Start Pack</h2>
 
             <p className={styles.getStartedSectionComponentGetStartedTextP}>
               This is a sample application that demostrates an B2B organization

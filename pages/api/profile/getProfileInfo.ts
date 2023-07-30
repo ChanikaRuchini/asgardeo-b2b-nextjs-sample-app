@@ -1,4 +1,4 @@
-import { dataNotRecievedError, notPostError } from "../../../utils/api-util/apiErrors";
+import { dataNotRecievedError } from "../../../utils/api-util/apiErrors";
 import { requestOptions } from "../../../utils/api-util/apiRequestOptions"
 import { getMeEnpointUrl } from "../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -12,9 +12,12 @@ import { NextApiRequest, NextApiResponse } from "next";
  * @returns correct data if the call is successful, else an error message
  */
 export default async function getProfileInfo(req: NextApiRequest, res: NextApiResponse) {
+
+    console.log("aaaaaaaaaaaaa");
     if (req.method !== "POST") {
-        notPostError(res);
+        dataNotRecievedError(res);
     }
+    console.log("bbbbbbbbbbbbbbbb");
 
     const body = JSON.parse(req.body);
     const session = body.session;

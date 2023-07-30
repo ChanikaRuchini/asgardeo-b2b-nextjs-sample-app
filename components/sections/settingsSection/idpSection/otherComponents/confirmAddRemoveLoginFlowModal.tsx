@@ -318,14 +318,14 @@ export default function ConfirmAddRemoveLoginFlowModal(
       <Modal.Footer>
         <Button
           onClick={idpIsinAuthSequence ? onRemove : onAdd}
-          className={stylesSettings.addUserButton}
+          className={stylesSettings.addButton}
           appearance="primary"
         >
           Confirm
         </Button>
         <Button
           onClick={onModalClose}
-          className={stylesSettings.addUserButton}
+          className={stylesSettings.addButton}
           appearance="ghost"
         >
           Cancel

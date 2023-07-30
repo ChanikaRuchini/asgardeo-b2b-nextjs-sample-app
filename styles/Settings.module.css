@@ -5,10 +5,6 @@
     height: 100%;
 }
 
-/* .tableMainPanelDiv .rs-table-body-row-wrapper {
-    height: 100vh;
-} */
-
 .addUserMainDiv {
     display: flex;
     overflow: hidden;
@@ -17,8 +13,9 @@
     margin-bottom: 10px;
 }
 
-.addUserButton{
+.addButton{
     width: 25%;
+    border-radius: 50px;
 }
 
 .nextLogoImage {
@@ -98,3 +95,6 @@
     width: 100px;
 }
   
+.modal {
+    border-radius: 5px;
+}

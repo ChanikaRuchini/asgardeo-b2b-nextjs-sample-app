@@ -1,5 +1,6 @@
 import { Button, ButtonToolbar } from "rsuite";
 import FormSuite from "rsuite/Form";
+import styles from "../../../../styles/common.module.css";
 
 export interface FormButtonToolbarProps {
   submitButtonText?: string;
@@ -28,7 +29,7 @@ export function FormButtonToolbar(props: FormButtonToolbarProps) {
     <FormSuite.Group>
       <ButtonToolbar>
         <Button
-          style={{ width: "25%" }}
+          className={styles.formButton}
           size="md"
           appearance="primary"
           type="submit"
@@ -39,7 +40,7 @@ export function FormButtonToolbar(props: FormButtonToolbarProps) {
 
         {needCancel ? (
           <Button
-            style={{ width: "25%" }}
+            className={styles.formButton}
             size="md"
             appearance="ghost"
             type="button"

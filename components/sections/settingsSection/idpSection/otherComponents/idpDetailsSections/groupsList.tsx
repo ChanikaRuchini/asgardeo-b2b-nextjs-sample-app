@@ -117,7 +117,12 @@ export default function GroupsList(props: GroupsListProps) {
         <Stack direction="column" alignItems="flex-start">
           <h6>Manage groups of the identity provider</h6>
         </Stack>
-        <Button appearance="primary" size="md" onClick={onAddGroupClick}>
+        <Button
+          style={{ borderRadius: "50px" }}
+          appearance="primary"
+          size="md"
+          onClick={onAddGroupClick}
+        >
           + New Group
         </Button>
       </Stack>

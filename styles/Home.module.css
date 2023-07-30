@@ -4,12 +4,13 @@
 
 .main {
   min-height: 90vh;
-  padding: 4rem 5rem;
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+   gap: 70px;
+  width: 100vw;
+  padding-top: 70px;
 }
 
 .mainDiv {
@@ -21,28 +22,33 @@
 }
 
 .mainPanelDiv {
-  min-height: 65vh;
+  min-height: 70vh;
   width: 100%;
   padding: 1rem 5rem;
 }
 
 .grid {
   display: flex;
-  /* grid-template-columns: repeat(4, minmax(25%, auto)); */
+  grid-template-columns: repeat(4, minmax(25%, auto));
   width: var(--max-width);
   max-width: 100%;
+  margin-top: 10px;
+
 }
 
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+
+.card {
+  float: left;
+  padding: 5px;
+  margin-left: 1%;
+  text-align: center;
+  border: 1px solid #1591EB;
+  min-height: 180px;
 }
 
-.card h2 {
-  margin: 0 0 0.7rem 0;
-  font-size: 1rem;
+.card h3{
+  font-size: medium;
+  color: #1591EB;
   font-weight: 500;
 }
 
@@ -52,14 +58,26 @@
   font-size: 0.8rem;
   line-height: 1.5;
   max-width: 30ch;
+  margin-bottom: 10px;
 }
 
+.card a{
+  text-decoration: none;
+  color: #1591EB;
+  font-size: 0.8rem;
+}
 
 .signInDiv {
-  width: 50vw;
+  width: 100vw;
   display: flex;
   align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
   flex: 1;
+}
+
+.signInButton {
+  margin-top: 25px;
+  width: 20%;
+  border-radius: 50px;
 }

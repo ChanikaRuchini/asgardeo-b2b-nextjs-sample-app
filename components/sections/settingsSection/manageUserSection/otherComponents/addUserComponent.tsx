@@ -215,6 +215,7 @@ export default function AddUserComponent(props: AddUserComponentProps) {
 
   return (
     <Modal
+      className={styles.modal}
       backdrop="static"
       role="alertdialog"
       open={open}

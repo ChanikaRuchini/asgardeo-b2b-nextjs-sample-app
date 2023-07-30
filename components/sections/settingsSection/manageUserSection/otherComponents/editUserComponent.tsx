@@ -124,7 +124,7 @@ export default function EditUserComponent(prop: EditUserComponentProps) {
       };
       const request = {
         body: JSON.stringify(body),
-        method: RequestMethod.POST,
+        method: RequestMethod.PATCH,
       };
 
       const res = await fetch(`/api/settings/user/editUser/${id}`, request);

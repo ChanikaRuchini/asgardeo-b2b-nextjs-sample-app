@@ -1,19 +1,19 @@
-import { requestOptionsWithBody } from "../../../../../utils/api-util/apiRequestOptions";
-import { getRolesEnpointUrl } from "../../../../../utils/application-config-util/applicationConfigUtil";
+import { requestOptionsWithBody } from "../../../../utils/api-util/apiRequestOptions";
+import { getRolesEnpointUrl } from "../../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
-import RequestMethod from "../../../../../models/api/requestMethod";
-import { dataNotRecievedError, notPostError } from "../../../../../utils/api-util/apiErrors";
+import RequestMethod from "../../../../models/api/requestMethod";
+import { dataNotRecievedError } from "../../../../utils/api-util/apiErrors";
 
 export default async function PatchGroupMappings(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== "POST") {
-        notPostError(res);
+    if (req.method !== "PATCH") {
+        dataNotRecievedError(res);
     }
 
     const body = JSON.parse(req.body);
     const session = body.session;
     const orgId = body.orgId;
     const patchBody = body.param;
-    const name = req.query.name;
+    const name = body.role;
 
     try {
        

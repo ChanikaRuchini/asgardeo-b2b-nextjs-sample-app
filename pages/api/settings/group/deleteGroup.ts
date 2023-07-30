@@ -2,11 +2,11 @@ import { requestOptionsWithBody } from "../../../../utils/api-util/apiRequestOpt
 import RequestMethod from "../../../../models/api/requestMethod";
 import { getOrgUrl } from "../../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
-import { dataNotRecievedError, notPostError } from "../../../../utils/api-util/apiErrors";
+import { dataNotRecievedError } from "../../../../utils/api-util/apiErrors";
 
 export default async function deleteGroup(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== "POST") {
-        notPostError(res);
+    if (req.method !== "DELETE") {
+        dataNotRecievedError(res);
     }
 
     const body = JSON.parse(req.body);

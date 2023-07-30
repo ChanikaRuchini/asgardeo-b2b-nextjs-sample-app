@@ -87,13 +87,17 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
         orgId: session ? session.orgId : null,
         session: session,
       };
+      console.log("aaaaaaaaaa", body);
       const request = {
         body: JSON.stringify(body),
         method: RequestMethod.POST,
       };
+      console.log("bbbbbbbbbbbbbb", request);
 
       const res = await fetch(`/api/profile/getProfileInfo`, request);
       const usersData = await res.json();
+      console.log("ccccccccccccccccccc", usersData);
+
       if (usersData) {
         const userDetails = decodeUser(usersData);
         return userDetails;

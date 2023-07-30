@@ -201,7 +201,7 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
 
     const request = {
       body: JSON.stringify(body),
-      method: RequestMethod.POST,
+      method: RequestMethod.PATCH,
     };
     const res = await fetch(
       `/api/settings/group/patchGroupName?groupId=${groupId}`,
@@ -236,7 +236,7 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
 
       const request = {
         body: JSON.stringify(body),
-        method: RequestMethod.POST,
+        method: RequestMethod.PATCH,
       };
       const res = await fetch(
         `/api/settings/group/patchGroupMembers?groupId=${groupId}`,

@@ -52,6 +52,7 @@ export default function Groups(props: GroupProps) {
     try {
       const body = {
         orgId: session ? session.orgId : null,
+        role: name,
         session: session,
       };
 
@@ -59,10 +60,7 @@ export default function Groups(props: GroupProps) {
         body: JSON.stringify(body),
         method: RequestMethod.POST,
       };
-      const res = await fetch(
-        `/api/settings/role/groupMappings/${name}`,
-        request
-      );
+      const res = await fetch(`/api/settings/role/groupMapping`, request);
       const data = await res.json();
       if (data) {
         const groupsReturn: InternalRoleGroup[] = [];
@@ -225,8 +223,8 @@ export default function Groups(props: GroupProps) {
           appearance="primary"
           style={{
             marginTop: "40px",
-            width: "25%",
-            alignItems: "center",
+            marginLeft: "50px",
+            borderRadius: "50px",
           }}
           onClick={onAddClick}
         >

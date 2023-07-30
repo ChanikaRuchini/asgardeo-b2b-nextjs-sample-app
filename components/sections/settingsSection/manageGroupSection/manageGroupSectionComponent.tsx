@@ -196,7 +196,12 @@ export default function ManageGroupSectionComponent(
           <h3>Manage Groups</h3>
           <p>Manage groups in the organization</p>
         </Stack>
-        <Button appearance="primary" size="lg" onClick={onAddUserClick}>
+        <Button
+          style={{ borderRadius: "50px" }}
+          appearance="primary"
+          size="md"
+          onClick={onAddUserClick}
+        >
           + New Group
         </Button>
       </Stack>

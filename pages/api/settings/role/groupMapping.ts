@@ -1,17 +1,17 @@
-import { requestOptions } from "../../../../../utils/api-util/apiRequestOptions";
-import { getRolesEnpointUrl } from "../../../../../utils/application-config-util/applicationConfigUtil";
+import { requestOptions } from "../../../../utils/api-util/apiRequestOptions";
+import { getRolesEnpointUrl } from "../../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
-import { dataNotRecievedError, notPostError } from "../../../../../utils/api-util/apiErrors";
+import { dataNotRecievedError } from "../../../../utils/api-util/apiErrors";
 
 export default async function GroupMappings(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") {
-        notPostError(res);
+        dataNotRecievedError(res);
     }
     const body = JSON.parse(req.body);
     const session = body.session;
     const orgId = body.orgId;
 
-    const name = req.query.name;
+    const name = body.role;
 
     try {
         const fetchData = await fetch(

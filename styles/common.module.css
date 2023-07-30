@@ -1,0 +1,55 @@
+.errorMainContent {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p {
+  text-align: center;
+}
+
+
+.footer {
+  background: #F7F8FB;
+  position: fixed;
+  bottom: 0;
+  justify-content: center;
+  width: 100%;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #000;
+  font-size: small;
+}
+
+.footer p {
+  font-size: small;
+  justify-content: center;
+  display: flex;
+
+}
+
+.navDiv {
+  width: 100%;
+}
+
+.navBar {
+  padding-left: 40px;
+  width: 100%;
+  position: fixed;
+
+}
+.navItem {
+  align-items: center;
+  position:relative; 
+  float: left;
+  border-radius: 5px;
+  padding: 0px;
+}
+
+.formButton{
+  width: 25%;
+  border-radius: 50px;
+}

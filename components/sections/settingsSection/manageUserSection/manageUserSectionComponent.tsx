@@ -10,7 +10,6 @@ import RequestMethod from "../../../../models/api/requestMethod";
 import EditIcon from "@rsuite/icons/Edit";
 import TrashIcon from "@rsuite/icons/Trash";
 import DeleteUserComponent from "./otherComponents/deleteUserComponent";
-import { ApiError } from "../../../../utils/api-util/apiErrors";
 
 interface ManageUserSectionComponentProps {
   session: Session;
@@ -145,7 +144,12 @@ export default function ManageUserSectionComponent(
           <h3>Manage Users</h3>
           <p>Manage users in the organization</p>
         </Stack>
-        <Button appearance="primary" size="lg" onClick={onAddUserClick}>
+        <Button
+          style={{ borderRadius: "50px" }}
+          appearance="primary"
+          size="md"
+          onClick={onAddUserClick}
+        >
           Add User
         </Button>
       </Stack>

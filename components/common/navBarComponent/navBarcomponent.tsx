@@ -1,11 +1,10 @@
 import Image from "next/image";
-
 import SideNavItem from "../../../models/sideNav/sideNavItem";
 import SideNavList from "../../../models/sideNav/sideNavList";
 import { hideBasedOnScopes } from "../../../utils/front-end-util/frontendUtil";
 import { Navbar, Nav, Button, Stack, Tag } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
-import styles from "./navBarComponent.module.css";
+import styles from "../../../styles/common.module.css";
 import logo from "../../../public/asgardeo-logo-transparent.png";
 
 export interface SidenavComponentProps {
@@ -34,7 +33,7 @@ export function NavBarComponent(prop: SidenavComponentProps) {
     <div className={styles["navDiv"]}>
       <Navbar appearance="default" className={styles["navBar"]}>
         <Navbar.Brand href="https://wso2.com/asgardeo/">
-          <Image src={logo} width={100} alt="404 image" />
+          <Image src={logo} width={100} alt="logo" />
         </Navbar.Brand>
         <Nav activeKey={activeKeySideNav}>
           {sideNavConfigList.items.map((item: SideNavItem) => {
@@ -98,7 +97,12 @@ export function NavBarComponent(prop: SidenavComponentProps) {
         <Nav pullRight style={{ marginRight: "50px" }}>
           <Nav.Item>
             <p style={{ marginRight: "10px", color: "black" }}>{loggedUser}</p>
-            <Button size="md" appearance="ghost" onClick={signOutOnClick}>
+            <Button
+              style={{ borderRadius: "50px" }}
+              size="md"
+              appearance="ghost"
+              onClick={signOutOnClick}
+            >
               Sign Out
             </Button>
           </Nav.Item>

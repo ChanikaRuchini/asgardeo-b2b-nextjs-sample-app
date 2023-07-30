@@ -114,23 +114,20 @@ export default function AddGroupMappingComponent(
         added_groups: getEncodedRoleGroups(groupMapping),
         removed_groups: [],
       };
-      console.log("body", patchBody);
 
       const body = {
         orgId: session ? session.orgId : null,
+        role: roleName,
         param: patchBody,
         session: session,
       };
 
       const request = {
         body: JSON.stringify(body),
-        method: RequestMethod.POST,
+        method: RequestMethod.PATCH,
       };
 
-      const res = await fetch(
-        `/api/settings/role/patchGroupMappings/${roleName}`,
-        request
-      );
+      const res = await fetch(`/api/settings/role/patchGroupMapping`, request);
       const data = await res.json();
       return data;
     } catch (err) {

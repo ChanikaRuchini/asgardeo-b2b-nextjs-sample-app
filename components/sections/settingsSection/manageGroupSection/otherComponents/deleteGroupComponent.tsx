@@ -60,7 +60,7 @@ export default function DeleteGroupComponent(prop: DeleteGroupComponentProps) {
       };
       const request = {
         body: JSON.stringify(body),
-        method: RequestMethod.POST,
+        method: RequestMethod.DELETE,
       };
       const res = await fetch(
         `/api/settings/group/deleteGroup?groupId=${id}`,

@@ -60,7 +60,7 @@ export default function DeleteUserComponent(prop: DeleteUserComponentProps) {
       };
       const request = {
         body: JSON.stringify(body),
-        method: RequestMethod.POST,
+        method: RequestMethod.DELETE,
       };
       const res = await fetch(`/api/settings/user/deleteUser/${id}`, request);
       if (res.ok) {

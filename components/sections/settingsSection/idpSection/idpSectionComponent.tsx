@@ -157,7 +157,7 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
               appearance="primary"
               onClick={onAddIdentityProviderClick}
               size="md"
-              style={{ marginTop: "12px" }}
+              style={{ marginTop: "12px", borderRadius: "50px" }}
             >
               Add Identity Provider
             </Button>

@@ -1,4 +1,4 @@
-import { dataNotRecievedError, notPostError } from "../../../../../utils/api-util/apiErrors";
+import { dataNotRecievedError } from "../../../../../utils/api-util/apiErrors";
 import { requestOptions } from "../../../../../utils/api-util/apiRequestOptions";
 import { getOrgUrl } from "../../../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -13,7 +13,7 @@ import { NextApiRequest, NextApiResponse } from "next";
  */
 export default async function getIdentityProviderGroups(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") {
-        notPostError(res);
+        dataNotRecievedError(res);
     }
 
     const body = JSON.parse(req.body);

@@ -1,5 +1,5 @@
 import RequestMethod from "../../../models/api/requestMethod";
-import { dataNotRecievedError, notPostError } from "../../../utils/api-util/apiErrors";
+import { dataNotRecievedError } from "../../../utils/api-util/apiErrors";
 import { requestOptions, requestOptionsWithBody } from "../../../utils/api-util/apiRequestOptions"
 import { getMeEnpointUrl } from "../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -14,7 +14,7 @@ import { NextApiRequest, NextApiResponse } from "next";
  */
 export default async function updateProfileInfo(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") {
-        notPostError(res);
+        dataNotRecievedError(res);
     }
 
     const body = JSON.parse(req.body);

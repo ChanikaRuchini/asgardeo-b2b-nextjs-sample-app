@@ -1,6 +1,6 @@
 import { getHostedUrl } from "../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
-import { dataNotRecievedError, notPostError } from "../../../utils/api-util/apiErrors";
+import { dataNotRecievedError } from "../../../utils/api-util/apiErrors";
 
 /**
  * 
@@ -78,7 +78,7 @@ const getSwitchEndpoint = (): string => `${process.env.NEXT_PUBLIC_ASGARDEO_BASE
 export default async function switchOrg(req: NextApiRequest, res: NextApiResponse) {
 
     if (req.method !== "POST") {
-        notPostError(res);
+        dataNotRecievedError(res);
     }
 
     const body = JSON.parse(req.body);

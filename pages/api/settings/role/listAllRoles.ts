@@ -1,7 +1,7 @@
 import { requestOptions } from "../../../../utils/api-util/apiRequestOptions";
 import { getRolesEnpointUrl } from "../../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
-import { dataNotRecievedError, notPostError } from "../../../../utils/api-util/apiErrors";
+import { dataNotRecievedError } from "../../../../utils/api-util/apiErrors";
 
 /**
  * backend API call to list all roles.
@@ -13,7 +13,7 @@ import { dataNotRecievedError, notPostError } from "../../../../utils/api-util/a
  */
 export default async function listAllRoles(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") {
-        notPostError(res);
+        dataNotRecievedError(res);
     }
 
     const body = JSON.parse(req.body);

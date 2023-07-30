@@ -9,12 +9,6 @@ function error500(res: NextApiResponse, msg: ApiError | string) {
 
     return res.status(500).json(msg);
 }
-
-// export function notPostError(res: NextApiResponse) {
-
-//     return error500(res, "Cannot request data directyly.");
-// }
-
 export function dataNotRecievedError(res: NextApiResponse) {
 
     return error500(res, {

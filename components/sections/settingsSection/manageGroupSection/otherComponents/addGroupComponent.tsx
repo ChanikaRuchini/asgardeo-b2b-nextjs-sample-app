@@ -12,11 +12,18 @@ import {
 import { Session } from "next-auth";
 import { useEffect, useState } from "react";
 import { Form } from "react-final-form";
-import { Checkbox, Loader, Modal, Table, useToaster } from "rsuite";
+import {
+  CheckPicker,
+  Checkbox,
+  Loader,
+  Modal,
+  Table,
+  useToaster,
+} from "rsuite";
 import FormSuite from "rsuite/Form";
 import styles from "../../../../../styles/Settings.module.css";
 import { fieldValidate } from "../../../../../utils/front-end-util/frontendUtil";
-import { InternalUser } from "../../../../../models/user/user";
+import { InternalUser, UserList } from "../../../../../models/user/user";
 import {
   AddedGroup,
   Member,
@@ -33,6 +40,11 @@ interface AddGroupComponentProps {
   onClose: () => void;
 }
 
+interface UserData {
+  label: string;
+  value: string;
+}
+
 /**
  *
  * @param prop - session, open (whether modal open or close), onClose (on modal close)
@@ -45,8 +57,14 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
   const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
   const [checkedUsers, setCheckedUsers] = useState<InternalUser[]>([]);
 
-  const { Column, HeaderCell, Cell } = Table;
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
+  const handleCheckPickerChange = (values: string[]) => {
+    setSelectedValues(values);
+  };
+
+  const { Column, HeaderCell, Cell } = Table;
+  selectedValues;
   const toaster = useToaster();
 
   const validate = (
@@ -91,14 +109,46 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
 
   useEffect(() => {
     setCheckedUsers([]);
-  }, []);
+    // if (users) {
+    //   const data = users!.map((item) => ({
+    //     label: item.email!,
+    //     value: item.email!,
+    //   }));
+    //   setUserList(data);
+    //   console.log("data", data);
+    // }
+  }, [session]);
+
+  const getInitialAssignedUserEmails = (users: InternalUser[]): string[] => {
+    if (users) {
+      return users.map((user) => user.email || "");
+    }
+
+    return [];
+  };
+
+  const getAssignedUsers = (emails: string[]): InternalUser[] => {
+    if (emails) {
+      return emails
+        .map((email) => {
+          const user = users.find((user) => user.email === email);
+          return user ? user : null;
+        })
+        .filter((user) => user !== null) as InternalUser[];
+    }
+
+    return [];
+  };
 
   const onSubmit = async (
     values: Record<string, string>,
     form: any
   ): Promise<void> => {
     setLoadingDisplay(LOADING_DISPLAY_BLOCK);
-    addGroup(session, getSendGroupData(checkedUsers, values.groupName))
+    addGroup(
+      session,
+      getSendGroupData(getAssignedUsers(selectedValues), values.groupName)
+    )
       .then((response) => onDataSubmit(response, form))
       .finally(() => setLoadingDisplay(LOADING_DISPLAY_NONE));
   };
@@ -160,27 +210,58 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
                 <FormField
                   name="groupName"
                   label="Group Name"
-                  helperText="A name for the group. Can contain between 3 to 30 
+                  helperText="Group name can contain between 3 to 30 
                                     alphanumeric characters, dashes (-), and underscores (_)."
                   needErrorMessage={true}
                 >
                   <FormSuite.Control name="input" />
                 </FormField>
-
                 <FormField
-                  name="addUsers"
-                  label="Add Users"
-                  helperText="Select users to add them to the user group."
-                  needErrorMessage={true}
+                  name="editUsers"
+                  label="Assign Users"
+                  needErrorMessage={false}
                 >
                   <></>
                 </FormField>
+
+                {/* <FormField name="users" label="" needErrorMessage={false}>
+                  <FormSuite.Control name="checkPicker" accepter={CheckPicker}>
+                    {users ? (
+                      <div>
+                        <CheckPicker
+                          label="User"
+                          data={userList}
+                          style={{ width: 224 }}
+                          value={selectedValues}
+                          onChange={handleCheckPickerChange}
+                        />
+                      </div>
+                    ) : null}
+                  </FormSuite.Control>
+                </FormField> */}
+
                 {users ? (
+                  <div>
+                    <CheckPicker
+                      label="User"
+                      data={users!.map((item) => ({
+                        label: item.email!,
+                        value: item.email!,
+                      }))}
+                      style={{ width: 224 }}
+                      value={selectedValues}
+                      onChange={handleCheckPickerChange}
+                      labelKey="label"
+                    />
+                  </div>
+                ) : null}
+
+                {/* {users ? (
                   <div>
                     <Table autoHeight data={users}>
                       <Column width={500} align="left">
                         <HeaderCell>
-                          <h6>Users</h6>
+                          <h6>Asign Users</h6>
                         </HeaderCell>
                         <Cell dataKey="email">
                           {(rowData: RowDataType<InternalUser>) => {
@@ -216,7 +297,7 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
                       </Column>
                     </Table>
                   </div>
-                ) : null}
+                ) : null} */}
                 <br />
                 <FormButtonToolbar
                   submitButtonText="Submit"

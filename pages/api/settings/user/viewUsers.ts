@@ -25,17 +25,20 @@ export default async function viewUsers(req: NextApiRequest, res: NextApiRespons
             `${getOrgUrl(orgId)}/scim2/Users`,
             requestOptions(session)
         );
+        console.log("fetch", fetchData.status);
         const data = await fetchData.json();
+        console.log("data", data);
 
         if (fetchData.status >= 200 && fetchData.status < 300) {
             res.status(fetchData.status).json(data);
         } else {
-            return res.status(data.status).json({
+            return res.status(fetchData.status).json({
                 error: true,
                 msg: data.detail
             })
         }
     } catch (err) {
+        console.log("err",err);
         return dataNotRecievedError(res);
     }
 }

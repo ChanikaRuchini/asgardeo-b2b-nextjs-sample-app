@@ -231,6 +231,7 @@ export default function AddUserComponent(props: AddUserComponentProps) {
 
       <Modal.Body>
         <div className={styles.addUserMainDiv}>
+          <div style={{paddingRight:"20px"}}>
           <Form
             onSubmit={onSubmit}
             validate={validate}
@@ -245,7 +246,6 @@ export default function AddUserComponent(props: AddUserComponentProps) {
                 <FormField
                   name="firstName"
                   label="First Name"
-                  helperText="First name of the user."
                   needErrorMessage={true}
                 >
                   <FormSuite.Control name="input" />
@@ -254,18 +254,14 @@ export default function AddUserComponent(props: AddUserComponentProps) {
                 <FormField
                   name="familyName"
                   label="Family Name"
-                  helperText="Family name of the user."
                   needErrorMessage={true}
                 >
                   <FormSuite.Control name="input" />
                 </FormField>
 
-                <Divider />
-
                 <FormField
                   name="email"
                   label="Email (Username)"
-                  helperText="Email of the user."
                   needErrorMessage={true}
                 >
                   <FormSuite.Control name="input" type="email" />
@@ -297,7 +293,6 @@ export default function AddUserComponent(props: AddUserComponentProps) {
                     <FormField
                       name="password"
                       label="Password"
-                      helperText="Password of the user."
                       needErrorMessage={true}
                     >
                       <FormSuite.Control
@@ -310,7 +305,6 @@ export default function AddUserComponent(props: AddUserComponentProps) {
                     <FormField
                       name="repassword"
                       label="Re enter password"
-                      helperText="Re enter the password of the user."
                       needErrorMessage={true}
                     >
                       <FormSuite.Control
@@ -333,6 +327,7 @@ export default function AddUserComponent(props: AddUserComponentProps) {
               </FormSuite>
             )}
           />
+        </div>
         </div>
       </Modal.Body>
 

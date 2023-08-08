@@ -175,26 +175,36 @@ export default function Groups(props: GroupProps) {
         />
       ) : null}
       <div>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            size="sm"
+            appearance="primary"
+            style={{ borderRadius: "50px" }}
+            onClick={onAddClick}
+          >
+            Assign Groups
+          </Button>
+        </div>
         {groupMappings ? (
           <div style={{ height: "900", overflow: "auto" }}>
             <Table autoHeight data={groupMappings}>
-              <Column width={200} align="center">
+              <Column width={200}>
                 <HeaderCell>
                   <h6>Group</h6>
                 </HeaderCell>
                 <Cell dataKey="name" />
               </Column>
 
-              <Column width={200} align="center">
+              <Column width={200}>
                 <HeaderCell>
                   <h6>User Store</h6>
                 </HeaderCell>
                 <Cell dataKey="userstore" />
               </Column>
 
-              <Column flexGrow={1} align="center" fixed="right">
+              <Column flexGrow={1} fixed="right">
                 <HeaderCell>
-                  <h6>Delete Group</h6>
+                  <h6></h6>
                 </HeaderCell>
 
                 <Cell>
@@ -215,21 +225,6 @@ export default function Groups(props: GroupProps) {
             </Table>
           </div>
         ) : null}
-      </div>
-
-      <div>
-        <Button
-          size="sm"
-          appearance="primary"
-          style={{
-            marginTop: "40px",
-            marginLeft: "50px",
-            borderRadius: "50px",
-          }}
-          onClick={onAddClick}
-        >
-          Assign Groups
-        </Button>
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ export default async function listCurrentApplication(req: NextApiRequest, res: N
         if (fetchData.status >= 200 && fetchData.status < 300) {
             res.status(fetchData.status).json(data);
         } else {
-            return res.status(data.status).json({
+            return res.status(fetchData.status).json({
                 error: true,
                 msg: data.detail
             })

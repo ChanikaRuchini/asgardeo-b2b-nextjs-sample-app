@@ -197,7 +197,6 @@ export default function ExternalIdentityProvider(
             <FormField
               name="application_name"
               label="Name"
-              helperText="Name of the identity provider."
               needErrorMessage={true}
             >
               <FormSuite.Control name="input" />
@@ -205,7 +204,6 @@ export default function ExternalIdentityProvider(
             <FormField
               name="client_id"
               label="Client Id"
-              helperText="Client id of the identity provider."
               needErrorMessage={true}
             >
               <FormSuite.Control name="input" />
@@ -213,7 +211,6 @@ export default function ExternalIdentityProvider(
             <FormField
               name="client_secret"
               label="Client Secret"
-              helperText="Client secret of the identity provider."
               needErrorMessage={true}
             >
               <FormSuite.Control name="input" />

@@ -26,18 +26,20 @@ export default function HomeComponent(prop: HomeComponentProps) {
       <div className={styles.getStartedSectionComponentGetStartedTextDiv}>
         <Panel>
           <Stack direction="column" spacing={10} justifyContent="center">
-            <h2>Quick Start Pack</h2>
+            <h3>
+              Hello&nbsp;
+              <strong>
+                {session.user?.name.givenName} {}
+                {session.user?.name.familyName},
+              </strong>
+              &nbsp; Welcome to the
+              <strong> {session.orgName} </strong>organization !!
+            </h3>
+            <h4>Quick Start Boilerplate App</h4>
 
             <p className={styles.getStartedSectionComponentGetStartedTextP}>
-              This is a sample application that demostrates an B2B organization
+              This is a sample application that demostrates B2B organization
               management flow using Asgardeo and next.js
-            </p>
-            <p>
-              <strong>
-                Hello {session.user?.name.givenName} {}
-                {session.user?.name.familyName} !!
-              </strong>
-              <strong> Welcome to the {session.orgName} organization !!</strong>
             </p>
           </Stack>
         </Panel>

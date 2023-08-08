@@ -115,7 +115,7 @@ export default function SettingsFormSelection(
           );
         })
       ) : (
-        <p>Access the console to edit this identity provider</p>
+        <p>Access the console to edit this connection</p>
       )}
     </>
   );

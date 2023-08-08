@@ -91,13 +91,13 @@ export default function ConfirmAddRemoveLoginFlowModal(
       successTypeDialog(
         toaster,
         "Success",
-        "Identity Provider Add to the Login Flow Successfully."
+        "Connection Added to the Login Flow Successfully."
       );
     } else {
       errorTypeDialog(
         toaster,
         "Error Occured",
-        "Error occured while adding the the identity provider."
+        "Error occured while adding the the Connection."
       );
     }
   };
@@ -108,13 +108,13 @@ export default function ConfirmAddRemoveLoginFlowModal(
       successTypeDialog(
         toaster,
         "Success",
-        "Identity Provider Remove from the Login Flow Successfully."
+        "Connection Removed from the Login Flow Successfully."
       );
     } else {
       errorTypeDialog(
         toaster,
         "Error Occured",
-        "Error occured while removing the identity provider. Try again."
+        "Error occured while removing the connection. Try again."
       );
     }
   };

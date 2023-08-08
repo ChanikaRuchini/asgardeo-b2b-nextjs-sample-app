@@ -115,7 +115,7 @@ export default function GroupsList(props: GroupsListProps) {
       />
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="column" alignItems="flex-start">
-          <h6>Manage groups of the identity provider</h6>
+          <h6>Manage groups from your connections</h6>
         </Stack>
         <Button
           style={{ borderRadius: "50px" }}

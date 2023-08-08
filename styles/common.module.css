@@ -16,6 +16,7 @@
   bottom: 0;
   justify-content: center;
   width: 100%;
+  padding: 7px;
 }
 
 .footer a {
@@ -41,6 +42,7 @@
   position: fixed;
 
 }
+
 .navItem {
   align-items: center;
   position:relative; 
@@ -49,7 +51,7 @@
   padding: 0px;
 }
 
-.formButton{
+.formButton {
   width: 25%;
   border-radius: 50px;
 }

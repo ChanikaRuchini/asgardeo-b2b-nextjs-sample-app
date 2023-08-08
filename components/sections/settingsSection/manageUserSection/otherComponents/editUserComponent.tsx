@@ -148,7 +148,7 @@ export default function EditUserComponent(prop: EditUserComponentProps) {
         <Modal.Title>
           <h4>Edit User</h4>
         </Modal.Title>
-        <p>{`Edit user ${user.username}`}</p>
+        <p>{`Edit user ${user.email}`}</p>
       </Modal.Header>
       <Modal.Body>
         <div className={stylesSettings.addUserMainDiv}>
@@ -172,7 +172,6 @@ export default function EditUserComponent(prop: EditUserComponentProps) {
                 <FormField
                   name="firstName"
                   label="First Name"
-                  helperText="First name of the user."
                   needErrorMessage={true}
                 >
                   <FormSuite.Control name="input" />
@@ -181,7 +180,6 @@ export default function EditUserComponent(prop: EditUserComponentProps) {
                 <FormField
                   name="familyName"
                   label="Family Name"
-                  helperText="Family name of the user."
                   needErrorMessage={true}
                 >
                   <FormSuite.Control name="input" />
@@ -190,7 +188,6 @@ export default function EditUserComponent(prop: EditUserComponentProps) {
                 <FormField
                   name="email"
                   label="Email (Username)"
-                  helperText="Email of the user."
                   needErrorMessage={true}
                 >
                   <FormSuite.Control name="input" type="email" />

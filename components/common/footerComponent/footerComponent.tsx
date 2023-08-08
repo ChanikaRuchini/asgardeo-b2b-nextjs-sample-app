@@ -9,8 +9,8 @@ export function FooterComponent() {
   return (
     <footer className={styles["footer"]}>
       <p>
-        © {`${year}`} Copyright:
-        <a href="https://wso2.com/"> WSO2.Inc</a>
+        © {`${year}`}
+        <a href="https://wso2.com/">&nbsp; WSO2 LLC </a>
       </p>
     </footer>
   );

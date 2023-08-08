@@ -161,7 +161,7 @@ export default function AddIdpGroupComponent(props: AddIdpGroupComponentProps) {
                 <FormField
                   name="groupName"
                   label="Group Name"
-                  helperText="A name for the group. Can contain between 3 to 30 
+                  helperText="Group name can contain between 3 to 30 
                                     alphanumeric characters, dashes (-), and underscores (_)."
                   needErrorMessage={true}
                 >

@@ -107,11 +107,7 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
 
   const onIdpCreated = (response: IdentityProvider | null): void => {
     if (response) {
-      successTypeDialog(
-        toaster,
-        "Success",
-        "Identity Provider Created Successfully"
-      );
+      successTypeDialog(toaster, "Success", "Connection Created Successfully");
 
       setIdpList([...idpList, response]);
 
@@ -121,7 +117,7 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
       errorTypeDialog(
         toaster,
         "Error Occured",
-        "Error occured while creating the identity provider. Try again."
+        "Error occured while creating the connection. Try again."
       );
     }
   };
@@ -130,12 +126,23 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
     <Container>
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="column" alignItems="flex-start">
-          <h3>Identity Providers</h3>
+          <h3>Login Connections</h3>
           <p>
-            Manage identity providers to allow users to log in to your
+            Manage Login Connections to allow users to log in to your
             application through them.
           </p>
         </Stack>
+
+        {idpList && idpList.length !== 0 ? (
+          <Button
+            style={{ borderRadius: "50px" }}
+            appearance="primary"
+            size="md"
+            onClick={onAddIdentityProviderClick}
+          >
+            Add Connection
+          </Button>
+        ) : null}
       </Stack>
 
       {idpList ? (
@@ -151,7 +158,7 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
               height="150px"
             />
             <p style={{ fontSize: 14, marginTop: "20px" }}>
-              There are no identity providers available at the moment.
+              There are no connections available at the moment.
             </p>
             <Button
               appearance="primary"
@@ -159,7 +166,7 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
               size="md"
               style={{ marginTop: "12px", borderRadius: "50px" }}
             >
-              Add Identity Provider
+              Create Connection
             </Button>
           </Stack>
         ) : (

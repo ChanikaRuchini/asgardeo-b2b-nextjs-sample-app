@@ -1,8 +1,7 @@
 import AccordianItemHeaderComponent from "../../../../../common/accordianItemHeaderComponent/accordianItemHeaderComponent";
 import { Session } from "next-auth";
 import { useState } from "react";
-import { Nav, Panel } from "rsuite";
-import Permission from "./roleItemDetailsSection/permission";
+import { Button, List, Nav, Panel, Popover, Stack, Whisper } from "rsuite";
 import Groups from "./roleItemDetailsSection/groups";
 import { Role } from "../../../../../../models/role/role";
 import ExternalGroups from "./roleItemDetailsSection/extenalGroups";
@@ -35,15 +34,33 @@ export default function RoleItem(props: RoleItemProps) {
   const roleItemDetailsComponent = (activeKey: string): JSX.Element | null => {
     switch (activeKey) {
       case "1":
-        return <Permission permissions={role.permissions} />;
-      case "2":
         return <Groups session={session} roleDetails={role} />;
-      case "3":
+      case "2":
         return <ExternalGroups session={session} roleDetails={role} />;
       default:
         return null;
     }
   };
+
+  const speaker = (
+    <Popover title="Permissions" style={{ width: 200 }}>
+      {role.permissions ? (
+        role.permissions.length === 0 ? (
+          <p> Permissions are not set at the moment.</p>
+        ) : (
+          <>
+            <List size="sm">
+              {role.permissions.map((item, index) => (
+                <List.Item key={index} index={index}>
+                  {item.name}
+                </List.Item>
+              ))}
+            </List>
+          </>
+        )
+      ) : null}
+    </Popover>
+  );
 
   return role ? (
     <Panel
@@ -54,12 +71,24 @@ export default function RoleItem(props: RoleItemProps) {
         />
       }
     >
-      <div style={{ marginLeft: "25px", marginRight: "25px" }}>
-        <RoleItemNav
-          activeKeyNav={activeKeyNav}
-          activeKeyNavSelect={activeKeyNavSelect}
-        />
-        <div>{roleItemDetailsComponent(activeKeyNav)}</div>
+      <div style={{ marginRight: "25px" }}>
+        <Stack direction="column" alignItems="stretch">
+          <Stack alignItems="stretch">
+            <Whisper
+              placement="top"
+              trigger="hover"
+              controlId="control-id-hover"
+              speaker={speaker}
+            >
+              <Button style={{ borderRadius: "50px" }}>View Permission</Button>
+            </Whisper>
+          </Stack>
+          <RoleItemNav
+            activeKeyNav={activeKeyNav}
+            activeKeyNavSelect={activeKeyNavSelect}
+          />
+          <div>{roleItemDetailsComponent(activeKeyNav)}</div>
+        </Stack>
       </div>
     </Panel>
   ) : null;
@@ -86,21 +115,21 @@ function RoleItemNav(props: RoleItemNavProps) {
           display: "flex",
         }}
       >
-        <Nav.Item
+        {/* <Nav.Item
           eventKey="1"
           onSelect={(eventKey) => activeKeyNavSelect(eventKey!)}
         >
           Permissions
-        </Nav.Item>
+        </Nav.Item> */}
 
         <Nav.Item
-          eventKey="2"
+          eventKey="1"
           onSelect={(eventKey) => activeKeyNavSelect(eventKey!)}
         >
           Groups
         </Nav.Item>
         <Nav.Item
-          eventKey="3"
+          eventKey="2"
           onSelect={(eventKey) => activeKeyNavSelect(eventKey!)}
         >
           External Groups

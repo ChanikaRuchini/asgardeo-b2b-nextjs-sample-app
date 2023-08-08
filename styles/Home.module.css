@@ -3,14 +3,13 @@
 }
 
 .main {
-  min-height: 90vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-   gap: 70px;
+  gap: 70px;
   width: 100vw;
-  padding-top: 70px;
 }
 
 .mainDiv {
@@ -25,6 +24,7 @@
   min-height: 70vh;
   width: 100%;
   padding: 1rem 5rem;
+  margin-bottom: 20px;
 }
 
 .grid {
@@ -32,8 +32,24 @@
   grid-template-columns: repeat(4, minmax(25%, auto));
   width: var(--max-width);
   max-width: 100%;
-  margin-top: 10px;
+  place-content: center;
+  background:  #F7F8FB;
+  padding: 30px;
+}
 
+
+.gridView {
+  
+  width: 100%;
+  align-items: center;
+
+  align-content: center;
+  place-content: center;
+  
+}
+.gridView p {
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 
@@ -42,13 +58,14 @@
   padding: 5px;
   margin-left: 1%;
   text-align: center;
-  border: 1px solid #1591EB;
-  min-height: 180px;
+ 
+  height: 180px;
+  background-color: #FFFFFF;
 }
 
-.card h3{
+.card h3 {
   font-size: medium;
-  color: #1591EB;
+  color: #FF7300;
   font-weight: 500;
 }
 
@@ -61,13 +78,14 @@
   margin-bottom: 10px;
 }
 
-.card a{
+.card a {
   text-decoration: none;
-  color: #1591EB;
+  color: #FF7300;
   font-size: 0.8rem;
 }
 
-.signInDiv {
+.middleDiv {
+  margin-top: 80px;
   width: 100vw;
   display: flex;
   align-items: center;
@@ -78,6 +96,6 @@
 
 .signInButton {
   margin-top: 25px;
-  width: 20%;
+  width: 10%;
   border-radius: 50px;
 }

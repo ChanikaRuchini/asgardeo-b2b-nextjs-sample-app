@@ -49,34 +49,34 @@ export default function Home() {
       </Head>
 
       <div className={styles.main}>
-        <div className={styles.signInDiv}>
-          <div className={styles.center}>
-            <FlexboxGrid align="middle">
-              <FlexboxGrid.Item style={{ marginRight: "10px" }}>
-                <Image src={logo} width={100} alt="logo" />
-              </FlexboxGrid.Item>
-              <FlexboxGrid.Item style={{ marginRight: "10px" }}>
-                <span>
-                  <h2>+</h2>
-                </span>
-              </FlexboxGrid.Item>
-              <FlexboxGrid.Item style={{ marginRight: "10px" }}>
-                <Image width={100} src={nextImage} alt="next image" />
-              </FlexboxGrid.Item>
-              <FlexboxGrid.Item style={{ marginRight: "10px" }}>
-                <span>
-                  <h2>B2B Sample App</h2>
-                </span>
-              </FlexboxGrid.Item>
-            </FlexboxGrid>
-            {/* <Image src={logo} width={100} alt="logo" />
-            <Image width={100} src={nextImage} alt="next image" />
-            <h3>Asgardeo + Next.js B2B Sample App</h3> */}
-          </div>
+        <div className={styles.middleDiv}>
+          <FlexboxGrid align="middle">
+            <FlexboxGrid.Item style={{ marginRight: "10px" }}>
+              <Image src={logo} width={180} alt="logo" />
+            </FlexboxGrid.Item>
+            <FlexboxGrid.Item style={{ marginRight: "10px" }}>
+              <span>
+                <h2>+</h2>
+              </span>
+            </FlexboxGrid.Item>
+            <FlexboxGrid.Item style={{ marginRight: "10px" }}>
+              <Image width={100} src={nextImage} alt="next image" />
+            </FlexboxGrid.Item>
+            <FlexboxGrid.Item style={{ marginRight: "10px" }}>
+              <span>
+                <h2>B2B Sample App</h2>
+              </span>
+            </FlexboxGrid.Item>
+          </FlexboxGrid>
+          <p className={styles.getStartedSectionComponentGetStartedTextP}>
+            This is a sample application that demostrates B2B organization
+            management flow using Asgardeo and next.js
+          </p>
+
           <Button
             appearance="primary"
             className={styles.signInButton}
-            size="md"
+            size="sm"
             type="button"
             onClick={() => handleLogin()}
           >
@@ -84,73 +84,69 @@ export default function Home() {
           </Button>
         </div>
 
-        <Stack spacing={20} className={styles.grid}>
-          <Panel bordered className={styles.card}>
-            {/* <a
-              href="https://wso2.com/asgardeo"
-              className={styles.card}
-              target="_blank"
-              rel="noopener noreferrer"
-            > */}
-            <h3>Asgardeo Docs</h3>
-            <p>
-              Read our documentation for step-by-step guides on building IAM use
-              cases.
-            </p>
-            <a
-              href="https://wso2.com/asgardeo/docs/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Learn More
-            </a>
-          </Panel>
+        <div className={styles.gridView}>
+          <p>What can we do next? </p>
+          <Stack spacing={20} className={styles.grid}>
+            <Panel className={styles.card}>
+              <h3>Github Repository</h3>
+              <p>
+                Go through the application codebase and contribute to our B2B
+                Sample application.
+              </p>
+              <a
+                href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Source
+              </a>
+            </Panel>
+            <Panel className={styles.card}>
+              <h3>Asgardeo Docs</h3>
+              <p>
+                Read our documentation for step-by-step guides on building IAM
+                use cases.
+              </p>
+              <a
+                href="https://wso2.com/asgardeo/docs/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Learn More
+              </a>
+            </Panel>
 
-          <Panel bordered className={styles.card}>
-            <h3>Next.js Docs</h3>
-            <p>
-              Use Next.js documentation to find out in-depth information about
-              Next.js features and API.
-            </p>
-            <a
-              href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn More
-            </a>
-          </Panel>
+            <Panel className={styles.card}>
+              <h3>Next.js Docs</h3>
+              <p>
+                Use Next.js documentation to find out in-depth information about
+                Next.js features and API.
+              </p>
+              <a
+                href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Learn More
+              </a>
+            </Panel>
 
-          <Panel bordered className={styles.card}>
-            <h3>Github Repository</h3>
-            <p>
-              Go through the application codebase and contribute to our B2B
-              Sample application.
-            </p>
-            <a
-              href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn More
-            </a>
-          </Panel>
-
-          <Panel bordered className={styles.card}>
-            <h3>NextAuth.js Docs</h3>
-            <p>
-              Learn about NextAuth.js to add authentication to your Next.js
-              applications.
-            </p>
-            <a
-              href="https://next-auth.js.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn More
-            </a>
-          </Panel>
-        </Stack>
+            <Panel className={styles.card}>
+              <h3>NextAuth.js Docs</h3>
+              <p>
+                Learn about NextAuth.js to add authentication to your Next.js
+                applications.
+              </p>
+              <a
+                href="https://next-auth.js.org"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Learn More
+              </a>
+            </Panel>
+          </Stack>
+        </div>
       </div>
       <FooterComponent />
     </>

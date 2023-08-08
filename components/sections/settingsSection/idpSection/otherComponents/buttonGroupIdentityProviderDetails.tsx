@@ -135,16 +135,12 @@ export default function ButtonGroupIdentityProviderDetails(
 
   const onIdpDelete = (response: boolean | null): void => {
     if (response) {
-      successTypeDialog(
-        toaster,
-        "Success",
-        "Identity Provider Deleted Successfully"
-      );
+      successTypeDialog(toaster, "Success", "Connection Deleted Successfully");
     } else {
       errorTypeDialog(
         toaster,
         "Error Occured",
-        "Error occured while deleting the identity provider. Try again."
+        "Error occured while deleting the Connection. Try again."
       );
     }
   };

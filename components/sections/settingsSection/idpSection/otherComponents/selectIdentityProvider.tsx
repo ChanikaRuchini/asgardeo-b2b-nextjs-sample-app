@@ -31,9 +31,9 @@ export default function SelectIdentityProvider(
       <Modal.Header>
         <>
           <Modal.Title>
-            <h4>Select Identity Provider</h4>
+            <h4>Select Login Connection</h4>
           </Modal.Title>
-          <p>Choose one of the following identity providers</p>
+          <p>Choose one of the following connections</p>
         </>
       </Modal.Header>
       <Modal.Body>

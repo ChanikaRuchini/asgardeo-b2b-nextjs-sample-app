@@ -257,7 +257,7 @@ export default function AuthenticatorGroup(props: AuthenticatorGroupProps) {
                 </FormField>
 
                 <FormButtonToolbar
-                  submitButtonText="Submit"
+                  submitButtonText="Assign Groups"
                   needCancel={false}
                   submitButtonDisabled={submitting || pristine}
                 />

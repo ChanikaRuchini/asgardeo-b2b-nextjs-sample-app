@@ -13,7 +13,14 @@ import { fieldValidate } from "../../../../../utils/front-end-util/frontendUtil"
 import { Session } from "next-auth";
 import { useCallback, useEffect, useState } from "react";
 import { Form } from "react-final-form";
-import { Checkbox, CheckboxGroup, Loader, Modal, useToaster } from "rsuite";
+import {
+  CheckPicker,
+  Checkbox,
+  CheckboxGroup,
+  Loader,
+  Modal,
+  useToaster,
+} from "rsuite";
 import FormSuite from "rsuite/Form";
 import stylesSettings from "../../../../../styles/Settings.module.css";
 import {
@@ -41,6 +48,11 @@ interface EditGroupComponentProps {
   userList: InternalUser[];
 }
 
+interface UserData {
+  label: string;
+  value: string;
+}
+
 /**
  *
  * @param prop - session, user (user details), open (whether the modal open or close), onClose (on modal close)
@@ -58,8 +70,19 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
     []
   );
 
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+
+  // Step 3: Define the onChange function to update the state variable
+  const handleCheckPickerChange = (values: string[]) => {
+    setSelectedValues(values);
+    console.log("llllllllll", values);
+  };
+
   const fetchData = useCallback(async () => {
     const res = await viewUsersInGroup(session, group?.displayName);
+    if (res) {
+      setSelectedValues(getInitialAssignedUserEmails(res));
+    }
 
     await setUsers(res);
     if (res) {
@@ -170,7 +193,6 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
     patchGroupName(session, group.id, PatchMethod.REPLACE, "displayName", name)
       .then((response) => onDataSubmit(response, form))
       .finally(() => setLoadingDisplay(LOADING_DISPLAY_NONE));
-
     patchGroupMembers(session, group.id, getMembers(userList, values.users))
       .then((response) => onDataSubmit(response, form))
       .finally(() => setLoadingDisplay(LOADING_DISPLAY_NONE));
@@ -285,30 +307,36 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
                 <FormField
                   name="groupName"
                   label="Group Name"
-                  helperText="Name of the group."
                   needErrorMessage={true}
                 >
                   <FormSuite.Control name="input" />
                 </FormField>
 
-                <FormField
-                  name="editUsers"
-                  label="Edit Users"
-                  helperText="Update users in the group."
-                  needErrorMessage={true}
-                >
-                  <></>
-                </FormField>
-
-                <FormField name="users" label="" needErrorMessage={false}>
-                  <FormSuite.Control name="checkbox" accepter={CheckboxGroup}>
-                    {userList.map((user) => (
-                      <Checkbox key={user.email} value={user.email}>
-                        {user.email}
-                      </Checkbox>
-                    ))}
-                  </FormSuite.Control>
-                </FormField>
+                {users ? (
+                  <FormField
+                    name="users"
+                    label="Assign Users"
+                    needErrorMessage={false}
+                  >
+                    <FormSuite.Control
+                      name="CheckPicker"
+                      accepter={CheckboxGroup}
+                    >
+                      <CheckPicker
+                        label="User"
+                        sticky
+                        data={userList!.map((item) => ({
+                          label: item.email!,
+                          value: item.email!,
+                        }))}
+                        style={{ width: 224 }}
+                        value={selectedValues}
+                        defaultValue={selectedValues}
+                        onChange={handleCheckPickerChange}
+                      />
+                    </FormSuite.Control>
+                  </FormField>
+                ) : null}
 
                 <FormButtonToolbar
                   submitButtonText="Submit"

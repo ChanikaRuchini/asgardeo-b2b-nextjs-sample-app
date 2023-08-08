@@ -166,6 +166,7 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
       </Stack>
 
       {user ? (
+        <div style={{width:"50%"}}>
         <Form
           onSubmit={onSubmit}
           validate={validate}
@@ -186,7 +187,6 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
               <FormField
                 name="firstName"
                 label="First Name"
-                helperText="First name of the user."
                 needErrorMessage={true}
               >
                 <FormSuite.Control name="input" />
@@ -195,7 +195,6 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
               <FormField
                 name="familyName"
                 label="Family Name"
-                helperText="Family name of the user."
                 needErrorMessage={true}
               >
                 <FormSuite.Control name="input" />
@@ -204,7 +203,6 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
               <FormField
                 name="email"
                 label="Email (Username)"
-                helperText="Email of the user."
                 needErrorMessage={true}
               >
                 <FormSuite.Control name="input" type="email" readOnly={true} />
@@ -220,7 +218,9 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
             </FormSuite>
           )}
         />
+         </div> 
       ) : null}
+     
     </div>
   );
 }

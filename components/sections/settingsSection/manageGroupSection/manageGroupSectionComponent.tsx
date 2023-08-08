@@ -132,10 +132,6 @@ export default function ManageGroupSectionComponent(
     }
   }, [editGroupOpen, addUserOpen, deleteUserOpen, fetchData]);
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, [fetchData]);
-
   const closeEditDialog = (): void => {
     setOpenGroup(null);
     setEditGroupOpen(false);
@@ -185,12 +181,15 @@ export default function ManageGroupSectionComponent(
         />
       ) : null}
 
-      <AddGroupComponent
-        session={session}
-        users={users!}
-        open={addUserOpen}
-        onClose={closeAddUserDialog}
-      />
+      {addUserOpen ? (
+        <AddGroupComponent
+          session={session}
+          users={users!}
+          open={addUserOpen}
+          onClose={closeAddUserDialog}
+        />
+      ) : null}
+
       <Stack direction="row" justifyContent="space-between">
         <Stack direction="column" alignItems="flex-start">
           <h3>Manage Groups</h3>
@@ -209,23 +208,23 @@ export default function ManageGroupSectionComponent(
       {groups ? (
         <div>
           <Table autoHeight data={groups} style={{ marginTop: "20px" }}>
-            <Column width={200} align="center">
+            <Column width={200}>
               <HeaderCell>
                 <h6>Group</h6>
               </HeaderCell>
               <Cell dataKey="displayName" />
             </Column>
 
-            <Column width={200} align="center">
+            <Column width={200}>
               <HeaderCell>
                 <h6>User Store</h6>
               </HeaderCell>
               <Cell dataKey="userStore" />
             </Column>
 
-            <Column flexGrow={1} align="center" fixed="right">
+            <Column flexGrow={1} fixed="right">
               <HeaderCell>
-                <h6>Edit Group</h6>
+                <h6></h6>
               </HeaderCell>
 
               <Cell>
@@ -233,23 +232,10 @@ export default function ManageGroupSectionComponent(
                   <span>
                     <a
                       onClick={() => onEditClick(rowData as InternalGroup)}
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: "pointer", paddingRight: "20px" }}
                     >
                       <EditIcon />
                     </a>
-                  </span>
-                )}
-              </Cell>
-            </Column>
-
-            <Column flexGrow={1} align="center" fixed="right">
-              <HeaderCell>
-                <h6>Delete Group</h6>
-              </HeaderCell>
-
-              <Cell>
-                {(rowData) => (
-                  <span>
                     <a
                       onClick={() => onDeleteClick(rowData as InternalGroup)}
                       style={{ cursor: "pointer" }}

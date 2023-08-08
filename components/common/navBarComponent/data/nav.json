@@ -10,7 +10,6 @@
             "eventKey": "2",
             "type": "menu"
         },
-
         {
             "title": "Settings",
             "eventKey": "3",
@@ -48,10 +47,10 @@
                     "type": "item",
                     "hideBasedOnScope": true,
                     "scopes": [
-                                "internal_group_mgt_view",
-                                "internal_group_mgt_create",
-                                "internal_group_mgt_update"
-                            ]
+                        "internal_group_mgt_view",
+                        "internal_group_mgt_create",
+                        "internal_group_mgt_update"
+                    ]
                 },
                 {
                     "title": "Manage Roles",
@@ -66,7 +65,7 @@
                     ]
                 },
                 {
-                    "title": "Identity Providers",
+                    "title": "Login Connections",
                     "eventKey": "3-4",
                     "type": "item",
                     "hideBasedOnScope": true,
@@ -81,7 +80,5 @@
                 }
             ]
         }
-    
-     
     ]
 }

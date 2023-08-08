@@ -135,19 +135,13 @@ export default function General(props: GeneralProps) {
               }}
               fluid
             >
-              <FormField
-                name="name"
-                label="Name"
-                helperText="Name of the identity provider."
-                needErrorMessage={true}
-              >
+              <FormField name="name" label="Name" needErrorMessage={true}>
                 <FormSuite.Control name="input" />
               </FormField>
 
               <FormField
                 name="description"
                 label="Description"
-                helperText="A text description of the identity provider."
                 needErrorMessage={true}
               >
                 <FormSuite.Control name="input" />

@@ -1,10 +1,9 @@
 import { dataNotRecievedError } from "../../../utils/api-util/apiErrors";
 import { requestOptions } from "../../../utils/api-util/apiRequestOptions"
-import { getMeEnpointUrl } from "../../../utils/application-config-util/applicationConfigUtil";
 import { NextApiRequest, NextApiResponse } from "next";
 
 /**
- * backend API call to view users
+ * backend API call to external api call
  * 
  * @param req - request
  * @param res - response
@@ -13,23 +12,21 @@ import { NextApiRequest, NextApiResponse } from "next";
  */
 export default async function getProfileInfo(req: NextApiRequest, res: NextApiResponse) {
 
+  
     if (req.method !== "POST") {
         dataNotRecievedError(res);
     }
 
     const body = JSON.parse(req.body);
     const session = body.session;
-    const orgId = body.orgId;
-    const id = req.query.id;
 
     try {
         const fetchData = await fetch(
-            `${getMeEnpointUrl(orgId)}/scim2/Me`,
+            `https://4b3606a5-0c21-401e-853c-8d72b4ea20ea-prod.e1-us-east-azure.choreoapis.dev/qovt/sampleapi/endpoint-9090-803/1.0.0/accounts`,
             requestOptions(session)
         );
-        console.log(session);
-        console.log(getMeEnpointUrl(orgId));
         const data = await fetchData.json();
+        console.log("data", data);
 
         if (fetchData.status >= 200 && fetchData.status < 300) {
             res.status(fetchData.status).json(data);

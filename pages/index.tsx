@@ -1,37 +1,14 @@
 import Image from "next/image";
-import { useState } from "react";
 import Head from "next/head";
-import { useSession } from "next-auth/react";
 import styles from "../styles/Home.module.css";
 import { orgSignin } from "../utils/authorization-config-util/authorizationConfigUtil";
 import FooterComponent from "../components/common/footerComponent/footerComponent";
 import { Button, FlexboxGrid, Panel, Stack } from "rsuite";
 import logo from "../public/asgardeo-logo-transparent.png";
 import nextImage from "../public/next.svg";
-
-interface DerivedState {
-  idToken: string[];
-  decodedIdTokenHeader: string;
-  decodedIDTokenPayload: Record<string, string | number | boolean>;
-}
+import GITHUB_ICON from "../public/github.png";
 
 export default function Home() {
-  const { data: session, status } = useSession();
-  const [derivedAuthenticationState, setDerivedAuthenticationState] =
-    useState<DerivedState>();
-  //   const idToken = session?.user?.idToken;
-
-  //   if (status === "authenticated" && idToken) {
-  //     const derivedState: DerivedState = {
-  //       idToken: idToken.split("."),
-  //       decodedIdTokenHeader: JSON.parse(atob(idToken.split(".")[0])),
-  //       decodedIDTokenPayload: jwtDecode(idToken),
-  //     };
-
-  //     setDerivedAuthenticationState(derivedState);
-  //   }
-  // }, [session, status]);
-
   const handleLogin = () => {
     orgSignin();
   };
@@ -47,7 +24,72 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <div className={styles.App}>
+        <header className={styles.AppHeaderSection}>
+          <div>
+            <div className={styles.container}>
+              <div className={styles.logoContainer}>
+                <Image
+                  alt="react-logo"
+                  src={nextImage}
+                  width={120}
+                  className={styles.nextLogoImageLogo}
+                />
 
+                {/* <img
+                  alt="react-logo"
+                  src={REACT_LOGO}
+                  className="react-logo-image logo"
+                /> */}
+              </div>
+            </div>
+            <div className={styles.logoContainer}>
+              <h1>Enhance your application’s IAM experience with </h1>
+              <Image
+                alt="asgardeo-logo"
+                src={logo}
+                width={220}
+                className={styles.asgardeoLogoImage}
+              />
+            </div>
+            <p className={styles.description}>
+              This is a sample application that demostrates B2B organization
+              management flow using Asgardeo and next.js
+            </p>
+            <div className={styles.buttonContainer}>
+              <Button
+                appearance="primary"
+                className={styles.btn}
+                size="md"
+                onClick={() => handleLogin()}
+              >
+                Sign In
+              </Button>
+              {/* <a href={signUpURL}>
+                <button className="btn-outline large-button">
+                  Create an account
+                </button>
+              </a> */}
+            </div>
+            <br />
+            <br />
+            <div className={styles.containerColumn}>
+              <a href="https://github.com/dasuni-30/asgardeo-react-sample-app">
+                <Image
+                  src={GITHUB_ICON}
+                  className={styles.linkLogoImageSmall}
+                  alt="github-logo"
+                />
+              </a>
+              <a href="https://github.com/dasuni-30/asgardeo-react-sample-app">
+                Explore the source code
+              </a>
+            </div>
+          </div>
+        </header>
+      </div>
+
+      {/* 
       <div className={styles.main}>
         <div className={styles.middleDiv}>
           <FlexboxGrid align="middle">
@@ -147,7 +189,7 @@ export default function Home() {
             </Panel>
           </Stack>
         </div>
-      </div>
+      </div> */}
       <FooterComponent />
     </>
   );

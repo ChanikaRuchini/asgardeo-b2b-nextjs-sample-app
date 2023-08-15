@@ -1,5 +1,89 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+.App h1 {
+ 
+  font-weight: 600;
+  font-size: xx-large;
+}
+.description {
+  font-size: medium;
+  margin-top: 10px;
+}
+
+.AppHeaderSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: rgb(0, 0, 0);
+  height: 500px;
+  padding: 75px;
+}
+
+.App-header-length {
+  height: 250px;
+}
+
+/* Apply general styling to the container */
 .container {
-  padding: 0 2rem;
+  display: flex;
+  justify-content: center; /* Centers the columns horizontally */
+  align-items: center; /* Centers the columns vertically */
+}
+.logoContainer {
+  display: flex;
+  margin-top: 30px;
+}
+/* Apply styling to the columns */
+.containerColumn {
+  align-items: center;
+  font-size: 18px;
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.containerColumn a {
+  text-decoration: none;
+  color: #000;
+  font-size: small;
+}
+.buttonContainer {
+  display: grid;
+  margin-top: 80px;
+  place-content: center;
+}
+
+.btn {
+  width: 120px;
+  border-radius: 500rem;
+  
+}
+
+.asgardeoLogoImage {
+
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.nextLogoImageLogo {
+
+  margin-top: 10px;
+}
+
+.linkLogoImageSmall {
+  height: 10px;
+  width: 40px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .main {
@@ -15,34 +99,30 @@
 .mainDiv {
   display: flex;
   flex-direction: column;
-  width: 100vw;
   overflow-x: hidden;
-  gap: 70px;
+  gap: 60px;
 }
 
 .mainPanelDiv {
   min-height: 70vh;
   width: 100%;
-  padding: 1rem 5rem;
+  padding: 1rem 4rem;
   margin-bottom: 20px;
 }
 
 .grid {
   display: flex;
-  grid-template-columns: repeat(4, minmax(25%, auto));
+  grid-template-columns: repeat(3, minmax(33%, auto));
   width: var(--max-width);
   max-width: 100%;
   place-content: center;
-  background:  #F7F8FB;
-  padding: 30px;
+  flex: 1;
 }
-
 
 .gridView {
   
   width: 100%;
   align-items: center;
-
   align-content: center;
   place-content: center;
   
@@ -50,23 +130,21 @@
 .gridView p {
   text-align: center;
   margin-bottom: 10px;
+  color: black;
 }
-
 
 .card {
   float: left;
   padding: 5px;
+  width: 30%;
   margin-left: 1%;
   text-align: center;
- 
-  height: 180px;
   background-color: #FFFFFF;
 }
 
-.card h3 {
-  font-size: medium;
-  color: #FF7300;
-  font-weight: 500;
+.card strong {
+  font-size: small;
+ 
 }
 
 .card p {
@@ -74,7 +152,7 @@
   opacity: 0.6;
   font-size: 0.8rem;
   line-height: 1.5;
-  max-width: 30ch;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -99,3 +177,29 @@
   width: 10%;
   border-radius: 50px;
 }
+
+/* getStartedSectionComponent */
+
+/* getStartedSectionComponent-GetStartedText-Div */
+.getStartedSectionComponentGetStartedTextDiv {
+  height: 35vh;
+  justify-content: center;
+  align-items: center;
+}
+
+/* getStartedSectionComponent-GetStartedText-Panel */
+.getStartedSectionComponentGetStartedTextPanel{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+/* getStartedSectionComponent-GetStartedText-P */
+.getStartedSectionComponentGetStartedTextP {
+  text-align: center ;
+  font-size: medium;
+  font-size: 0.9rem;
+}
+

@@ -11,7 +11,6 @@ export function decodeRoleGroup(group: RoleGroup): InternalRoleGroup {
     const name = group.name?.split("/")?.[1] || "-";
     const userstore = group.name?.split("/")?.[0] || "-";
 
-
     return {
         "name": name,
         "userstore": userstore

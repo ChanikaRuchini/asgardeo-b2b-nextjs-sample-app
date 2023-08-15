@@ -55,3 +55,21 @@
   width: 25%;
   border-radius: 50px;
 }
+
+.signout{
+
+    color: #333;
+    text-decoration: none;
+    display: block;
+    padding: 20px;
+  
+}
+.signout a {
+  color:  #333;
+  text-decoration: none;
+  font-size: medium;
+}
+
+.b {
+  font-weight: 100;
+}

@@ -1,6 +1,5 @@
 import { Group, InternalGroup } from "../models/group/group";
 
-
 /**
  * 
  * @param group - (group object return from the IS)
@@ -11,7 +10,6 @@ export function decodeGroup(group: Group): InternalGroup {
 
     const displayName = group.displayName?.split("/")?.[1] || "-";
     const userstore = group.displayName?.split("/")?.[0] || "-";
-
 
     return {
         "displayName": displayName,

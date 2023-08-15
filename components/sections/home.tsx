@@ -13,6 +13,7 @@ import ProfileSectionComponent from "./profileSection/profileComponent";
 import styles from "../../styles/Home.module.css";
 import NavBarComponent from "../common/navBarComponent/navBarcomponent";
 import ManageGroupSectionComponent from "./settingsSection/manageGroupSection/manageGroupSectionComponent";
+import APICall from "./ApiCallSection/APICall";
 
 interface HomeProps {
   name: string;
@@ -38,13 +39,15 @@ export default function Home(props: HomeProps): JSX.Element {
         return <HomeComponent session={session} />;
       case "2":
         return <ProfileSectionComponent session={session} />;
-      case "3-1":
+      case "3":
+        return <APICall session={session} />;
+      case "4-1":
         return <ManageUserSectionComponent session={session} />;
-      case "3-2":
+      case "4-2":
         return <ManageGroupSectionComponent session={session} />;
-      case "3-3":
+      case "4-3":
         return <RoleManagementSectionComponent session={session} />;
-      case "3-4":
+      case "4-4":
         return <IdpSectionComponent session={session} />;
       default:
         return <HomeComponent session={session} />;
@@ -68,8 +71,7 @@ export default function Home(props: HomeProps): JSX.Element {
       {session && session.scope ? (
         <div className={styles["mainDiv"]}>
           <NavBarComponent
-            scope={session.scope}
-            loggedUser={session.user?.emails?.at(0)!}
+            session={session}
             sideNavData={NavData}
             activeKeySideNav={activeKeySideNav}
             activeKeySideNavSelect={activeKeySideNavSelect}

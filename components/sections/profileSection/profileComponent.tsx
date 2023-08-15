@@ -87,16 +87,13 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
         orgId: session ? session.orgId : null,
         session: session,
       };
-      console.log("aaaaaaaaaa", body);
       const request = {
         body: JSON.stringify(body),
         method: RequestMethod.POST,
       };
-      console.log("bbbbbbbbbbbbbb", request);
 
       const res = await fetch(`/api/profile/getProfileInfo`, request);
       const usersData = await res.json();
-      console.log("ccccccccccccccccccc", usersData);
 
       if (usersData) {
         const userDetails = decodeUser(usersData);
@@ -166,61 +163,64 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
       </Stack>
 
       {user ? (
-        <div style={{width:"50%"}}>
-        <Form
-          onSubmit={onSubmit}
-          validate={validate}
-          initialValues={{
-            email: user.email,
-            familyName: user.familyName,
-            firstName: user.firstName,
-            username: user.username,
-          }}
-          render={({ handleSubmit, form, submitting, pristine, errors }) => (
-            <FormSuite
-              layout="vertical"
-              onSubmit={() => {
-                handleSubmit();
-              }}
-              fluid
-            >
-              <FormField
-                name="firstName"
-                label="First Name"
-                needErrorMessage={true}
+        <div style={{ width: "50%" }}>
+          <Form
+            onSubmit={onSubmit}
+            validate={validate}
+            initialValues={{
+              email: user.email,
+              familyName: user.familyName,
+              firstName: user.firstName,
+              username: user.username,
+            }}
+            render={({ handleSubmit, form, submitting, pristine, errors }) => (
+              <FormSuite
+                layout="vertical"
+                onSubmit={() => {
+                  handleSubmit();
+                }}
+                fluid
               >
-                <FormSuite.Control name="input" />
-              </FormField>
+                <FormField
+                  name="firstName"
+                  label="First Name"
+                  needErrorMessage={true}
+                >
+                  <FormSuite.Control name="input" />
+                </FormField>
 
-              <FormField
-                name="familyName"
-                label="Family Name"
-                needErrorMessage={true}
-              >
-                <FormSuite.Control name="input" />
-              </FormField>
+                <FormField
+                  name="familyName"
+                  label="Family Name"
+                  needErrorMessage={true}
+                >
+                  <FormSuite.Control name="input" />
+                </FormField>
 
-              <FormField
-                name="email"
-                label="Email (Username)"
-                needErrorMessage={true}
-              >
-                <FormSuite.Control name="input" type="email" readOnly={true} />
-              </FormField>
+                <FormField
+                  name="email"
+                  label="Email (Username)"
+                  needErrorMessage={true}
+                >
+                  <FormSuite.Control
+                    name="input"
+                    type="email"
+                    readOnly={true}
+                  />
+                </FormField>
 
-              <FormButtonToolbar
-                submitButtonText="Submit"
-                needCancel={false}
-                submitButtonDisabled={
-                  submitting || pristine || !checkIfJSONisEmpty(errors)
-                }
-              />
-            </FormSuite>
-          )}
-        />
-         </div> 
+                <FormButtonToolbar
+                  submitButtonText="Submit"
+                  needCancel={false}
+                  submitButtonDisabled={
+                    submitting || pristine || !checkIfJSONisEmpty(errors)
+                  }
+                />
+              </FormSuite>
+            )}
+          />
+        </div>
       ) : null}
-     
     </div>
   );
 }

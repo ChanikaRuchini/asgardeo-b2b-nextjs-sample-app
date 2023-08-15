@@ -2,14 +2,14 @@ import Image from "next/image";
 import SideNavItem from "../../../models/sideNav/sideNavItem";
 import SideNavList from "../../../models/sideNav/sideNavList";
 import { hideBasedOnScopes } from "../../../utils/front-end-util/frontendUtil";
-import { Navbar, Nav, Button, Stack, Tag } from "rsuite";
+import { Navbar, Nav, Button, Stack, Avatar, Whisper, Popover } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import styles from "../../../styles/common.module.css";
 import logo from "../../../public/asgardeo-logo-transparent.png";
+import { Session } from "next-auth";
 
 export interface SidenavComponentProps {
-  scope: string;
-  loggedUser: string;
+  session: Session;
   sideNavData: SideNavList;
   activeKeySideNav: string | undefined;
   activeKeySideNavSelect: (event: string | undefined) => void;
@@ -18,8 +18,7 @@ export interface SidenavComponentProps {
 
 export function NavBarComponent(prop: SidenavComponentProps) {
   const {
-    scope,
-    loggedUser,
+    session,
     sideNavData,
     activeKeySideNav,
     activeKeySideNavSelect,
@@ -28,6 +27,21 @@ export function NavBarComponent(prop: SidenavComponentProps) {
 
   const sideNavConfigList: SideNavList = sideNavData;
   const signOutOnClick = () => setSignOutModalOpen(true);
+  const speaker = (
+    <Popover className={styles.signout} arrow={false}>
+      <a href="#/" onClick={() => signOutOnClick()}>
+        Sign out
+      </a>
+      {/* <Button
+        style={{ borderRadius: "50px", width: "100%" }}
+        size="xs"
+        appearance="ghost"
+        onClick={signOutOnClick}
+      >
+        Log Out
+      </Button> */}
+    </Popover>
+  );
 
   return (
     <div className={styles["navDiv"]}>
@@ -45,7 +59,7 @@ export function NavBarComponent(prop: SidenavComponentProps) {
                   title={item.title}
                   style={
                     item.hideBasedOnScope
-                      ? hideBasedOnScopes(scope, item.type, item.items)
+                      ? hideBasedOnScopes(session.scope!, item.type, item.items)
                       : {}
                   }
                   key={item.eventKey}
@@ -58,7 +72,7 @@ export function NavBarComponent(prop: SidenavComponentProps) {
                       style={
                         item.hideBasedOnScope
                           ? hideBasedOnScopes(
-                              scope,
+                              session.scope!,
                               item.type,
                               item.items,
                               item.scopes
@@ -80,7 +94,7 @@ export function NavBarComponent(prop: SidenavComponentProps) {
                   style={
                     item.hideBasedOnScope
                       ? hideBasedOnScopes(
-                          scope,
+                          session.scope!,
                           item.type,
                           item.items,
                           item.scopes
@@ -94,17 +108,25 @@ export function NavBarComponent(prop: SidenavComponentProps) {
             }
           })}
         </Nav>
-        <Nav pullRight style={{ marginRight: "50px" }}>
+        <Nav pullRight style={{ marginRight: "50px", paddingRight: "50px" }}>
           <Nav.Item>
-            <p style={{ marginRight: "10px", color: "black" }}>{loggedUser}</p>
-            <Button
-              style={{ borderRadius: "50px" }}
-              size="md"
-              appearance="ghost"
-              onClick={signOutOnClick}
+            <p style={{ marginRight: "10px", color: "black" }}>
+              {session.user?.name.givenName! + session.user?.name.familyName}
+            </p>
+
+            <Whisper
+              placement="bottom"
+              trigger="click"
+              controlId="control-id-click"
+              speaker={speaker}
             >
-              Sign Out
-            </Button>
+              <Avatar
+                circle
+                src="https://avatars.githubusercontent.com/u/15609339"
+                alt="@hiyangguo"
+                style={{ marginRight: "20px" }}
+              />
+            </Whisper>
           </Nav.Item>
         </Nav>
       </Navbar>

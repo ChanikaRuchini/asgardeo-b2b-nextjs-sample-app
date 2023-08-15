@@ -98,3 +98,19 @@
 .modal {
     border-radius: 5px;
 }
+
+.contentToCopy {
+    background-color: #F5F5F8;
+    padding: 20px;
+    font-family: Inter;
+    font-size: 14px;
+    line-height: 1.4;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    width: 80%;
+    min-height: 100px;
+    text-align: left;
+    border-radius: 8px;
+  }
+
+  

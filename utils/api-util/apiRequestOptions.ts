@@ -6,7 +6,7 @@ import { Session } from "next-auth";
  * 
  * @param session - session object
  * 
- * @returns header object that can used for IS API calls
+ * @returns header object that can used for Asgardeo API calls
  */
 export function requestOptions(session: Session): RequestInit {
     return apiRequestOptions(session, getHostedUrl());
@@ -20,7 +20,7 @@ export function requestOptionsWithBody(session: Session, method: RequestMethod, 
  * 
  * @param session - session object
  * 
- * @returns header object that can used for IS API calls
+ * @returns header object that can used for Asgardeo API calls
  */
 export function apiRequestOptions(session: Session, hostedUrl: string): RequestInit {
     const headers = {

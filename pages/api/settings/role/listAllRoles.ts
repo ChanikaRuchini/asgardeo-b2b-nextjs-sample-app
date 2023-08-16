@@ -19,10 +19,11 @@ export default async function listAllRoles(req: NextApiRequest, res: NextApiResp
     const body = JSON.parse(req.body);
     const session = body.session;
     const orgId = body.orgId;
+    const appId = body.appId;
 
     try {
         const fetchData = await fetch(
-            `${getRolesEnpointUrl(orgId)}/applications/${process.env.SHARED_APP_ID}/roles`,
+            `${getRolesEnpointUrl(orgId)}/applications/${appId}/roles`,
             requestOptions(session)
         );
         const data = await fetchData.json();

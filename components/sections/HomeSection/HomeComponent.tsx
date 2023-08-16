@@ -61,7 +61,6 @@ export default function HomeComponent(prop: HomeComponentProps) {
         <p>What can we do next? </p>
         <div className={styles.grid}>
           <Panel bordered className={styles.card}>
-            {/* <Image alt='react-logo' src={ card?.icon} className='link-logo-image-small logo'/> */}
             <Image
               alt="github-logo"
               src={Github}
@@ -120,21 +119,6 @@ export default function HomeComponent(prop: HomeComponentProps) {
               Learn More
             </a>
           </Panel>
-
-          {/* <Panel bordered className={styles.card}>
-            <strong>NextAuth.js Docs</strong>
-            <p>
-              Learn about NextAuth.js to add authentication to your Next.js
-              applications.
-            </p>
-            <a
-              href="https://next-auth.js.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn More
-            </a>
-          </Panel> */}
         </div>
       </div>
       {/* {checkAdmin(session.scope!) && <AdminSection orgId={session.orgId!} />} */}

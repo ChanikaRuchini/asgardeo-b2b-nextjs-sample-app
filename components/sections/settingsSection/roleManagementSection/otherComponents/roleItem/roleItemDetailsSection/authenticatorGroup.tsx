@@ -27,6 +27,7 @@ interface AuthenticatorGroupProps {
   session: Session;
   authenticator: AuthenticatorInterface;
   roleName: string;
+  appId: string;
 }
 
 /**
@@ -36,7 +37,7 @@ interface AuthenticatorGroupProps {
  * @returns Authenticator Group componet
  */
 export default function AuthenticatorGroup(props: AuthenticatorGroupProps) {
-  const { session, authenticator, roleName } = props;
+  const { session, authenticator, roleName, appId } = props;
 
   const [idpGroups, setIdpGroups] = useState<IdentityProviderGroupInterface[]>(
     []
@@ -118,6 +119,7 @@ export default function AuthenticatorGroup(props: AuthenticatorGroupProps) {
       const body = {
         orgId: session ? session.orgId : null,
         param: name,
+        appId: appId,
         session: session,
       };
       const request = {
@@ -175,6 +177,7 @@ export default function AuthenticatorGroup(props: AuthenticatorGroupProps) {
       const body = {
         orgId: session ? session.orgId : null,
         param: roleName,
+        appId: appId,
         patchBody: getPatchgroups(patchGroups),
         session: session,
       };

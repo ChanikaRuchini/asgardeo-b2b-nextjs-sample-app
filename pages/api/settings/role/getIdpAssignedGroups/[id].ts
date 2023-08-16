@@ -21,11 +21,12 @@ export default async function getIdpAssignedGroups(req: NextApiRequest, res: Nex
     const session = body.session;
     const orgId = body.orgId;
     const name = body.param;
+    const appId= body.appId
 
     const id = req.query.id;
     try {
         const fetchData = await fetch(
-            `${getRolesEnpointUrl(orgId)}/applications/${process.env.SHARED_APP_ID}/roles/${name}/identity-providers/${id}/assigned-groups`,
+            `${getRolesEnpointUrl(orgId)}/applications/${appId}/roles/${name}/identity-providers/${id}/assigned-groups`,
             requestOptions(session)
         );
         const data = await fetchData.json();

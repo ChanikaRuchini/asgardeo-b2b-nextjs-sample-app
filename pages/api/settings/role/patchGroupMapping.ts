@@ -14,11 +14,12 @@ export default async function PatchGroupMappings(req: NextApiRequest, res: NextA
     const orgId = body.orgId;
     const patchBody = body.param;
     const name = body.role;
+    const appId = body.appId
 
     try {
        
         const fetchData = await fetch(
-            `${getRolesEnpointUrl(orgId)}/applications/${process.env.SHARED_APP_ID}/roles/${name}/group-mapping`,
+            `${getRolesEnpointUrl(orgId)}/applications/${appId}/roles/${name}/group-mapping`,
             requestOptionsWithBody(session, RequestMethod.PATCH, patchBody)
         );
         const data = await fetchData.json();

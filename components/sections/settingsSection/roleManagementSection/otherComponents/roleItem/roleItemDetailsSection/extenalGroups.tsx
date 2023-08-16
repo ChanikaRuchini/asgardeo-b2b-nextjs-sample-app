@@ -1,23 +1,22 @@
 import { Session } from "next-auth";
 import { useCallback, useEffect, useState } from "react";
-import { Container, FlexboxGrid, PanelGroup, Stack, useToaster } from "rsuite";
+import { Container, FlexboxGrid, PanelGroup, Stack } from "rsuite";
 import styles from "../../../../../../../styles/Settings.module.css";
 import RequestMethod from "../../../../../../../models/api/requestMethod";
 import { Role } from "../../../../../../../models/role/role";
 import {
   Application,
   ApplicationAuthenticatorInterface,
-  ApplicationList,
   AuthenticationSequenceStep,
   AuthenticationSequenceStepOption,
 } from "../../../../../../../models/application/application";
-import { checkIfJSONisEmpty } from "../../../../../../../utils/util-common/common";
 import { AuthenticatorInterface } from "../../../../../../../models/identityProvider/identityProvider";
 import AuthenticatorGroup from "./authenticatorGroup";
 
 interface ExternalGroupProps {
   session: Session;
   roleDetails: Role;
+  appId: string;
 }
 
 /**
@@ -27,75 +26,31 @@ interface ExternalGroupProps {
  * @returns The external groups section of role details
  */
 export default function ExternalGroups(props: ExternalGroupProps) {
-  const { session, roleDetails } = props;
+  const { session, roleDetails, appId } = props;
 
-  const toaster = useToaster();
-
-  const [allApplications, setAllApplications] = useState<ApplicationList>();
   const [attributeStepAuthenticators, setAttributeStepAuthenticators] =
     useState<AuthenticationSequenceStepOption[]>([]);
   const [authenticatorGroups, setAuthenticatorGroups] = useState<
     AuthenticatorInterface[]
   >([]);
-  const [openListAppicationModal, setOpenListAppicationModal] =
-    useState<boolean>(false);
 
   const [federatedAuthenticators, setFederatedAuthenticators] = useState<
     AuthenticatorInterface[]
   >([]);
 
   const fetchData = useCallback(async () => {
-    const res: ApplicationList = (await listCurrentApplication(
-      session
-    )) as ApplicationList;
-
-    await setAllApplications(res);
-  }, [session, openListAppicationModal]);
-
-  const fetchApplicatioDetails = useCallback(async () => {
-    if (
-      !checkIfJSONisEmpty(allApplications) &&
-      allApplications!.totalResults !== 0
-    ) {
-      await getApplication(session, allApplications!.applications[0].id).then(
-        (response: Application | null) => {
-          const attributeStepId: number =
-            response?.authenticationSequence?.attributeStepId!;
-          const attributeStep: AuthenticationSequenceStep =
-            response?.authenticationSequence?.steps?.find((step: any) => {
-              return step.id === attributeStepId;
-            })!;
-          setAttributeStepAuthenticators(attributeStep?.options);
-        }
-      );
-    }
-  }, [session, allApplications]);
-
-  async function listCurrentApplication(
-    session: Session
-  ): Promise<ApplicationList | null> {
-    try {
-      const body = {
-        orgId: session ? session.orgId : null,
-        session: session,
-      };
-
-      const request = {
-        body: JSON.stringify(body),
-        method: RequestMethod.POST,
-      };
-
-      const res = await fetch(
-        "/api/settings/application/listCurrentApplication",
-        request
-      );
-      const data = await res.json();
-
-      return data;
-    } catch (err) {
-      return null;
-    }
-  }
+    await getApplication(session, appId).then(
+      (response: Application | null) => {
+        const attributeStepId: number =
+          response?.authenticationSequence?.attributeStepId!;
+        const attributeStep: AuthenticationSequenceStep =
+          response?.authenticationSequence?.steps?.find((step: any) => {
+            return step.id === attributeStepId;
+          })!;
+        setAttributeStepAuthenticators(attributeStep?.options);
+      }
+    );
+  }, [session]);
 
   async function getApplication(
     session: Session,
@@ -165,10 +120,6 @@ export default function ExternalGroups(props: ExternalGroupProps) {
   }, [fetchData]);
 
   useEffect(() => {
-    fetchApplicatioDetails();
-  }, [fetchApplicatioDetails]);
-
-  useEffect(() => {
     fetchFederatedAuthenticators();
   }, [fetchFederatedAuthenticators]);
 
@@ -226,6 +177,7 @@ export default function ExternalGroups(props: ExternalGroupProps) {
                   session={session}
                   authenticator={authenticator}
                   roleName={roleDetails.name}
+                  appId={appId}
                   key={index}
                 />
               ))}

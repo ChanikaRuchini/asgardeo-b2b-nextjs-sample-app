@@ -11,6 +11,7 @@ export default async function patchIdpAssignedGroups(req: NextApiRequest, res: N
     const body = JSON.parse(req.body);
     const session = body.session;
     const orgId = body.orgId;
+    const appId = body.appId
     const patchBody = body.patchBody;
     const name = body.param;
     const id = req.query.id;
@@ -19,7 +20,7 @@ export default async function patchIdpAssignedGroups(req: NextApiRequest, res: N
     try {
        
         const fetchData = await fetch(
-            `${getRolesEnpointUrl(orgId)}/applications/${process.env.SHARED_APP_ID}/roles/${name}/identity-providers/${id}/assigned-groups`,
+            `${getRolesEnpointUrl(orgId)}/applications/${appId}/roles/${name}/identity-providers/${id}/assigned-groups`,
             requestOptionsWithBody(session, RequestMethod.PATCH, patchBody)
         );
         const data = await fetchData.json();

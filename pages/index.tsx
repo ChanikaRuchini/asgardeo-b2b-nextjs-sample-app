@@ -82,7 +82,7 @@ export default function Home() {
                 />
               </a>
               <a href="https://github.com/dasuni-30/asgardeo-react-sample-app">
-                Explore the source code
+                <b>Explore the source code</b>
               </a>
             </div>
           </div>

@@ -18,6 +18,7 @@ import { decodeRoleGroup } from "../../../../../../../utils/roleUtils";
 interface GroupProps {
   session: Session;
   roleDetails: Role;
+  appId: string;
 }
 
 /**
@@ -27,7 +28,9 @@ interface GroupProps {
  * @returns The groups section of role details
  */
 export default function Groups(props: GroupProps) {
-  const { session, roleDetails } = props;
+  const { session, roleDetails, appId } = props;
+
+  console.log("lllllllllllll", appId);
 
   const [groupMappings, setGroupMappings] = useState<
     InternalRoleGroup[] | null
@@ -53,9 +56,9 @@ export default function Groups(props: GroupProps) {
       const body = {
         orgId: session ? session.orgId : null,
         role: name,
+        appId: appId,
         session: session,
       };
-
       const request = {
         body: JSON.stringify(body),
         method: RequestMethod.POST,
@@ -169,6 +172,7 @@ export default function Groups(props: GroupProps) {
           roleGroups={groupMappings!}
           groups={groups!}
           roleName={roleDetails.name}
+          appId={appId}
           open={addGroupMappingOpen}
           onClose={closeAddGroupMappingDialog}
           getGroups={fetchAllGroupMappings}

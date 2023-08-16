@@ -28,6 +28,7 @@ interface AddGroupMappingComponentProps {
   roleGroups: InternalRoleGroup[] | [];
   groups: InternalGroup[] | [];
   roleName: string;
+  appId: string;
   open: boolean;
   onClose: () => void;
   getGroups: () => Promise<void>;
@@ -42,8 +43,16 @@ interface AddGroupMappingComponentProps {
 export default function AddGroupMappingComponent(
   props: AddGroupMappingComponentProps
 ) {
-  const { session, roleGroups, groups, roleName, open, onClose, getGroups } =
-    props;
+  const {
+    session,
+    roleGroups,
+    groups,
+    roleName,
+    appId,
+    open,
+    onClose,
+    getGroups,
+  } = props;
   const [newGroups, setNewGroups] = useState<InternalGroup[]>([]);
   const [checkedGroups, setCheckedGroups] = useState<InternalGroup[]>([]);
 
@@ -119,6 +128,7 @@ export default function AddGroupMappingComponent(
         orgId: session ? session.orgId : null,
         role: roleName,
         param: patchBody,
+        appId: appId,
         session: session,
       };
 

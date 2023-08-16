@@ -1,16 +1,18 @@
 .App {
   text-align: center;
+  margin-top: 5%;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+
 .App h1 {
- 
   font-weight: 600;
   font-size: xx-large;
 }
+
 .description {
   font-size: medium;
   margin-top: 10px;

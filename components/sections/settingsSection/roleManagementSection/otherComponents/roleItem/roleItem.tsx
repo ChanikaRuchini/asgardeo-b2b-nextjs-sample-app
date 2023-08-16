@@ -1,10 +1,17 @@
 import AccordianItemHeaderComponent from "../../../../../common/accordianItemHeaderComponent/accordianItemHeaderComponent";
 import { Session } from "next-auth";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button, List, Nav, Panel, Popover, Stack, Whisper } from "rsuite";
 import Groups from "./roleItemDetailsSection/groups";
 import { Role } from "../../../../../../models/role/role";
 import ExternalGroups from "./roleItemDetailsSection/extenalGroups";
+import { checkIfJSONisEmpty } from "../../../../../../utils/util-common/common";
+import {
+  Application,
+  ApplicationList,
+  AuthenticationSequenceStep,
+} from "../../../../../../models/application/application";
+import RequestMethod from "../../../../../../models/api/requestMethod";
 
 interface RoleItemNavProps {
   activeKeyNav: string;
@@ -14,6 +21,7 @@ interface RoleItemNavProps {
 interface RoleItemProps {
   session: Session;
   role: Role;
+  appId: string;
 }
 
 /**
@@ -23,7 +31,8 @@ interface RoleItemProps {
  * @returns role item component.
  */
 export default function RoleItem(props: RoleItemProps) {
-  const { session, role } = props;
+  const { session, role, appId } = props;
+  console.log("iddddddddddddddddddd", appId);
 
   const [activeKeyNav, setActiveKeyNav] = useState<string>("1");
 
@@ -34,9 +43,11 @@ export default function RoleItem(props: RoleItemProps) {
   const roleItemDetailsComponent = (activeKey: string): JSX.Element | null => {
     switch (activeKey) {
       case "1":
-        return <Groups session={session} roleDetails={role} />;
+        return <Groups session={session} roleDetails={role} appId={appId} />;
       case "2":
-        return <ExternalGroups session={session} roleDetails={role} />;
+        return (
+          <ExternalGroups session={session} roleDetails={role} appId={appId} />
+        );
       default:
         return null;
     }

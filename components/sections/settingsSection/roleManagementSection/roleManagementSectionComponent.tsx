@@ -5,6 +5,7 @@ import RoleItem from "./otherComponents/roleItem/roleItem";
 import styles from "../../../../styles/Settings.module.css";
 import RequestMethod from "../../../../models/api/requestMethod";
 import { Role } from "../../../../models/role/role";
+import { ApplicationList } from "../../../../models/application/application";
 
 interface RoleManagementSectionComponentProps {
   session: Session;
@@ -22,6 +23,7 @@ export default function RoleManagementSectionComponent(
   const { session } = props;
 
   const [rolesList, setRolesList] = useState<Role[]>([]);
+  const [applicationId, setApplicationId] = useState<string>();
 
   const fetchAllRoles = useCallback(async () => {
     const res = await listAllRoles(session);
@@ -30,15 +32,16 @@ export default function RoleManagementSectionComponent(
     } else {
       setRolesList([]);
     }
-  }, [session]);
+  }, [session, applicationId]);
 
   async function listAllRoles(session: Session): Promise<Role[] | null> {
     try {
       const body = {
         orgId: session ? session.orgId : null,
         session: session,
+        appId: applicationId,
       };
-
+      console.log("body", body);
       const request = {
         body: JSON.stringify(body),
         method: RequestMethod.POST,
@@ -61,6 +64,45 @@ export default function RoleManagementSectionComponent(
     fetchAllRoles();
   }, [fetchAllRoles]);
 
+  const fetchData = useCallback(async () => {
+    const res: ApplicationList = (await listCurrentApplication(
+      session
+    )) as ApplicationList;
+
+    console.log("id", res.applications[0].id);
+    await setApplicationId(res.applications[0].id);
+  }, [session]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  async function listCurrentApplication(
+    session: Session
+  ): Promise<ApplicationList | null> {
+    try {
+      const body = {
+        orgId: session ? session.orgId : null,
+        session: session,
+      };
+
+      const request = {
+        body: JSON.stringify(body),
+        method: RequestMethod.POST,
+      };
+
+      const res = await fetch(
+        "/api/settings/application/listCurrentApplication",
+        request
+      );
+      const data = await res.json();
+
+      return data;
+    } catch (err) {
+      return null;
+    }
+  }
+
   return (
     <Container>
       <Stack direction="row" justifyContent="space-between">
@@ -79,7 +121,12 @@ export default function RoleManagementSectionComponent(
           <div className={styles.idp__list}>
             <PanelGroup accordion bordered>
               {rolesList.map((role, index) => (
-                <RoleItem session={session} role={role} key={index} />
+                <RoleItem
+                  session={session}
+                  role={role}
+                  appId={applicationId!}
+                  key={index}
+                />
               ))}
             </PanelGroup>
           </div>

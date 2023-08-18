@@ -50,9 +50,8 @@ export default function HomeComponent(prop: HomeComponentProps) {
             {/* <h5>Quick Start Boilerplate App</h5> */}
 
             <p className={styles.getStartedSectionComponentGetStartedTextP}>
-              As you have already experienced the authentication flow to get
-              here. From here you can experience of basic business application
-              usecases with the support of Asgardeo B2B features.
+              From here on you can experience the basic business application use
+              cases integrated with Asgardeo for B2B organization management.
             </p>
           </Stack>
         </Panel>
@@ -73,7 +72,7 @@ export default function HomeComponent(prop: HomeComponentProps) {
               Asgardeo React Sample application.
             </p>
             <a
-              href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+              href="https://github.com/ChanikaRuchini/asgardeo-b2b-nextjs-sample-app"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -92,7 +91,7 @@ export default function HomeComponent(prop: HomeComponentProps) {
               applications with Asgardeo.
             </p>
             <a
-              href="https://wso2.com/asgardeo/docs/"
+              href="https://docs.google.com/document/d/1-yKHQgQE3-Pj5FRoBdOLf33u1Y41QWzNd3jdR6TVhIQ/edit#heading=h.s1ioojv1wyw6"
               target="_blank"
               rel="noreferrer"
             >
@@ -112,7 +111,7 @@ export default function HomeComponent(prop: HomeComponentProps) {
               building IAM uses cases.
             </p>
             <a
-              href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+              href="https://wso2.com/asgardeo/docs/"
               target="_blank"
               rel="noopener noreferrer"
             >

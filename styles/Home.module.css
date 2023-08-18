@@ -3,11 +3,6 @@
   margin-top: 5%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 .App h1 {
   font-weight: 600;
   font-size: xx-large;
@@ -29,10 +24,6 @@
   padding: 75px;
 }
 
-.App-header-length {
-  height: 250px;
-}
-
 /* Apply general styling to the container */
 .container {
   display: flex;
@@ -40,8 +31,9 @@
   align-items: center; /* Centers the columns vertically */
 }
 .logoContainer {
-  display: flex;
+  display: inline-block;
   margin-top: 30px;
+
 }
 /* Apply styling to the columns */
 .containerColumn {
@@ -72,8 +64,8 @@
 
 .asgardeoLogoImage {
 
-  margin-top: 10px;
   margin-left: 20px;
+  margin-bottom: 8px;
 }
 
 .nextLogoImageLogo {
@@ -87,7 +79,7 @@
   padding-left: 15px;
   padding-right: 15px;
 }
-
+/* 
 .main {
   min-height: 80vh;
   display: flex;
@@ -96,20 +88,21 @@
   align-items: center;
   gap: 70px;
   width: 100vw;
-}
+} */
 
 .mainDiv {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  gap: 60px;
+  gap: 40px;
 }
 
 .mainPanelDiv {
-  min-height: 70vh;
+  min-height: 50vh;
   width: 100%;
   padding: 1rem 4rem;
   margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .grid {
@@ -164,22 +157,6 @@
   font-size: 0.8rem;
 }
 
-.middleDiv {
-  margin-top: 80px;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  flex-wrap: wrap;
-  flex: 1;
-}
-
-.signInButton {
-  margin-top: 25px;
-  width: 10%;
-  border-radius: 50px;
-}
-
 /* getStartedSectionComponent */
 
 /* getStartedSectionComponent-GetStartedText-Div */
@@ -187,6 +164,7 @@
   height: 35vh;
   justify-content: center;
   align-items: center;
+  margin-top: 5%;
 }
 
 /* getStartedSectionComponent-GetStartedText-Panel */

@@ -104,46 +104,48 @@ export default function RoleManagementSectionComponent(
   }
 
   return (
-    <Container>
-      <Stack direction="row" justifyContent="space-between">
-        <Stack direction="column" alignItems="flex-start">
-          <h3>Role Management</h3>
-          <p>Manage Application roles here.</p>
-        </Stack>
-      </Stack>
-
-      {rolesList && rolesList.length > 0 ? (
-        <FlexboxGrid
-          style={{ marginTop: "24px", width: "100%" }}
-          justify="start"
-          align="top"
-        >
-          <div className={styles.idp__list}>
-            <PanelGroup accordion bordered>
-              {rolesList.map((role, index) => (
-                <RoleItem
-                  session={session}
-                  role={role}
-                  appId={applicationId!}
-                  key={index}
-                />
-              ))}
-            </PanelGroup>
-          </div>
-        </FlexboxGrid>
-      ) : (
-        <FlexboxGrid
-          style={{ height: "60vh", marginTop: "24px", width: "100%" }}
-          justify="center"
-          align="middle"
-        >
-          <Stack alignItems="center" direction="column">
-            <p style={{ fontSize: 14, marginTop: "20px" }}>
-              {"There are no roles created for the organization."}
-            </p>
+    <div className={styles.mainPanelDiv}>
+      <Container>
+        <Stack direction="row" justifyContent="space-between">
+          <Stack direction="column" alignItems="flex-start">
+            <h3>Role Management</h3>
+            <p>Manage Application roles here.</p>
           </Stack>
-        </FlexboxGrid>
-      )}
-    </Container>
+        </Stack>
+
+        {rolesList && rolesList.length > 0 ? (
+          <FlexboxGrid
+            style={{ marginTop: "10px" }}
+            justify="start"
+            align="top"
+          >
+            <div className={styles.idp__list}>
+              <PanelGroup accordion bordered>
+                {rolesList.map((role, index) => (
+                  <RoleItem
+                    session={session}
+                    role={role}
+                    appId={applicationId!}
+                    key={index}
+                  />
+                ))}
+              </PanelGroup>
+            </div>
+          </FlexboxGrid>
+        ) : (
+          <FlexboxGrid
+            style={{ height: "60vh", marginTop: "24px", width: "100%" }}
+            justify="center"
+            align="middle"
+          >
+            <Stack alignItems="center" direction="column">
+              <p style={{ fontSize: 14, marginTop: "20px" }}>
+                {"There are no roles created for the organization."}
+              </p>
+            </Stack>
+          </FlexboxGrid>
+        )}
+      </Container>
+    </div>
   );
 }

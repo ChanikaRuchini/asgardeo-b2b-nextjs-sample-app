@@ -6,18 +6,13 @@
             "type": "menu"
         },
         {
-            "title": "Profile",
+            "title": "Api Call",
             "eventKey": "2",
             "type": "menu"
         },
         {
-            "title": "Api Call",
-            "eventKey": "3",
-            "type": "menu"
-        },
-        {
             "title": "Settings",
-            "eventKey": "4",
+            "eventKey": "3",
             "type": "menu",
             "hideBasedOnScope": true,
             "scopes": [
@@ -37,7 +32,7 @@
             "items": [
                 {
                     "title": "Manage Users",
-                    "eventKey": "4-1",
+                    "eventKey": "3-1",
                     "type": "item",
                     "hideBasedOnScope": true,
                     "scopes": [
@@ -48,7 +43,7 @@
                 },
                 {
                     "title": "Manage Groups",
-                    "eventKey": "4-2",
+                    "eventKey": "3-2",
                     "type": "item",
                     "hideBasedOnScope": true,
                     "scopes": [
@@ -59,7 +54,7 @@
                 },
                 {
                     "title": "Manage Roles",
-                    "eventKey": "4-3",
+                    "eventKey": "3-3",
                     "type": "item",
                     "hideBasedOnScope": true,
                     "scopes": [
@@ -71,7 +66,7 @@
                 },
                 {
                     "title": "Login Connections",
-                    "eventKey": "4-4",
+                    "eventKey": "3-4",
                     "type": "item",
                     "hideBasedOnScope": true,
                     "scopes": [

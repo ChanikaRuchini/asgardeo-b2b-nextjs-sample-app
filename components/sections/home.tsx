@@ -37,25 +37,23 @@ export default function Home(props: HomeProps): JSX.Element {
     switch (activeKey) {
       case "1":
         return <HomeComponent session={session} />;
+      // case "2":
+      //   return <ProfileSectionComponent session={session} />;
       case "2":
-        return <ProfileSectionComponent session={session} />;
-      case "3":
         return <APICall session={session} />;
-      case "4-1":
+      case "3-1":
         return <ManageUserSectionComponent session={session} />;
-      case "4-2":
+      case "3-2":
         return <ManageGroupSectionComponent session={session} />;
-      case "4-3":
+      case "3-3":
         return <RoleManagementSectionComponent session={session} />;
-      case "4-4":
+      case "3-4":
         return <IdpSectionComponent session={session} />;
+      case "profile":
+        return <ProfileSectionComponent session={session} />;
       default:
         return <HomeComponent session={session} />;
     }
-  };
-
-  const signOutCallback = (): void => {
-    signout(session);
   };
 
   const activeKeySideNavSelect = (eventKey: string | undefined): void => {
@@ -77,9 +75,7 @@ export default function Home(props: HomeProps): JSX.Element {
             activeKeySideNavSelect={activeKeySideNavSelect}
             setSignOutModalOpen={signOutModalOpen}
           />
-          <div className={styles["mainPanelDiv"]}>
-            {mainPanelComponenet(activeKeySideNav)}
-          </div>
+          <div>{mainPanelComponenet(activeKeySideNav)}</div>
           <FooterComponent />
         </div>
       ) : (

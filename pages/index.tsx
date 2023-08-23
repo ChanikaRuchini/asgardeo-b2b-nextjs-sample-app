@@ -25,19 +25,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.App}>
-        <header className={styles.AppHeaderSection}>
+        <div className={styles.AppHeaderSection}>
           <div>
             <div className={styles.container}>
-              <div className={styles.logoContainer}>
-                <Image
-                  alt="react-logo"
-                  src={nextImage}
-                  width={120}
-                  className={styles.nextLogoImageLogo}
-                />
-              </div>
+              <Image
+                alt="react-logo"
+                src={nextImage}
+                width={120}
+                className={styles.nextLogoImageLogo}
+              />
             </div>
-            <div className={styles.logoContainer}>
+            <div className={styles.headerContainer}>
               <h1>
                 Enhance your application’s IAM capabilities with
                 <Image
@@ -62,14 +60,14 @@ export default function Home() {
                 Sign In
               </Button>
             </div>
-            <br />
-            <br />
+
             <div className={styles.containerColumn}>
               <a href="https://github.com/ChanikaRuchini/asgardeo-b2b-nextjs-sample-app">
                 <Image
                   src={GITHUB_ICON}
                   className={styles.linkLogoImageSmall}
                   alt="github-logo"
+                  width={35}
                 />
               </a>
               <a href="https://github.com/ChanikaRuchini/asgardeo-b2b-nextjs-sample-app">
@@ -77,7 +75,7 @@ export default function Home() {
               </a>
             </div>
           </div>
-        </header>
+        </div>
       </div>
       <FooterComponent />
     </>

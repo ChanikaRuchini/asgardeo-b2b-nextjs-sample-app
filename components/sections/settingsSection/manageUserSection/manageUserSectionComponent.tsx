@@ -113,97 +113,99 @@ export default function ManageUserSectionComponent(
   };
 
   return (
-    <div className={styles.tableMainPanelDiv}>
-      {openUser ? (
-        <EditUserComponent
+    <div className={styles.mainPanelDiv}>
+      <div className={styles.tableMainPanelDiv}>
+        {openUser ? (
+          <EditUserComponent
+            session={session}
+            open={editUserOpen}
+            onClose={closeEditDialog}
+            user={openUser}
+          />
+        ) : null}
+
+        <AddUserComponent
           session={session}
-          open={editUserOpen}
-          onClose={closeEditDialog}
-          user={openUser}
+          open={addUserOpen}
+          onClose={closeAddUserDialog}
         />
-      ) : null}
 
-      <AddUserComponent
-        session={session}
-        open={addUserOpen}
-        onClose={closeAddUserDialog}
-      />
+        {deleteUserOpen ? (
+          <DeleteUserComponent
+            session={session}
+            open={deleteUserOpen}
+            onClose={closeDeleteDialog}
+            user={openUser!}
+          />
+        ) : null}
 
-      {deleteUserOpen ? (
-        <DeleteUserComponent
-          session={session}
-          open={deleteUserOpen}
-          onClose={closeDeleteDialog}
-          user={openUser!}
-        />
-      ) : null}
-
-      <Stack direction="row" justifyContent="space-between">
-        <Stack direction="column" alignItems="flex-start">
-          <h3>Manage Users</h3>
-          <p>Manage users in the organization</p>
+        <Stack direction="row" justifyContent="space-between">
+          <Stack direction="column" alignItems="flex-start">
+            <h3>Manage Users</h3>
+            <p>Manage users in the organization</p>
+          </Stack>
+          <Button
+            className={styles.addBtn}
+            appearance="primary"
+            size="md"
+            onClick={onAddUserClick}
+          >
+            Add User
+          </Button>
         </Stack>
-        <Button
-          style={{ borderRadius: "50px" }}
-          appearance="primary"
-          size="md"
-          onClick={onAddUserClick}
-        >
-          Add User
-        </Button>
-      </Stack>
 
-      {users ? (
-        <div>
-          <Table autoHeight data={users} style={{ marginTop: "20px" }}>
-            <Column width={200}>
-              <HeaderCell>
-                <h6>First Name</h6>
-              </HeaderCell>
-              <Cell dataKey="firstName" />
-            </Column>
+        {users ? (
+          <div>
+            <Table autoHeight data={users} style={{ marginTop: "20px" }}>
+              <Column width={200}>
+                <HeaderCell>
+                  <h6>First Name</h6>
+                </HeaderCell>
+                <Cell dataKey="firstName" />
+              </Column>
 
-            <Column width={200}>
-              <HeaderCell>
-                <h6>Last Name</h6>
-              </HeaderCell>
-              <Cell dataKey="familyName" />
-            </Column>
+              <Column width={200}>
+                <HeaderCell>
+                  <h6>Last Name</h6>
+                </HeaderCell>
+                <Cell dataKey="familyName" />
+              </Column>
 
-            <Column width={200}>
-              <HeaderCell>
-                <h6>Email (Username)</h6>
-              </HeaderCell>
-              <Cell dataKey="email" />
-            </Column>
+              <Column width={200}>
+                <HeaderCell>
+                  <h6>Email (Username)</h6>
+                </HeaderCell>
+                <Cell dataKey="email" />
+              </Column>
 
-            <Column>
-              <HeaderCell>
-                <h6></h6>
-              </HeaderCell>
+              <Column width={200} align="right">
+                <HeaderCell>
+                  <h6></h6>
+                </HeaderCell>
 
-              <Cell>
-                {(rowData) => (
-                  <span>
-                    <a
-                      onClick={() => onEditClick(rowData as InternalUser)}
-                      style={{ cursor: "pointer", paddingRight: "20px" }}
-                    >
-                      <EditIcon />
-                    </a>
-                    <a
-                      onClick={() => onDeleteClick(rowData as InternalUser)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <TrashIcon />
-                    </a>
-                  </span>
-                )}
-              </Cell>
-            </Column>
-          </Table>
-        </div>
-      ) : null}
+                <Cell>
+                  {(rowData) => (
+                    <span>
+                      <a
+                        onClick={() => onEditClick(rowData as InternalUser)}
+                        style={{ cursor: "pointer", paddingRight: "20px" }}
+                      >
+                        <EditIcon />
+                      </a>
+                      <a
+                        onClick={() => onDeleteClick(rowData as InternalUser)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <TrashIcon />
+                      </a>
+                    </span>
+                  )}
+                </Cell>
+              </Column>
+            </Table>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

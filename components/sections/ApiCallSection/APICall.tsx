@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import stylesSettings from "../../../styles/Settings.module.css";
 import RequestMethod from "../../../models/api/requestMethod";
 import { Session } from "next-auth";
+import styles from "../../../styles/Settings.module.css";
 
 interface APICallProps {
   session: Session;
@@ -39,23 +40,28 @@ export default function APICall(prop: APICallProps) {
   }
 
   return (
-    <div className={stylesSettings.tableMainPanelDiv}>
-      <Stack direction="row" justifyContent="space-between">
-        <Stack direction="column" alignItems="flex-start">
-          <h3>External API</h3>
-          <p>Invoke an external API by clicking on the button below.</p>
+    <div className={styles.mainPanelDiv}>
+      <div className={stylesSettings.tableMainPanelDiv}>
+        <Stack direction="row" justifyContent="space-between">
+          <Stack direction="column" alignItems="flex-start">
+            <h3>External API</h3>
+            <p>Invoke an external API by clicking on the button below.</p>
+          </Stack>
+          <Button
+            className={styles.addBtn}
+            appearance="primary"
+            size="md"
+            onClick={handleApiCall}
+          >
+            Invoke API
+          </Button>
         </Stack>
-      </Stack>
-      <pre className={stylesSettings.contentToCopy}>{message}</pre>
-      <div>
-        <Button appearance="primary" onClick={handleApiCall}>
-          Invoke API
-        </Button>
+        <p>{message}</p>
+        <h3>Output</h3>
+        <pre className={stylesSettings.contentToCopy}>
+          {JSON.stringify(userInfo, null, 2)}
+        </pre>
       </div>
-      <h3>Output</h3>
-      <pre className={stylesSettings.contentToCopy}>
-        {JSON.stringify(userInfo, null, 2)}
-      </pre>
     </div>
   );
 }

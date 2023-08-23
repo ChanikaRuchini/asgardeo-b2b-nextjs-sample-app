@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  margin-top: 5%;
 }
 
 .App h1 {
@@ -10,7 +9,6 @@
 
 .description {
   font-size: medium;
-  margin-top: 10px;
 }
 
 .AppHeaderSection {
@@ -20,7 +18,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: rgb(0, 0, 0);
-  height: 500px;
+  min-height: 100vh;
   padding: 75px;
 }
 
@@ -30,9 +28,9 @@
   justify-content: center; /* Centers the columns horizontally */
   align-items: center; /* Centers the columns vertically */
 }
-.logoContainer {
+.headerContainer {
   display: inline-block;
-  margin-top: 30px;
+  margin-top: 25px;
 
 }
 /* Apply styling to the columns */
@@ -40,9 +38,9 @@
   align-items: center;
   font-size: 18px;
   display: flex;
-  margin-top: 20px;
+  margin-top: 35px;
   justify-content: center;
-  margin-bottom: 40px;
+ 
 }
 
 .containerColumn a {
@@ -52,7 +50,7 @@
 }
 .buttonContainer {
   display: grid;
-  margin-top: 80px;
+  margin-top: 50px;
   place-content: center;
 }
 
@@ -74,10 +72,8 @@
 }
 
 .linkLogoImageSmall {
-  height: 10px;
-  width: 40px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 10px;
+
 }
 /* 
 .main {
@@ -91,18 +87,17 @@
 } */
 
 .mainDiv {
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  gap: 40px;
+  display: grid;
+
+  
 }
 
 .mainPanelDiv {
-  min-height: 50vh;
+  margin-left: auto;
+  margin-right: auto;
   width: 100%;
-  padding: 1rem 4rem;
-  margin-bottom: 20px;
-  margin-top: 10px;
+  max-width: 1000px;
+  padding: 2rem 4rem;
 }
 
 .grid {
@@ -161,10 +156,11 @@
 
 /* getStartedSectionComponent-GetStartedText-Div */
 .getStartedSectionComponentGetStartedTextDiv {
-  height: 35vh;
   justify-content: center;
   align-items: center;
-  margin-top: 5%;
+  padding: 40px;
+  text-align: center;
+  margin-top: 3%;
 }
 
 /* getStartedSectionComponent-GetStartedText-Panel */
@@ -180,6 +176,6 @@
 .getStartedSectionComponentGetStartedTextP {
   text-align: center ;
   font-size: medium;
-  font-size: 0.9rem;
+max-width: 800px;
 }
 

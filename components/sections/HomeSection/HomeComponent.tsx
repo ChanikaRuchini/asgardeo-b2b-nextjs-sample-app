@@ -3,18 +3,12 @@ import { Panel, Stack } from "rsuite";
 import styles from "../../../styles/Home.module.css";
 import { Session } from "next-auth";
 import { infoTypeDialog } from "../../common/dialogComponent/dialogComponent";
-import {
-  CopyTextToClipboardCallback,
-  copyTheTextToClipboard,
-} from "../../../utils/util-common/common";
 import { getUrl } from "../../../utils/application-config-util/applicationConfigUtil";
 import CopyIcon from "@rsuite/icons/Copy";
 import Image from "next/image";
 import UserGuide from "../../../public/user.png";
 import Github from "../../../public/github.png";
 import Docs from "../../../public/docs.png";
-
-import { checkAdmin } from "../../../utils/application-config-util/applicationConfigUtil";
 
 interface HomeComponentProps {
   session: Session;
@@ -30,7 +24,7 @@ export default function HomeComponent(prop: HomeComponentProps) {
     <div className={styles.mainDiv}>
       <div className={styles.getStartedSectionComponentGetStartedTextDiv}>
         <Panel>
-          <Stack direction="column" spacing={10} justifyContent="center">
+          <Stack direction="column" spacing={20} justifyContent="center">
             <Avatar
               circle
               size="lg"
@@ -64,6 +58,7 @@ export default function HomeComponent(prop: HomeComponentProps) {
               alt="github-logo"
               src={Github}
               className={styles.linkLogoImageSmall}
+              width={35}
             />
 
             <strong>Github Repository</strong>
@@ -84,6 +79,7 @@ export default function HomeComponent(prop: HomeComponentProps) {
               alt="user-guide-logo"
               src={UserGuide}
               className={styles.linkLogoImageSmall}
+              width={35}
             />
             <strong>User Guide</strong>
             <p>
@@ -104,6 +100,7 @@ export default function HomeComponent(prop: HomeComponentProps) {
               alt="docs-logo"
               src={Docs}
               className={styles.linkLogoImageSmall}
+              width={35}
             />
             <strong>Asgardeo Docs</strong>
             <p>
@@ -120,37 +117,10 @@ export default function HomeComponent(prop: HomeComponentProps) {
           </Panel>
         </div>
       </div>
-      {/* {checkAdmin(session.scope!) && <AdminSection orgId={session.orgId!} />} */}
     </div>
   );
 }
 
 interface AdminSectionProps {
   orgId: string;
-}
-
-function AdminSection(prop: AdminSectionProps) {
-  const { orgId } = prop;
-
-  const toaster = useToaster();
-
-  const copyValueToClipboard = (text: string) => {
-    const callback: CopyTextToClipboardCallback = () =>
-      infoTypeDialog(toaster, "Text copied to clipboard");
-
-    copyTheTextToClipboard(text, callback);
-  };
-
-  return (
-    <Panel bordered>
-      <p>Share this link with your users to access the Application..</p>
-      <br />
-      <InputGroup>
-        <Input readOnly value={getUrl(orgId)} size="lg" />
-        <InputGroup.Button onClick={() => copyValueToClipboard(getUrl(orgId))}>
-          <CopyIcon />
-        </InputGroup.Button>
-      </InputGroup>
-    </Panel>
-  );
 }

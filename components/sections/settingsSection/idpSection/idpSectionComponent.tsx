@@ -16,6 +16,7 @@ import {
   IdentityProviderTemplate,
 } from "../../../../models/identityProvider/identityProvider";
 import RequestMethod from "../../../../models/api/requestMethod";
+import styles from "../../../../styles/Settings.module.css";
 
 interface IdpSectionComponentProps {
   session: Session;
@@ -123,79 +124,81 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
   };
 
   return (
-    <Container>
-      <Stack direction="row" justifyContent="space-between">
-        <Stack direction="column" alignItems="flex-start">
-          <h3>Login Connections</h3>
-          <p>
-            Manage Login Connections to allow users to log in to your
-            application through them.
-          </p>
+    <div className={styles.mainPanelDiv}>
+      <Container>
+        <Stack direction="row" justifyContent="space-between">
+          <Stack direction="column" alignItems="flex-start">
+            <h3>Login Connections</h3>
+            <p>
+              Manage Login Connections to allow users to log in to your
+              application through them.
+            </p>
+          </Stack>
+
+          {idpList && idpList.length !== 0 ? (
+            <Button
+              style={{ borderRadius: "50px" }}
+              appearance="primary"
+              size="md"
+              onClick={onAddIdentityProviderClick}
+            >
+              Add Connection
+            </Button>
+          ) : null}
         </Stack>
 
-        {idpList && idpList.length !== 0 ? (
-          <Button
-            style={{ borderRadius: "50px" }}
-            appearance="primary"
-            size="md"
-            onClick={onAddIdentityProviderClick}
-          >
-            Add Connection
-          </Button>
-        ) : null}
-      </Stack>
-
-      {idpList ? (
-        idpList.length === 0 ? (
-          <Stack
-            alignItems="center"
-            direction="column"
-            style={{ marginTop: "30px" }}
-          >
-            <AppSelectIcon
-              style={{ opacity: 0.2 }}
-              width="150px"
-              height="150px"
-            />
-            <p style={{ fontSize: 14, marginTop: "20px" }}>
-              There are no connections available at the moment.
-            </p>
-            <Button
-              appearance="primary"
-              onClick={onAddIdentityProviderClick}
-              size="md"
-              style={{ marginTop: "12px", borderRadius: "50px" }}
+        {idpList ? (
+          idpList.length === 0 ? (
+            <Stack
+              alignItems="center"
+              direction="column"
+              style={{ marginTop: "30px" }}
             >
-              Create Connection
-            </Button>
-          </Stack>
-        ) : (
-          <IdentityProviderList
-            fetchAllIdPs={fetchAllIdPs}
-            idpList={idpList}
-            session={session}
-          />
-        )
-      ) : null}
+              <AppSelectIcon
+                style={{ opacity: 0.2 }}
+                width="150px"
+                height="150px"
+              />
+              <p style={{ fontSize: 14, marginTop: "20px" }}>
+                There are no connections available at the moment.
+              </p>
+              <Button
+                appearance="primary"
+                onClick={onAddIdentityProviderClick}
+                size="md"
+                style={{ marginTop: "12px", borderRadius: "50px" }}
+              >
+                Create Connection
+              </Button>
+            </Stack>
+          ) : (
+            <IdentityProviderList
+              fetchAllIdPs={fetchAllIdPs}
+              idpList={idpList}
+              session={session}
+            />
+          )
+        ) : null}
 
-      {openSelectModal && (
-        <SelectIdentityProvider
-          templates={templates}
-          onClose={onSelectIdpModalClose}
-          openModal={openSelectModal}
-          onTemplateSelected={onTemplateSelect}
-        />
-      )}
-      {selectedTemplate && (
-        <IdpCreate
-          session={session}
-          onIdpCreate={onIdpCreated}
-          onCancel={onCreationDismiss}
-          openModal={!!selectedTemplate}
-          template={selectedTemplate}
-          orgId={session.orgId!}
-        />
-      )}
-    </Container>
+        {openSelectModal && (
+          <SelectIdentityProvider
+            templates={templates}
+            onClose={onSelectIdpModalClose}
+            openModal={openSelectModal}
+            onTemplateSelected={onTemplateSelect}
+          />
+        )}
+        {selectedTemplate && (
+          <IdpCreate
+            session={session}
+            onIdpCreate={onIdpCreated}
+            onCancel={onCreationDismiss}
+            openModal={!!selectedTemplate}
+            template={selectedTemplate}
+            orgId={session.orgId!}
+          />
+        )}
+      </Container>
+    </div>
   );
 }

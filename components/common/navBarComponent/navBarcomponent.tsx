@@ -2,7 +2,7 @@ import Image from "next/image";
 import SideNavItem from "../../../models/sideNav/sideNavItem";
 import SideNavList from "../../../models/sideNav/sideNavList";
 import { hideBasedOnScopes } from "../../../utils/front-end-util/frontendUtil";
-import { Navbar, Nav, Button, Stack, Avatar, Whisper, Popover } from "rsuite";
+import { Navbar, Nav, Stack, Popover, Dropdown, Avatar } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import styles from "../../../styles/common.module.css";
 import logo from "../../../public/asgardeo-logo-transparent.png";
@@ -109,16 +109,52 @@ export function NavBarComponent(prop: SidenavComponentProps) {
           })}
         </Nav>
         <Nav pullRight style={{ marginRight: "50px", paddingRight: "50px" }}>
-          <Nav.Item>
-            <p style={{ marginRight: "10px", color: "black" }}>
-              {session.user?.name.givenName! + session.user?.name.familyName}
-            </p>
+          <Nav.Menu
+            // className={styles["navItem"]}
+            // title={
+            //   <p style={{ marginRight: "10px", color: "black" }}>
+            //     {session.user?.name.givenName! + session.user?.name.familyName}
+            //   </p>
+            // }
+            icon={
+              <Avatar
+                circle
+                src="https://avatars.githubusercontent.com/u/15609339"
+                alt="@hiyangguo"
+                style={{ marginRight: "20px" }}
+              />
+            }
+          >
+            <Nav.Item
+              style={{ paddingRight: "50px" }}
+              eventKey={"profile"}
+              onSelect={(eventKey) => activeKeySideNavSelect(eventKey)}
+            >
+              <Stack spacing={10}>{"Profile"}</Stack>
+            </Nav.Item>
+            <Nav.Item
+              eventKey={"signOut"}
+              onSelect={(eventKey) => activeKeySideNavSelect(eventKey)}
+            >
+              <Stack spacing={10} className={styles.signout}>
+                {
+                  <a href="#/" onClick={() => signOutOnClick()}>
+                    Sign out
+                  </a>
+                }
+              </Stack>
+            </Nav.Item>
+          </Nav.Menu>
 
-            <Whisper
+          {/* <Whisper placement="bottomStart" trigger="click" speaker={speaker1}>
+              <Button>File</Button>
+            </Whisper> */}
+
+          {/* <Whisper
               placement="bottom"
               trigger="click"
               controlId="control-id-click"
-              speaker={speaker}
+              speaker={<CustomDropdown />}
             >
               <Avatar
                 circle
@@ -126,8 +162,23 @@ export function NavBarComponent(prop: SidenavComponentProps) {
                 alt="@hiyangguo"
                 style={{ marginRight: "20px" }}
               />
-            </Whisper>
-          </Nav.Item>
+            </Whisper> */}
+          {/* <Dropdown
+              onSelect={() => {}}
+              renderTitle={(children) => (
+                <Avatar
+                  circle
+                  src="https://avatars.githubusercontent.com/u/15609339"
+                  alt="@hiyangguo"
+                  style={{ marginRight: "20px" }}
+                >
+                  {children}
+                </Avatar>
+              )}
+            >
+              <CustomDropdown />
+            </Dropdown> */}
+          {/* </Nav.Item> */}
         </Nav>
       </Navbar>
     </div>

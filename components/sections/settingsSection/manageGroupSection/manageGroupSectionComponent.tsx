@@ -161,94 +161,96 @@ export default function ManageGroupSectionComponent(
   };
 
   return (
-    <div className={styles.tableMainPanelDiv}>
-      {editGroupOpen ? (
-        <EditGroupComponent
-          session={session}
-          open={editGroupOpen}
-          onClose={closeEditDialog}
-          group={openGroup!}
-          userList={users!}
-        />
-      ) : null}
+    <div className={styles.mainPanelDiv}>
+      <div className={styles.tableMainPanelDiv}>
+        {editGroupOpen ? (
+          <EditGroupComponent
+            session={session}
+            open={editGroupOpen}
+            onClose={closeEditDialog}
+            group={openGroup!}
+            userList={users!}
+          />
+        ) : null}
 
-      {deleteUserOpen ? (
-        <DeleteGroupComponent
-          session={session}
-          open={deleteUserOpen}
-          onClose={closeDeleteDialog}
-          group={openGroup!}
-        />
-      ) : null}
+        {deleteUserOpen ? (
+          <DeleteGroupComponent
+            session={session}
+            open={deleteUserOpen}
+            onClose={closeDeleteDialog}
+            group={openGroup!}
+          />
+        ) : null}
 
-      {addUserOpen ? (
-        <AddGroupComponent
-          session={session}
-          users={users!}
-          open={addUserOpen}
-          onClose={closeAddUserDialog}
-        />
-      ) : null}
+        {addUserOpen ? (
+          <AddGroupComponent
+            session={session}
+            users={users!}
+            open={addUserOpen}
+            onClose={closeAddUserDialog}
+          />
+        ) : null}
 
-      <Stack direction="row" justifyContent="space-between">
-        <Stack direction="column" alignItems="flex-start">
-          <h3>Manage Groups</h3>
-          <p>Manage groups in the organization</p>
+        <Stack direction="row" justifyContent="space-between">
+          <Stack direction="column" alignItems="flex-start">
+            <h3>Manage Groups</h3>
+            <p>Manage groups in the organization</p>
+          </Stack>
+          <Button
+            style={{ borderRadius: "50px" }}
+            appearance="primary"
+            size="md"
+            onClick={onAddUserClick}
+          >
+            + New Group
+          </Button>
         </Stack>
-        <Button
-          style={{ borderRadius: "50px" }}
-          appearance="primary"
-          size="md"
-          onClick={onAddUserClick}
-        >
-          + New Group
-        </Button>
-      </Stack>
 
-      {groups ? (
-        <div>
-          <Table autoHeight data={groups} style={{ marginTop: "20px" }}>
-            <Column width={200}>
-              <HeaderCell>
-                <h6>Group</h6>
-              </HeaderCell>
-              <Cell dataKey="displayName" />
-            </Column>
+        {groups ? (
+          <div>
+            <Table autoHeight data={groups} style={{ marginTop: "20px" }}>
+              <Column width={200}>
+                <HeaderCell>
+                  <h6>Group</h6>
+                </HeaderCell>
+                <Cell dataKey="displayName" />
+              </Column>
 
-            <Column width={200}>
-              <HeaderCell>
-                <h6>User Store</h6>
-              </HeaderCell>
-              <Cell dataKey="userStore" />
-            </Column>
+              <Column width={200}>
+                <HeaderCell>
+                  <h6>User Store</h6>
+                </HeaderCell>
+                <Cell dataKey="userStore" />
+              </Column>
 
-            <Column flexGrow={1} fixed="right">
-              <HeaderCell>
-                <h6></h6>
-              </HeaderCell>
+              <Column flexGrow={1} fixed="right" align="right">
+                <HeaderCell>
+                  <h6></h6>
+                </HeaderCell>
 
-              <Cell>
-                {(rowData) => (
-                  <span>
-                    <a
-                      onClick={() => onEditClick(rowData as InternalGroup)}
-                      style={{ cursor: "pointer", paddingRight: "20px" }}
-                    >
-                      <EditIcon />
-                    </a>
-                    <a
-                      onClick={() => onDeleteClick(rowData as InternalGroup)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <TrashIcon />
-                    </a>
-                  </span>
-                )}
-              </Cell>
-            </Column>
-          </Table>
-        </div>
-      ) : null}
+                <Cell>
+                  {(rowData) => (
+                    <span>
+                      <a
+                        onClick={() => onEditClick(rowData as InternalGroup)}
+                        style={{ cursor: "pointer", paddingRight: "20px" }}
+                      >
+                        <EditIcon />
+                      </a>
+                      <a
+                        onClick={() => onDeleteClick(rowData as InternalGroup)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <TrashIcon />
+                      </a>
+                    </span>
+                  )}
+                </Cell>
+              </Column>
+            </Table>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

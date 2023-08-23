@@ -1,9 +1,9 @@
-import { FlexboxGrid, Stack, useToaster } from "rsuite";
+import { Stack, useToaster } from "rsuite";
 import { Form } from "react-final-form";
 import FormSuite from "rsuite/Form";
 import FormField from "../../common/ui-basic-components/formField/formField";
 import FormButtonToolbar from "../../common/ui-basic-components/formButtonToolbar/formButtonToolbar";
-import stylesSettings from "../../../styles/Settings.module.css";
+import styles from "../../../styles/Settings.module.css";
 import { fieldValidate } from "../../../utils/front-end-util/frontendUtil";
 import { Session } from "next-auth";
 import {
@@ -154,73 +154,81 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
   }
 
   return (
-    <div className={stylesSettings.tableMainPanelDiv}>
-      <Stack direction="row" justifyContent="space-between">
-        <Stack direction="column" alignItems="flex-start">
-          <h3>User Profile</h3>
-          <p>Update your profile information</p>
+    <div className={styles.mainPanelDiv}>
+      <div className={styles.tableMainPanelDiv}>
+        <Stack direction="row" justifyContent="space-between">
+          <Stack direction="column" alignItems="flex-start">
+            <h3>User Profile</h3>
+            <p>Update your profile information</p>
+          </Stack>
         </Stack>
-      </Stack>
 
-      {user ? (
-        <div style={{ width: "50%" }}>
-          <Form
-            onSubmit={onSubmit}
-            validate={validate}
-            initialValues={{
-              email: user.email,
-              familyName: user.familyName,
-              firstName: user.firstName,
-              username: user.username,
-            }}
-            render={({ handleSubmit, form, submitting, pristine, errors }) => (
-              <FormSuite
-                layout="vertical"
-                onSubmit={() => {
-                  handleSubmit();
-                }}
-                fluid
-              >
-                <FormField
-                  name="firstName"
-                  label="First Name"
-                  needErrorMessage={true}
+        {user ? (
+          <div style={{ width: "50%" }}>
+            <Form
+              onSubmit={onSubmit}
+              validate={validate}
+              initialValues={{
+                email: user.email,
+                familyName: user.familyName,
+                firstName: user.firstName,
+                username: user.username,
+              }}
+              render={({
+                handleSubmit,
+                form,
+                submitting,
+                pristine,
+                errors,
+              }) => (
+                <FormSuite
+                  layout="vertical"
+                  onSubmit={() => {
+                    handleSubmit();
+                  }}
+                  fluid
                 >
-                  <FormSuite.Control name="input" />
-                </FormField>
+                  <FormField
+                    name="firstName"
+                    label="First Name"
+                    needErrorMessage={true}
+                  >
+                    <FormSuite.Control name="input" />
+                  </FormField>
 
-                <FormField
-                  name="familyName"
-                  label="Family Name"
-                  needErrorMessage={true}
-                >
-                  <FormSuite.Control name="input" />
-                </FormField>
+                  <FormField
+                    name="familyName"
+                    label="Family Name"
+                    needErrorMessage={true}
+                  >
+                    <FormSuite.Control name="input" />
+                  </FormField>
 
-                <FormField
-                  name="email"
-                  label="Email (Username)"
-                  needErrorMessage={true}
-                >
-                  <FormSuite.Control
-                    name="input"
-                    type="email"
-                    readOnly={true}
+                  <FormField
+                    name="email"
+                    label="Email (Username)"
+                    needErrorMessage={true}
+                  >
+                    <FormSuite.Control
+                      name="input"
+                      type="email"
+                      readOnly={true}
+                    />
+                  </FormField>
+
+                  <FormButtonToolbar
+                    submitButtonText="Submit"
+                    needCancel={false}
+                    submitButtonDisabled={
+                      submitting || pristine || !checkIfJSONisEmpty(errors)
+                    }
                   />
-                </FormField>
-
-                <FormButtonToolbar
-                  submitButtonText="Submit"
-                  needCancel={false}
-                  submitButtonDisabled={
-                    submitting || pristine || !checkIfJSONisEmpty(errors)
-                  }
-                />
-              </FormSuite>
-            )}
-          />
-        </div>
-      ) : null}
+                </FormSuite>
+              )}
+            />
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

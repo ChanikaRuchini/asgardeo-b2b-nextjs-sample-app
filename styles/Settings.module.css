@@ -1,3 +1,10 @@
+.mainPanelDiv {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 1000px;
+    padding: 5rem 4rem;
+}
 .tableMainPanelDiv {
     display: flex;
    flex-direction: column;
@@ -13,9 +20,14 @@
     margin-bottom: 10px;
 }
 
-.addButton{
+.addLoginFlowBtn{
     width: 25%;
     border-radius: 50px;
+}
+
+.addBtn{
+    border-radius: 50px;
+    margin-right: 70px;
 }
 
 .nextLogoImage {
@@ -74,7 +86,7 @@
 
 .idp__list {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 50px;
 }
 
 .idp__list__item {
@@ -107,8 +119,10 @@
     line-height: 1.4;
     overflow-x: auto;
     white-space: pre-wrap;
-    width: 80%;
+    width: 100%;
     min-height: 100px;
     text-align: left;
     border-radius: 8px;
   }
+
+  

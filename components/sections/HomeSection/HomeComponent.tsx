@@ -2,9 +2,6 @@ import { Avatar, FlexboxGrid, Input, InputGroup, useToaster } from "rsuite";
 import { Panel, Stack } from "rsuite";
 import styles from "../../../styles/Home.module.css";
 import { Session } from "next-auth";
-import { infoTypeDialog } from "../../common/dialogComponent/dialogComponent";
-import { getUrl } from "../../../utils/application-config-util/applicationConfigUtil";
-import CopyIcon from "@rsuite/icons/Copy";
 import Image from "next/image";
 import UserGuide from "../../../images/user.png";
 import Github from "../../../images/github.png";
@@ -38,8 +35,6 @@ export default function HomeComponent(prop: HomeComponentProps) {
                 {session.user?.name.givenName} {}
                 {session.user?.name.familyName},
               </strong>
-              {/* &nbsp; Welcome to the
-              <strong> {session.orgName} </strong>organization !! */}
             </h4>
             <h5>
               &nbsp; Welcome to the
@@ -121,8 +116,4 @@ export default function HomeComponent(prop: HomeComponentProps) {
       </div>
     </div>
   );
-}
-
-interface AdminSectionProps {
-  orgId: string;
 }

@@ -27,21 +27,6 @@ export function NavBarComponent(prop: SidenavComponentProps) {
 
   const sideNavConfigList: SideNavList = sideNavData;
   const signOutOnClick = () => setSignOutModalOpen(true);
-  const speaker = (
-    <Popover className={styles.signout} arrow={false}>
-      <a href="#/" onClick={() => signOutOnClick()}>
-        Sign out
-      </a>
-      {/* <Button
-        style={{ borderRadius: "50px", width: "100%" }}
-        size="xs"
-        appearance="ghost"
-        onClick={signOutOnClick}
-      >
-        Log Out
-      </Button> */}
-    </Popover>
-  );
 
   return (
     <div className={styles["navDiv"]}>
@@ -143,40 +128,6 @@ export function NavBarComponent(prop: SidenavComponentProps) {
               </Stack>
             </Nav.Item>
           </Nav.Menu>
-
-          {/* <Whisper placement="bottomStart" trigger="click" speaker={speaker1}>
-              <Button>File</Button>
-            </Whisper> */}
-
-          {/* <Whisper
-              placement="bottom"
-              trigger="click"
-              controlId="control-id-click"
-              speaker={<CustomDropdown />}
-            >
-              <Avatar
-                circle
-                src="https://avatars.githubusercontent.com/u/15609339"
-                alt="@hiyangguo"
-                style={{ marginRight: "20px" }}
-              />
-            </Whisper> */}
-          {/* <Dropdown
-              onSelect={() => {}}
-              renderTitle={(children) => (
-                <Avatar
-                  circle
-                  src="https://avatars.githubusercontent.com/u/15609339"
-                  alt="@hiyangguo"
-                  style={{ marginRight: "20px" }}
-                >
-                  {children}
-                </Avatar>
-              )}
-            >
-              <CustomDropdown />
-            </Dropdown> */}
-          {/* </Nav.Item> */}
         </Nav>
       </Navbar>
     </div>

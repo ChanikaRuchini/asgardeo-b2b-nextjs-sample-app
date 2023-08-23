@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { MouseEventHandler } from "react";
 import { Button, Stack } from "rsuite";
 import styles from "../../../styles/common.module.css";
-import errorImage from "../../../public/500.svg";
+import errorImage from "../../../images/500.svg";
 
 export interface Custom500ComponentProps {
   goBack: MouseEventHandler<HTMLElement>;

@@ -1,5 +1,5 @@
-import enterpriseImage from "../public/enterprise.svg";
-import googleImage from "../public/google.svg";
+import enterpriseImage from "../images/enterprise.svg";
+import googleImage from "../images/google.svg";
 import { IdentityProviderDiscoveryUrl, IdentityProviderTemplateModel } from "../models/identityProvider/identityProvider";
 import { getManagementAPIServerBaseUrl, getOrgUrl } from "./application-config-util/applicationConfigUtil";
 import { EMPTY_STRING, ENTERPRISE_ID, GOOGLE_ID } from "./util-common/common";

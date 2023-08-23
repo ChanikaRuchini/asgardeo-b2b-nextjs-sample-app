@@ -5,7 +5,7 @@ import { hideBasedOnScopes } from "../../../utils/front-end-util/frontendUtil";
 import { Navbar, Nav, Stack, Popover, Dropdown, Avatar } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import styles from "../../../styles/common.module.css";
-import logo from "../../../public/asgardeo-logo-transparent.png";
+import logo from "../../../images/asgardeo-logo-transparent.png";
 import { Session } from "next-auth";
 
 export interface SidenavComponentProps {
@@ -108,14 +108,12 @@ export function NavBarComponent(prop: SidenavComponentProps) {
             }
           })}
         </Nav>
-        <Nav pullRight style={{ marginRight: "50px", paddingRight: "50px" }}>
+        <Nav pullRight>
           <Nav.Menu
-            // className={styles["navItem"]}
-            // title={
-            //   <p style={{ marginRight: "10px", color: "black" }}>
-            //     {session.user?.name.givenName! + session.user?.name.familyName}
-            //   </p>
-            // }
+            style={{ paddingRight: "15px" }}
+            title={
+              <p style={{ color: "black" }}>{session.user?.name.givenName!}</p>
+            }
             icon={
               <Avatar
                 circle
@@ -126,7 +124,7 @@ export function NavBarComponent(prop: SidenavComponentProps) {
             }
           >
             <Nav.Item
-              style={{ paddingRight: "50px" }}
+              style={{ paddingRight: "85px" }}
               eventKey={"profile"}
               onSelect={(eventKey) => activeKeySideNavSelect(eventKey)}
             >

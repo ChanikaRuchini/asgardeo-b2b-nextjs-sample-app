@@ -1,39 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 👀 Live Deployment
 
-# WSO2 B2B Organization Samples
+A live preview of this demo is available at
 
-## ⚠️ Read this first
+1. Vercel: [https://asgardeo-b2b-nextjs-sample-app.vercel.app/](https://asgardeo-b2b-nextjs-sample-app.vercel.app/)
 
-1. The root of the sample-is repository will be referred to as `<SAMPLE_IS_HOME>` throughout this document.
-2. Required versions
+Sample Credential
 
-```
-Node version >= v16.16.0
-```
+- organization name : Best Car Mart
+- username : Alex@gmail.com
+- password : Alex@123
 
-```
-NPM version >= 8.11.0
-```
+## Features/ Capabilities
 
-## 1. Setting up
+- Sign In to the sub organization application
+- Sign Out of the application
+- User profile view and update
+- User Management.
+  - View all users
+  - Add new user
+  - Edit user
+  - Delete User
+- Group Management
+  - View groups
+  - Add a new group and assign users.
+  - Edit group and edit assigned users.
+  - Delete group
+- Role Management
+  - View Role permission
+  - View assigned groups
+  - Assign new groups
+  - Assign external groups
+- Idp Management
+  - Add Idp ( Google Idp/ Enterprise Idp)
+  - Edit Idp settings
+  - Add external groups
+  - Add Idp to application login flow
 
-### Step 1: Create an organization
+## Configure Asgardeo to integrate with your application
 
-Create a sub-organization.
-name : Best Car Mart
+Create a sub organization
 
-### Step 2: Create application
+1. Access Asgardeo at https://console.asgardeo.io/ and log in.
 
-Now we need **two** applications to communicate with the **Guardio-Business-App** and the \***\*Guardio-Admin-App\*\***.
+2. Click Sub Organizations in the left navigation menu.
 
-- Click **Applications** in the left navigation menu.
+3. Create a new sub organization
+   <img src="./images/docs/subOrg.png" alt="SubOrg" title="SubOrg">
+
+Create the application
+
+1. Click Applications in the left navigation menu.
+
+2. Create a new application
+
 - Select Standard-Based Application.
+  <img src="./images/docs/applications.png" alt="Applications" title="Applications">
+
 - Fill the details and click register.
   - name : **Guardio-App**
   - click management application.
   - Click **Share Application** button, select the suborganizations with which you want to share the application, and proceed.
   - Select **Share with all sub-organizations**, if you want to share your application with all existing suborganizations and every sub-organization that will be created later.
-- Go to Protocol section and add the following.
+
+3. Go to Protocol section and add the following.
 
 > | Property                 |                                      Value/s                                      |
 > | ------------------------ | :-------------------------------------------------------------------------------: |
@@ -41,29 +70,60 @@ Now we need **two** applications to communicate with the **Guardio-Business-App*
 > | Authorized redirect URLs | `http://localhost:3001/api/auth/callback/wso2isAdmin` and `http://localhost:3001` |
 > | Allowed origin           |                              `http://localhost:3001`                              |
 
-- On the User Attributes tab, click on + Add User Attributes.
-  Select `Email`, `First Name`, `Last Name`, and `Username` from the list of attributes. |
+<img src="./images/docs/protocol.png" alt="Protocol" title="Protocol">
 
-### Step 3: Create a user and assign roles
+4. On the User Attributes tab, click on + Add User Attributes.
+   Select `Email`, `First Name`, `Last Name`, and `Username` from the list of attributes. |
+
+Create a user and assign roles
 
 You need to create new users on the sub-organizations with the required permissions.
-
 To create a user for Best Auto Mart with all administrative permissions :
 
-- Use the Organization Switcher to change the organization to Best Auto Mart.
-- Create a user named Alex on the Best Auto Mart organization.
-- Create an admin role with all permissions.
-- Assign Alex to this newly created Role.
+1. Click Sub Organization at left navigation panel
+2. Use the Organization Switcher to change the organization to Best Car Mart.
+3. Click User Management at the left navigation panel and select Users.
+   <img src="./images/docs/users.png" alt="Users" title="Users">
 
-create another user named Tom on the Best Auto Mart organization( without assiging roles)
+4. Click Add User button and create a user named Alex on the Best Car Mart organization.
+5. Create an admin role with all permissions.
+6. Click User Management > Roles > Organization Roles> Configure.
+   <img src="./images/docs/organizationRoles.png" alt="organizationRoles" title="organizationRoles">
 
-### Step 4: Setup the `.env` file
+7. Click Add Organization Role button and create an administrator role.
+8. Click next and check all permissions to assign all the permissions to the created role.
+9. Click next and select the users tab.
+10. Check the checkbox alex and select the front arrow to assign the user to the role.
+    <img src="./images/docs/userRole.png" alt="userRole" title="userRole">
 
-Update the values in the .env file based on your requirements.
+11. create another user named Tom on the Best Auto Mart organization( without assiging roles)
 
+## 🚀 Getting Started
+
+1. Clone the repository.
+
+```bash
+git clone https://github.com/ChanikaRuchini/asgardeo-b2b-nextjs-sample-app.git
 ```
+
+2. Install the dependencies.
+
+```bash
+npm install
+```
+
+3. Create a `.env` file based on the `.env.example` file.
+
+```bash
+cp .env.example .env
+```
+
+4. Update the values in the `.env` file based on your requirements.
+
+```bash
+
 # The endpoint of the server's API that the client application will communicate with
-# E.g., http://localhost:5000/posts
+# E.g., http://localhost:3000
 NEXT_PUBLIC_HOSTED_URL="http://localhost:3000"
 
 # The base URL for the Asgardeo root organization's API
@@ -71,33 +131,29 @@ NEXT_PUBLIC_HOSTED_URL="http://localhost:3000"
 NEXT_PUBLIC_ASGARDEO_BASE_ORGANIZATION_URL="https://api.asgardeo.io/t/guardioinc"
 
 # The client ID for the Asgardeo Shared Application
-SHARED_APP_CLIENT_ID="<CLIENT ID OF THE CREATED APP>"
+SHARED_APP_CLIENT_ID="<CLIENT ID OF CREATED APP>"
 
 # The client Secret for the Asgardeo Shared Application
-SHARED_APP_CLIENT_SECRET=<CLIENT SECRET OF CREATED APP>
+SHARED_APP_CLIENT_SECRET="<CLIENT SECRET OF CREATED APP>"
 
 # The name of the Asgardeo Shared Application
-SHARED_APPICATION_NAME="Guardio-Admin-App"
+SHARED_APPICATION_NAME="Guardio-App"
 
 # Scopes
 API_SCOPES="openid email profile internal_login internal_user_mgt_view internal_user_mgt_list internal_user_mgt_update internal_user_mgt_delete internal_user_mgt_create internal_idp_view internal_idp_create internal_idp_update internal_idp_delete internal_application_mgt_view internal_application_mgt_update internal_application_mgt_create internal_application_mgt_delete internal_organization_view internal_role_mgt_view internal_role_mgt_create internal_role_mgt_update internal_role_mgt_delete internal_group_mgt_update internal_group_mgt_view internal_group_mgt_create internal_group_mgt_delete internal_governance_view internal_governance_update"
 
 ```
 
-### Step 5: Run the Guardio-App
-
-- Open a separate terminal and run,
+5. Start the development server.
 
 ```bash
- # From `<SAMPE_IS_HOME>/b2b-sample`
- npm run dev
- # or
- yarn dev
+npm run dev
 ```
 
-- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-- Login from the created user `Alex` to the application.
-  - Type `Best Car Mart` when pop up to type the organization.
+This will start the app on [http://localhost:3000](http://localhost:3000).
+Login from the created user `Alex` to the application.
+
+- Type `Best Car Mart` when pop up to type the organization.
 
 ## Deploy on Vercel
 

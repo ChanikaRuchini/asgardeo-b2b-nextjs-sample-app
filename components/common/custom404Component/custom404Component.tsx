@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { Button, Stack } from "rsuite";
 import styles from "../../../styles/common.module.css";
-import errorImage from "../../../public/404.svg";
+import errorImage from "../../../images/404.svg";
 
 export function Custom404Component() {
   const router = useRouter();

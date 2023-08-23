@@ -6,9 +6,9 @@ import { infoTypeDialog } from "../../common/dialogComponent/dialogComponent";
 import { getUrl } from "../../../utils/application-config-util/applicationConfigUtil";
 import CopyIcon from "@rsuite/icons/Copy";
 import Image from "next/image";
-import UserGuide from "../../../public/user.png";
-import Github from "../../../public/github.png";
-import Docs from "../../../public/docs.png";
+import UserGuide from "../../../images/user.png";
+import Github from "../../../images/github.png";
+import Docs from "../../../images/docs.png";
 
 interface HomeComponentProps {
   session: Session;
@@ -38,11 +38,13 @@ export default function HomeComponent(prop: HomeComponentProps) {
                 {session.user?.name.givenName} {}
                 {session.user?.name.familyName},
               </strong>
+              {/* &nbsp; Welcome to the
+              <strong> {session.orgName} </strong>organization !! */}
+            </h4>
+            <h5>
               &nbsp; Welcome to the
               <strong> {session.orgName} </strong>organization !!
-            </h4>
-            {/* <h5>Quick Start Boilerplate App</h5> */}
-
+            </h5>
             <p className={styles.getStartedSectionComponentGetStartedTextP}>
               From here on you can experience the basic business application use
               cases integrated with Asgardeo for B2B organization management.

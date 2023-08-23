@@ -4,9 +4,9 @@ import styles from "../styles/Home.module.css";
 import { orgSignin } from "../utils/authorization-config-util/authorizationConfigUtil";
 import FooterComponent from "../components/common/footerComponent/footerComponent";
 import { Button } from "rsuite";
-import logo from "../public/asgardeo-logo-transparent.png";
-import nextImage from "../public/next.svg";
-import GITHUB_ICON from "../public/github.png";
+import logo from "../images/asgardeo-logo-transparent.png";
+import nextImage from "../images/next.svg";
+import GITHUB_ICON from "../images/github.png";
 
 export default function Home() {
   const handleLogin = () => {

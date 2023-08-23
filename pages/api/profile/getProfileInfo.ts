@@ -30,7 +30,7 @@ export default async function getProfileInfo(req: NextApiRequest, res: NextApiRe
         console.log(session);
         console.log(getMeEnpointUrl(orgId));
         const data = await fetchData.json();
-
+        console.log("data", data);
         if (fetchData.status >= 200 && fetchData.status < 300) {
             res.status(fetchData.status).json(data);
         } else {

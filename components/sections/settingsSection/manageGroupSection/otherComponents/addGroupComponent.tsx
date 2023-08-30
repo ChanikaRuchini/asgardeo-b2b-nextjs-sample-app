@@ -300,7 +300,7 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
                 ) : null} */}
                 <br />
                 <FormButtonToolbar
-                  submitButtonText="Submit"
+                  submitButtonText="Create"
                   submitButtonDisabled={
                     submitting || pristine || !checkIfJSONisEmpty(errors)
                   }

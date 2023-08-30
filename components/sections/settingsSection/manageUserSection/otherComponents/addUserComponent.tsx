@@ -231,103 +231,109 @@ export default function AddUserComponent(props: AddUserComponentProps) {
 
       <Modal.Body>
         <div className={styles.addUserMainDiv}>
-          <div style={{paddingRight:"20px"}}>
-          <Form
-            onSubmit={onSubmit}
-            validate={validate}
-            render={({ handleSubmit, form, submitting, pristine, errors }) => (
-              <FormSuite
-                layout="vertical"
-                onSubmit={() => {
-                  handleSubmit();
-                }}
-                fluid
-              >
-                <FormField
-                  name="firstName"
-                  label="First Name"
-                  needErrorMessage={true}
+          <div style={{ paddingRight: "20px" }}>
+            <Form
+              onSubmit={onSubmit}
+              validate={validate}
+              render={({
+                handleSubmit,
+                form,
+                submitting,
+                pristine,
+                errors,
+              }) => (
+                <FormSuite
+                  layout="vertical"
+                  onSubmit={() => {
+                    handleSubmit();
+                  }}
+                  fluid
                 >
-                  <FormSuite.Control name="input" />
-                </FormField>
+                  <FormField
+                    name="firstName"
+                    label="First Name"
+                    needErrorMessage={true}
+                  >
+                    <FormSuite.Control name="input" />
+                  </FormField>
 
-                <FormField
-                  name="familyName"
-                  label="Family Name"
-                  needErrorMessage={true}
-                >
-                  <FormSuite.Control name="input" />
-                </FormField>
+                  <FormField
+                    name="familyName"
+                    label="Family Name"
+                    needErrorMessage={true}
+                  >
+                    <FormSuite.Control name="input" />
+                  </FormField>
 
-                <FormField
-                  name="email"
-                  label="Email (Username)"
-                  needErrorMessage={true}
-                >
-                  <FormSuite.Control name="input" type="email" />
-                </FormField>
+                  <FormField
+                    name="email"
+                    label="Email (Username)"
+                    needErrorMessage={true}
+                  >
+                    <FormSuite.Control name="input" type="email" />
+                  </FormField>
 
-                <RadioGroup
-                  name="radioList"
-                  value={inviteSelect}
-                  defaultValue={InviteConst.INVITE}
-                  onChange={inviteSelectOnChange}
-                >
-                  <b>Select the method to set the user password</b>
-                  <Radio value={InviteConst.INVITE}>
-                    Invite the user to set their own password
-                  </Radio>
+                  <RadioGroup
+                    name="radioList"
+                    value={inviteSelect}
+                    defaultValue={InviteConst.INVITE}
+                    onChange={inviteSelectOnChange}
+                  >
+                    <b>Select the method to set the user password</b>
+                    <Radio value={InviteConst.INVITE}>
+                      Invite the user to set their own password
+                    </Radio>
 
-                  <div style={inviteShow}>
-                    <EmailInvitePanel />
-                    <br />
-                  </div>
+                    <div style={inviteShow}>
+                      <EmailInvitePanel />
+                      <br />
+                    </div>
 
-                  <Radio value={InviteConst.PWD}>
-                    Set a password for the user
-                  </Radio>
+                    <Radio value={InviteConst.PWD}>
+                      Set a password for the user
+                    </Radio>
 
-                  <div style={passwordShow}>
-                    <br />
+                    <div style={passwordShow}>
+                      <br />
 
-                    <FormField
-                      name="password"
-                      label="Password"
-                      needErrorMessage={true}
-                    >
-                      <FormSuite.Control
-                        name="input"
-                        type="password"
-                        autoComplete="off"
-                      />
-                    </FormField>
+                      <FormField
+                        name="password"
+                        label="Password"
+                        needErrorMessage={true}
+                      >
+                        <FormSuite.Control
+                          name="input"
+                          type="password"
+                          autoComplete="off"
+                        />
+                      </FormField>
 
-                    <FormField
-                      name="repassword"
-                      label="Re enter password"
-                      needErrorMessage={true}
-                    >
-                      <FormSuite.Control
-                        name="input"
-                        type="password"
-                        autoComplete="off"
-                      />
-                    </FormField>
-                  </div>
-                </RadioGroup>
-                <br />
+                      <FormField
+                        name="repassword"
+                        label="Re enter password"
+                        needErrorMessage={true}
+                      >
+                        <FormSuite.Control
+                          name="input"
+                          type="password"
+                          autoComplete="off"
+                        />
+                      </FormField>
+                    </div>
+                  </RadioGroup>
+                  <br />
 
-                <FormButtonToolbar
-                  submitButtonText="Submit"
-                  submitButtonDisabled={
-                    submitting || pristine || !checkIfJSONisEmpty(errors)
-                  }
-                  onCancel={onClose}
-                />
-              </FormSuite>
-            )}
-          />
-        </div>
+                  <FormButtonToolbar
+                    submitButtonText="Create"
+                    submitButtonDisabled={
+                      submitting || pristine || !checkIfJSONisEmpty(errors)
+                    }
+                    onCancel={onClose}
+                  />
+                </FormSuite>
+              )}
+            />
+          </div>
         </div>
       </Modal.Body>
 

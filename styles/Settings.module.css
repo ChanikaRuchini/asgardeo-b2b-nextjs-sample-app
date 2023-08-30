@@ -3,11 +3,11 @@
     margin-right: auto;
     width: 100%;
     max-width: 1000px;
-    padding: 5rem 4rem;
+    padding: 5.5rem 4rem;
 }
 .tableMainPanelDiv {
     display: flex;
-   flex-direction: column;
+    flex-direction: column;
     gap: 40px;
     height: 100%;
 }
@@ -123,6 +123,12 @@
     min-height: 100px;
     text-align: left;
     border-radius: 8px;
+  }
+
+  .profilesection{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
   }
 
   

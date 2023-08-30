@@ -202,7 +202,7 @@ export default function ManageGroupSectionComponent(
             size="md"
             onClick={onAddUserClick}
           >
-            + New Group
+            Add Group
           </Button>
         </Stack>
 

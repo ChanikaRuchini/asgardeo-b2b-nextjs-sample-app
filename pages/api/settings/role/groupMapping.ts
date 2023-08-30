@@ -13,8 +13,6 @@ export default async function GroupMapping(req: NextApiRequest, res: NextApiResp
     const appId = body.appId;
 
     const name = body.role;
-    console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", body.orgId);
-
 
     try {
         const fetchData = await fetch(

@@ -123,7 +123,7 @@ export default function GroupsList(props: GroupsListProps) {
           size="md"
           onClick={onAddGroupClick}
         >
-          + New Group
+          Add Group
         </Button>
       </Stack>
 
@@ -137,9 +137,9 @@ export default function GroupsList(props: GroupsListProps) {
               <Cell dataKey="name" />
             </Column>
 
-            <Column flexGrow={1} align="center" fixed="right">
+            <Column flexGrow={1} fixed="right" align="right">
               <HeaderCell>
-                <h6>Delete Group</h6>
+                <h6></h6>
               </HeaderCell>
 
               <Cell>

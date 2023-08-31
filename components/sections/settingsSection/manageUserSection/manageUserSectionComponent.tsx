@@ -1,6 +1,6 @@
 import { Session } from "next-auth";
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, Stack, Table } from "rsuite";
+import { Button, Loader, Stack, Table } from "rsuite";
 import AddUserComponent from "./otherComponents/addUserComponent";
 import EditUserComponent from "./otherComponents/editUserComponent";
 import styles from "../../../../styles/Settings.module.css";
@@ -10,21 +10,27 @@ import RequestMethod from "../../../../models/api/requestMethod";
 import EditIcon from "@rsuite/icons/Edit";
 import TrashIcon from "@rsuite/icons/Trash";
 import DeleteUserComponent from "./otherComponents/deleteUserComponent";
-
-interface ManageUserSectionComponentProps {
-  session: Session;
-}
+import { useSession } from "next-auth/react";
+import {
+  LOADING_DISPLAY_BLOCK,
+  LOADING_DISPLAY_NONE,
+} from "../../../../utils/front-end-util/frontendUtil";
+import { orgSignin } from "../../../../utils/authorization-config-util/authorizationConfigUtil";
 
 /**
  *
- * @param prop - session
  *
  * @returns A component that will show the users in a table view
  */
-export default function ManageUserSectionComponent(
-  props: ManageUserSectionComponentProps
-) {
-  const { session } = props;
+export default function ManageUserSectionComponent() {
+  //const { data: session, status } = useSession();
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      console.log("wwwwwwwwwwwwwwww", session?.orgId);
+      orgSignin();
+    },
+  });
 
   const [users, setUsers] = useState<InternalUser[] | null>([]);
   const [editUserOpen, setEditUserOpen] = useState<boolean>(false);
@@ -32,10 +38,13 @@ export default function ManageUserSectionComponent(
   const [openUser, setOpenUser] = useState<InternalUser | null>();
   const [deleteUserOpen, setDeleteUserOpen] = useState<boolean>(false);
   const { Column, HeaderCell, Cell } = Table;
+  const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
 
   const fetchData = useCallback(async () => {
-    const res = await getUsersList(session);
+    setLoadingDisplay(LOADING_DISPLAY_BLOCK);
+    const res = await getUsersList(session!);
     await setUsers(res);
+    setLoadingDisplay(LOADING_DISPLAY_NONE);
   }, [session]);
 
   useEffect(() => {
@@ -117,7 +126,7 @@ export default function ManageUserSectionComponent(
       <div className={styles.tableMainPanelDiv}>
         {openUser ? (
           <EditUserComponent
-            session={session}
+            session={session!}
             open={editUserOpen}
             onClose={closeEditDialog}
             user={openUser}
@@ -125,14 +134,14 @@ export default function ManageUserSectionComponent(
         ) : null}
 
         <AddUserComponent
-          session={session}
+          session={session!}
           open={addUserOpen}
           onClose={closeAddUserDialog}
         />
 
         {deleteUserOpen ? (
           <DeleteUserComponent
-            session={session}
+            session={session!}
             open={deleteUserOpen}
             onClose={closeDeleteDialog}
             user={openUser!}
@@ -154,7 +163,7 @@ export default function ManageUserSectionComponent(
           </Button>
         </Stack>
 
-        {users ? (
+        {loadingDisplay == LOADING_DISPLAY_NONE && users && users.length > 0 ? (
           <div>
             <Table autoHeight data={users} style={{ marginTop: "20px" }}>
               <Column width={200}>
@@ -205,6 +214,9 @@ export default function ManageUserSectionComponent(
             </Table>
           </div>
         ) : null}
+        <div style={loadingDisplay}>
+          <Loader size="md" backdrop content="" vertical />
+        </div>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ export interface SideNavItem {
     hideBasedOnScope?: boolean,
     items?: SideNavItem[],
     scopes? : string[],
-    new? : boolean
+    route: string
 }
 
 export default SideNavItem;

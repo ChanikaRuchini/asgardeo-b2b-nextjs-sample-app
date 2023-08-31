@@ -5,10 +5,15 @@ import {
 } from "../../../../common/dialogComponent/dialogComponent";
 import { Session } from "next-auth";
 import { Form } from "react-final-form";
-import { Modal, useToaster } from "rsuite";
+import { Loader, Modal, useToaster } from "rsuite";
 import FormSuite from "rsuite/Form";
 import RequestMethod from "../../../../../models/api/requestMethod";
 import { InternalGroup } from "../../../../../models/group/group";
+import { useState } from "react";
+import {
+  LOADING_DISPLAY_BLOCK,
+  LOADING_DISPLAY_NONE,
+} from "../../../../../utils/front-end-util/frontendUtil";
 
 interface DeleteGroupComponentProps {
   session: Session;
@@ -26,6 +31,7 @@ interface DeleteGroupComponentProps {
 export default function DeleteGroupComponent(prop: DeleteGroupComponentProps) {
   const { session, open, onClose, group } = prop;
   const toaster = useToaster();
+  const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
 
   const onGroupDelete = (response: boolean | null): void => {
     if (response) {
@@ -40,12 +46,10 @@ export default function DeleteGroupComponent(prop: DeleteGroupComponentProps) {
   };
 
   const onSubmit = (): void => {
+    setLoadingDisplay(LOADING_DISPLAY_BLOCK);
     deleteGroup(session, group?.id)
       .then((response) => onGroupDelete(response))
-      .finally(() => {
-        //getGroups().finally();
-      });
-
+      .finally(() => setLoadingDisplay(LOADING_DISPLAY_NONE));
     onClose();
   };
 
@@ -104,6 +108,9 @@ export default function DeleteGroupComponent(prop: DeleteGroupComponentProps) {
           )}
         />
       </Modal.Body>
+      <div style={loadingDisplay}>
+        <Loader size="lg" backdrop content="Group is adding" vertical />
+      </div>
     </Modal>
   );
 }

@@ -15,23 +15,20 @@ import { checkIfJSONisEmpty } from "../../../utils/util-common/common";
 import { decodeUser } from "../../../utils/userUtils";
 import RequestMethod from "../../../models/api/requestMethod";
 import { InternalUser, SendEditUser, User } from "../../../models/user/user";
-
-interface ProfileComponentProps {
-  session: Session;
-}
+import { useSession } from "next-auth/react";
 
 /**
  *
  * @returns The user profile section.
  */
-export default function ProfileSectionComponent(prop: ProfileComponentProps) {
-  const { session } = prop;
+export default function ProfileSectionComponent() {
+  const { data: session, status } = useSession();
 
   const toaster = useToaster();
   const [user, setUser] = useState<InternalUser | null>();
 
   const fetchData = useCallback(async () => {
-    const res = await getProfileDetails(session);
+    const res = await getProfileDetails(session!);
     await setUser(res);
   }, [session]);
 
@@ -53,7 +50,7 @@ export default function ProfileSectionComponent(prop: ProfileComponentProps) {
 
   const onSubmit = async (values: Record<string, unknown>): Promise<void> => {
     await editProfile(
-      session,
+      session!,
       values.firstName as string,
       values.familyName as string,
       values.email as string

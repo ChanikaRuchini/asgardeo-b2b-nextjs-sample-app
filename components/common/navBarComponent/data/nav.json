@@ -3,12 +3,14 @@
         {
             "title": "Home",
             "eventKey": "1",
-            "type": "menu"
+            "type": "item",
+            "route": ""
         },
         {
-            "title": "Api Call",
+            "title": "API Call",
             "eventKey": "2",
-            "type": "menu"
+            "type": "item",
+            "route": "resources"
         },
         {
             "title": "Settings",
@@ -29,6 +31,7 @@
                 "internal_application_mgt_view",
                 "internal_application_mgt_update"
             ],
+            "route": "",
             "items": [
                 {
                     "title": "Manage Users",
@@ -39,7 +42,9 @@
                         "internal_user_mgt_list",
                         "internal_user_mgt_create",
                         "internal_user_mgt_update"
-                    ]
+                    ],
+                    "route": "users"
+
                 },
                 {
                     "title": "Manage Groups",
@@ -50,7 +55,8 @@
                         "internal_group_mgt_view",
                         "internal_group_mgt_create",
                         "internal_group_mgt_update"
-                    ]
+                    ],
+                    "route": "groups"
                 },
                 {
                     "title": "Manage Roles",
@@ -62,7 +68,8 @@
                         "internal_role_mgt_view",
                         "internal_role_mgt_create",
                         "internal_role_mgt_update"
-                    ]
+                    ],
+                    "route": "roles"
                 },
                 {
                     "title": "Login Connections",
@@ -76,8 +83,10 @@
                         "internal_idp_delete",
                         "internal_application_mgt_view",
                         "internal_application_mgt_update"
-                    ]
+                    ],
+                    "route": "loginConnections"
                 }
+
             ]
         }
         

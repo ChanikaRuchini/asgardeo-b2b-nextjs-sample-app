@@ -75,7 +75,6 @@ export default function EditGroupComponent(prop: EditGroupComponentProps) {
   // Step 3: Define the onChange function to update the state variable
   const handleCheckPickerChange = (values: string[]) => {
     setSelectedValues(values);
-    console.log("llllllllll", values);
   };
 
   const fetchData = useCallback(async () => {

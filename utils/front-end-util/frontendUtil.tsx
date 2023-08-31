@@ -1,4 +1,4 @@
-import SideNavItem from "../../models/sideNav/sideNavItem";
+import SideNavItem from "../../models/nav/navItem";
 
 export const LOADING_DISPLAY_NONE = {
   display: "none",
@@ -18,7 +18,7 @@ function hideBasesdOnScopesSideNavItems(
   scopes: string[],
   itemScopes: string[]
 ): boolean {
-  return itemScopes.every((scope) => scopes.includes(scope));
+  return itemScopes.every((scope) => scopes?.includes(scope));
 }
 
 /**
@@ -34,7 +34,7 @@ export function hideBasedOnScopes(
   sideNavItems?: SideNavItem[],
   itemScopes?: string[]
 ): Record<string, string> {
-  const scopesList: string[] = scopes.split(/\s+/);
+  const scopesList: string[] = scopes?.split(/\s+/);
 
   // console.log("scopeslist", scopesList);
 

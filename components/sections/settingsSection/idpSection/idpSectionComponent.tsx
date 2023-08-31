@@ -7,7 +7,7 @@ import {
 import AppSelectIcon from "@rsuite/icons/AppSelect";
 import { Session } from "next-auth";
 import { useCallback, useEffect, useState } from "react";
-import { Button, Container, FlexboxGrid, Stack, useToaster } from "rsuite";
+import { Button, Container, Loader, Stack, useToaster } from "rsuite";
 import IdentityProviderList from "./otherComponents/identityProviderList";
 import IdpCreate from "./otherComponents/idpCreateModal/idpCreate";
 import SelectIdentityProvider from "./otherComponents/selectIdentityProvider";
@@ -17,21 +17,21 @@ import {
 } from "../../../../models/identityProvider/identityProvider";
 import RequestMethod from "../../../../models/api/requestMethod";
 import styles from "../../../../styles/Settings.module.css";
-
-interface IdpSectionComponentProps {
-  session: Session;
-}
+import { useSession } from "next-auth/react";
+import {
+  LOADING_DISPLAY_BLOCK,
+  LOADING_DISPLAY_NONE,
+} from "../../../../utils/front-end-util/frontendUtil";
 
 /**
  *
- * @param prop - session
  *
  * @returns The idp interface section.
  */
-export default function IdpSectionComponent(props: IdpSectionComponentProps) {
-  const { session } = props;
-
+export default function IdpSectionComponent() {
   const toaster = useToaster();
+  const { data: session, status } = useSession();
+  const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
 
   const [idpList, setIdpList] = useState<IdentityProvider[]>([]);
   const [openSelectModal, setOpenSelectModal] = useState<boolean>(false);
@@ -44,13 +44,15 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
   ];
 
   const fetchAllIdPs = useCallback(async () => {
-    const res = await listAllIdentityProviders(session);
+    setLoadingDisplay(LOADING_DISPLAY_BLOCK);
+    const res = await listAllIdentityProviders(session!);
 
     if (res) {
       setIdpList(res);
     } else {
       setIdpList([]);
     }
+    setLoadingDisplay(LOADING_DISPLAY_NONE);
   }, [session]);
 
   async function listAllIdentityProviders(
@@ -175,7 +177,7 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
             <IdentityProviderList
               fetchAllIdPs={fetchAllIdPs}
               idpList={idpList}
-              session={session}
+              session={session!}
             />
           )
         ) : null}
@@ -190,15 +192,18 @@ export default function IdpSectionComponent(props: IdpSectionComponentProps) {
         )}
         {selectedTemplate && (
           <IdpCreate
-            session={session}
+            session={session!}
             onIdpCreate={onIdpCreated}
             onCancel={onCreationDismiss}
             openModal={!!selectedTemplate}
             template={selectedTemplate}
-            orgId={session.orgId!}
+            orgId={session!.orgId!}
           />
         )}
       </Container>
+      <div style={loadingDisplay}>
+        <Loader size="md" backdrop content="" vertical />
+      </div>
     </div>
   );
 }

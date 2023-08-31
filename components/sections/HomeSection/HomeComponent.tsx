@@ -6,17 +6,15 @@ import Image from "next/image";
 import UserGuide from "../../../images/user.png";
 import Github from "../../../images/github.png";
 import Docs from "../../../images/docs.png";
-
-interface HomeComponentProps {
-  session: Session;
-}
+import { useSession } from "next-auth/react";
 
 /**
  *
  * @returns The get started interface section.
  */
-export default function HomeComponent(prop: HomeComponentProps) {
-  const { session } = prop;
+export default function HomeComponent() {
+  const { data: session, status } = useSession();
+
   return (
     <div className={styles.mainDiv}>
       <div className={styles.getStartedSectionComponentGetStartedTextDiv}>
@@ -32,13 +30,13 @@ export default function HomeComponent(prop: HomeComponentProps) {
             <h4>
               Hello&nbsp;
               <strong>
-                {session.user?.name.givenName} {}
-                {session.user?.name.familyName},
+                {session?.user?.name.givenName} {}
+                {session?.user?.name.familyName},
               </strong>
             </h4>
             <h5>
               &nbsp; Welcome to the
-              <strong> {session.orgName} </strong>organization !!
+              <strong> {session?.orgName} </strong>organization !!
             </h5>
             <p className={styles.getStartedSectionComponentGetStartedTextP}>
               From here on you can experience the basic business application use

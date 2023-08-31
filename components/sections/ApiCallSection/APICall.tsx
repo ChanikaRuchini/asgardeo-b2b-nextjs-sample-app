@@ -4,16 +4,14 @@ import stylesSettings from "../../../styles/Settings.module.css";
 import RequestMethod from "../../../models/api/requestMethod";
 import { Session } from "next-auth";
 import styles from "../../../styles/Settings.module.css";
+import { useSession } from "next-auth/react";
 
-interface APICallProps {
-  session: Session;
-}
 /**
  * API Call component.
  */
-export default function APICall(prop: APICallProps) {
-  const { session } = prop;
+export default function APICall() {
   const [userInfo, setUserInfo] = useState<any>();
+  const { data: session, status } = useSession();
 
   const message =
     "Initiate a request to an external API and retrieve the response. This involves communicating with an external server through a " +

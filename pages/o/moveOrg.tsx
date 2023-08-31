@@ -24,17 +24,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 interface MoveOrgProps {
   orgId: string;
-  orgName: string;
 }
 
 /**
  *
- * @param prop - orgId, orgName
+ * @param prop - orgId
  *
  * @returns Interface to call organization switch function
  */
 export default function MoveOrg(props: MoveOrgProps) {
-  const { orgId, orgName } = props;
+  const { orgId } = props;
 
   const router = useRouter();
 

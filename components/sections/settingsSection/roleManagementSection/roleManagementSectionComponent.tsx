@@ -1,37 +1,38 @@
 import { Session } from "next-auth";
 import { useCallback, useEffect, useState } from "react";
-import { Container, FlexboxGrid, PanelGroup, Stack } from "rsuite";
+import { Container, FlexboxGrid, Loader, PanelGroup, Stack } from "rsuite";
 import RoleItem from "./otherComponents/roleItem/roleItem";
 import styles from "../../../../styles/Settings.module.css";
 import RequestMethod from "../../../../models/api/requestMethod";
 import { Role } from "../../../../models/role/role";
 import { ApplicationList } from "../../../../models/application/application";
-
-interface RoleManagementSectionComponentProps {
-  session: Session;
-}
+import { useSession } from "next-auth/react";
+import {
+  LOADING_DISPLAY_BLOCK,
+  LOADING_DISPLAY_NONE,
+} from "../../../../utils/front-end-util/frontendUtil";
 
 /**
  *
- * @param prop - session
  *
  * @returns The role management interface section.
  */
-export default function RoleManagementSectionComponent(
-  props: RoleManagementSectionComponentProps
-) {
-  const { session } = props;
+export default function RoleManagementSectionComponent() {
+  const { data: session, status } = useSession();
 
   const [rolesList, setRolesList] = useState<Role[]>([]);
-  const [applicationId, setApplicationId] = useState<string>();
+  const [applicationId, setApplicationId] = useState<ApplicationList>();
+  const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
 
   const fetchAllRoles = useCallback(async () => {
-    const res = await listAllRoles(session);
+    setLoadingDisplay(LOADING_DISPLAY_BLOCK);
+    const res = await listAllRoles(session!);
     if (res) {
       setRolesList(res);
     } else {
       setRolesList([]);
     }
+    setLoadingDisplay(LOADING_DISPLAY_NONE);
   }, [session, applicationId]);
 
   async function listAllRoles(session: Session): Promise<Role[] | null> {
@@ -39,7 +40,7 @@ export default function RoleManagementSectionComponent(
       const body = {
         orgId: session ? session.orgId : null,
         session: session,
-        appId: applicationId,
+        appId: applicationId?.applications[0].id,
       };
       console.log("body", body);
       const request = {
@@ -66,11 +67,10 @@ export default function RoleManagementSectionComponent(
 
   const fetchData = useCallback(async () => {
     const res: ApplicationList = (await listCurrentApplication(
-      session
+      session!
     )) as ApplicationList;
-
-    console.log("id", res.applications[0].id);
-    await setApplicationId(res.applications[0].id);
+    console.log("aaaaaaaaaaaaaaaaaaaaaaa", res.applications);
+    await setApplicationId(res);
   }, [session]);
 
   useEffect(() => {
@@ -113,7 +113,9 @@ export default function RoleManagementSectionComponent(
           </Stack>
         </Stack>
 
-        {rolesList && rolesList.length > 0 ? (
+        {loadingDisplay == LOADING_DISPLAY_NONE &&
+        rolesList &&
+        rolesList.length > 0 ? (
           <FlexboxGrid
             style={{ marginTop: "10px" }}
             justify="start"
@@ -123,9 +125,9 @@ export default function RoleManagementSectionComponent(
               <PanelGroup accordion bordered>
                 {rolesList.map((role, index) => (
                   <RoleItem
-                    session={session}
+                    session={session!}
                     role={role}
-                    appId={applicationId!}
+                    appId={applicationId?.applications[0].id!}
                     key={index}
                   />
                 ))}
@@ -145,6 +147,9 @@ export default function RoleManagementSectionComponent(
             </Stack>
           </FlexboxGrid>
         )}
+        <div style={loadingDisplay}>
+          <Loader size="md" backdrop content="" vertical />
+        </div>
       </Container>
     </div>
   );

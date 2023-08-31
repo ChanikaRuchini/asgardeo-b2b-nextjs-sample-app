@@ -109,14 +109,6 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
 
   useEffect(() => {
     setCheckedUsers([]);
-    // if (users) {
-    //   const data = users!.map((item) => ({
-    //     label: item.email!,
-    //     value: item.email!,
-    //   }));
-    //   setUserList(data);
-    //   console.log("data", data);
-    // }
   }, [session]);
 
   const getInitialAssignedUserEmails = (users: InternalUser[]): string[] => {
@@ -224,22 +216,6 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
                   <></>
                 </FormField>
 
-                {/* <FormField name="users" label="" needErrorMessage={false}>
-                  <FormSuite.Control name="checkPicker" accepter={CheckPicker}>
-                    {users ? (
-                      <div>
-                        <CheckPicker
-                          label="User"
-                          data={userList}
-                          style={{ width: 224 }}
-                          value={selectedValues}
-                          onChange={handleCheckPickerChange}
-                        />
-                      </div>
-                    ) : null}
-                  </FormSuite.Control>
-                </FormField> */}
-
                 {users ? (
                   <div>
                     <CheckPicker
@@ -255,49 +231,6 @@ export default function AddGroupComponent(props: AddGroupComponentProps) {
                     />
                   </div>
                 ) : null}
-
-                {/* {users ? (
-                  <div>
-                    <Table autoHeight data={users}>
-                      <Column width={500} align="left">
-                        <HeaderCell>
-                          <h6>Asign Users</h6>
-                        </HeaderCell>
-                        <Cell dataKey="email">
-                          {(rowData: RowDataType<InternalUser>) => {
-                            return (
-                              <Checkbox
-                                checked={checkedUsers.includes(
-                                  rowData as InternalUser
-                                )}
-                                onChange={(
-                                  value: any,
-                                  checked: boolean,
-                                  event: React.SyntheticEvent<HTMLInputElement>
-                                ) => {
-                                  if (checked) {
-                                    setCheckedUsers((prevUsers) => [
-                                      ...prevUsers,
-                                      rowData as InternalUser,
-                                    ]);
-                                  } else {
-                                    setCheckedUsers((prevUsers) =>
-                                      prevUsers.filter(
-                                        (user) => user !== rowData
-                                      )
-                                    );
-                                  }
-                                }}
-                              >
-                                {rowData.email}
-                              </Checkbox>
-                            );
-                          }}
-                        </Cell>
-                      </Column>
-                    </Table>
-                  </div>
-                ) : null} */}
                 <br />
                 <FormButtonToolbar
                   submitButtonText="Create"

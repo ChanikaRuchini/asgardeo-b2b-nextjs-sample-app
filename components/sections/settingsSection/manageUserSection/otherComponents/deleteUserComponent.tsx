@@ -5,10 +5,15 @@ import {
 } from "../../../../common/dialogComponent/dialogComponent";
 import { Session } from "next-auth";
 import { Form } from "react-final-form";
-import { Modal, useToaster } from "rsuite";
+import { Loader, Modal, useToaster } from "rsuite";
 import FormSuite from "rsuite/Form";
 import RequestMethod from "../../../../../models/api/requestMethod";
 import { InternalUser } from "../../../../../models/user/user";
+import { useState } from "react";
+import {
+  LOADING_DISPLAY_BLOCK,
+  LOADING_DISPLAY_NONE,
+} from "../../../../../utils/front-end-util/frontendUtil";
 
 interface DeleteUserComponentProps {
   session: Session;
@@ -26,6 +31,7 @@ interface DeleteUserComponentProps {
 export default function DeleteUserComponent(prop: DeleteUserComponentProps) {
   const { session, user, open, onClose } = prop;
   const toaster = useToaster();
+  const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
 
   const onGroupDelete = (response: boolean | null): void => {
     if (response) {
@@ -40,11 +46,10 @@ export default function DeleteUserComponent(prop: DeleteUserComponentProps) {
   };
 
   const onSubmit = (): void => {
+    setLoadingDisplay(LOADING_DISPLAY_BLOCK);
     deleteUser(session, user?.id)
       .then((response) => onGroupDelete(response))
-      .finally(() => {
-        // getUsers().finally();
-      });
+      .finally(() => setLoadingDisplay(LOADING_DISPLAY_NONE));
 
     onClose();
   };
@@ -99,6 +104,9 @@ export default function DeleteUserComponent(prop: DeleteUserComponentProps) {
           )}
         />
       </Modal.Body>
+      <div style={loadingDisplay}>
+        <Loader size="lg" backdrop content="User is deleting" vertical />
+      </div>
     </Modal>
   );
 }

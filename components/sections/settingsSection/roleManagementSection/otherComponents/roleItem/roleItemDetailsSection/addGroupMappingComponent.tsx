@@ -22,6 +22,10 @@ import RequestMethod from "../../../../../../../models/api/requestMethod";
 import { encodeRoleGroup } from "../../../../../../../utils/roleUtils";
 import { RowDataType } from "rsuite/esm/Table";
 import { ApiError } from "../../../../../../../utils/api-util/apiErrors";
+import {
+  LOADING_DISPLAY_BLOCK,
+  LOADING_DISPLAY_NONE,
+} from "../../../../../../../utils/front-end-util/frontendUtil";
 
 interface AddGroupMappingComponentProps {
   session: Session;
@@ -55,6 +59,7 @@ export default function AddGroupMappingComponent(
   } = props;
   const [newGroups, setNewGroups] = useState<InternalGroup[]>([]);
   const [checkedGroups, setCheckedGroups] = useState<InternalGroup[]>([]);
+  const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
 
   const { Column, HeaderCell, Cell } = Table;
 
@@ -105,9 +110,11 @@ export default function AddGroupMappingComponent(
     values: Record<string, string>,
     form: any
   ): Promise<void> => {
+    setLoadingDisplay(LOADING_DISPLAY_BLOCK);
     patchGroupMappings(session, roleName, getSendGroupData(checkedGroups))
       .then((response) => onDataSubmit(response, form))
       .finally(() => {
+        setLoadingDisplay(LOADING_DISPLAY_NONE);
         getGroups().finally();
       });
     onClose();
@@ -245,6 +252,9 @@ export default function AddGroupMappingComponent(
           />
         </div>
       </Modal.Body>
+      <div style={loadingDisplay}>
+        <Loader size="md" backdrop content="" vertical />
+      </div>
     </Modal>
   );
 }

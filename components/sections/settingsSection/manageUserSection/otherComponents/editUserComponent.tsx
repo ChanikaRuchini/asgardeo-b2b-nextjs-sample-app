@@ -5,10 +5,14 @@ import {
   successTypeDialog,
 } from "../../../../common/dialogComponent/dialogComponent";
 import { checkIfJSONisEmpty } from "../../../../../utils/util-common/common";
-import { fieldValidate } from "../../../../../utils/front-end-util/frontendUtil";
+import {
+  LOADING_DISPLAY_BLOCK,
+  LOADING_DISPLAY_NONE,
+  fieldValidate,
+} from "../../../../../utils/front-end-util/frontendUtil";
 import { Session } from "next-auth";
 import { Form } from "react-final-form";
-import { Modal, useToaster } from "rsuite";
+import { Loader, Modal, useToaster } from "rsuite";
 import FormSuite from "rsuite/Form";
 import stylesSettings from "../../../../../styles/Settings.module.css";
 import RequestMethod from "../../../../../models/api/requestMethod";
@@ -18,6 +22,7 @@ import {
   User,
 } from "../../../../../models/user/user";
 import { ApiError } from "../../../../../utils/api-util/apiErrors";
+import { useState } from "react";
 
 interface EditUserComponentProps {
   session: Session;
@@ -36,6 +41,7 @@ export default function EditUserComponent(prop: EditUserComponentProps) {
   const { session, user, open, onClose } = prop;
 
   const toaster = useToaster();
+  const [loadingDisplay, setLoadingDisplay] = useState(LOADING_DISPLAY_NONE);
 
   const validate = (
     values: Record<string, unknown>
@@ -76,15 +82,19 @@ export default function EditUserComponent(prop: EditUserComponentProps) {
     values: Record<string, unknown>,
     form: any
   ): Promise<void> => {
+    setLoadingDisplay(LOADING_DISPLAY_BLOCK);
+
     await editUser(
       session,
       user.id,
       values.firstName as string,
       values.familyName as string,
       values.email as string
-    ).then((response) => {
-      onDataSubmit(response, form);
-    });
+    )
+      .then((response) => {
+        onDataSubmit(response, form);
+      })
+      .finally(() => setLoadingDisplay(LOADING_DISPLAY_NONE));
   };
 
   async function editUser(
@@ -205,6 +215,9 @@ export default function EditUserComponent(prop: EditUserComponentProps) {
           />
         </div>
       </Modal.Body>
+      <div style={loadingDisplay}>
+        <Loader size="lg" backdrop content="User is editing" vertical />
+      </div>
     </Modal>
   );
 }
